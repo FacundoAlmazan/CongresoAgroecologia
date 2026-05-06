@@ -36,6 +36,4 @@ public class AsignacionEvaluacion {
     public void setFechaAsignacion(LocalDate fechaAsignacion) { this.fechaAsignacion = fechaAsignacion; }
     public EstadoAsignacion getEstado() { return estado; }
     public void setEstado(EstadoAsignacion estado) { this.estado = estado; }
-    public Evaluacion getEvaluacion() { return evaluacion; }
-    public void setEvaluacion(Evaluacion evaluacion) { this.evaluacion = evaluacion; }
 }

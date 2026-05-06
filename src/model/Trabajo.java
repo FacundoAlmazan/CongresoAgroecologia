@@ -21,8 +21,6 @@ public class Trabajo {
 
     private EstadoTrabajo estado = EstadoTrabajo.BORRADOR;
 
-    private List<AutorTrabajo> autores = new ArrayList<>();
-
     private List<AsignacionEvaluacion> asignaciones = new ArrayList<>();
 
     private List<Evaluacion> evaluaciones = new ArrayList<>();
@@ -51,8 +49,6 @@ public class Trabajo {
     public void setTipo(TipoTrabajo tipo) { this.tipo = tipo; }
     public EstadoTrabajo getEstado() { return estado; }
     public void setEstado(EstadoTrabajo estado) { this.estado = estado; }
-    public List<AutorTrabajo> getAutores() { return autores; }
-    public void setAutores(List<AutorTrabajo> autores) { this.autores = autores; }
     public List<AsignacionEvaluacion> getAsignaciones() { return asignaciones; }
     public void setAsignaciones(List<AsignacionEvaluacion> asignaciones) { this.asignaciones = asignaciones; }
     public List<Evaluacion> getEvaluaciones() { return evaluaciones; }

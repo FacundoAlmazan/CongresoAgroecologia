@@ -16,11 +16,11 @@ public class Evaluacion {
 
     private Usuario evaluador;
 
+
     public Evaluacion() {}
-    public Evaluacion(AsignacionEvaluacion asignacion, Recomendacion recomendacion, String comentarios) {
-        this.asignacion = asignacion;
-        this.trabajo = asignacion.getTrabajo();
-        this.evaluador = asignacion.getEvaluador();
+    public Evaluacion(Trabajo trabajo, Usuario evaluador, Recomendacion recomendacion, String comentarios) {
+        this.trabajo = trabajo;
+        this.evaluador = evaluador;
         this.recomendacion = recomendacion;
         this.comentarios = comentarios;
         this.fecha = LocalDate.now();
@@ -38,6 +38,4 @@ public class Evaluacion {
     public void setTrabajo(Trabajo trabajo) { this.trabajo = trabajo; }
     public Usuario getEvaluador() { return evaluador; }
     public void setEvaluador(Usuario evaluador) { this.evaluador = evaluador; }
-    public AsignacionEvaluacion getAsignacion() { return asignacion; }
-    public void setAsignacion(AsignacionEvaluacion asignacion) { this.asignacion = asignacion; }
 }
