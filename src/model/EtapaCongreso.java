@@ -20,12 +20,6 @@ public class EtapaCongreso {
         this.fechaHasta = fechaHasta;
     }
 
-    public boolean estaAbierta() {
-        LocalDate hoy = LocalDate.now();
-        return (hoy.isEqual(fechaDesde) || hoy.isAfter(fechaDesde))
-            && (hoy.isEqual(fechaHasta) || hoy.isBefore(fechaHasta));
-    }
-
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getNombre() { return nombre; }
