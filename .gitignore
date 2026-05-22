@@ -1,4 +1,18 @@
-/bin/
+# Maven
+target/
+backend/target/
+
+# IntelliJ
+.idea/
+*.iml
+
+# Eclipse
+.settings/
 .project
 .classpath
-/target/
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
