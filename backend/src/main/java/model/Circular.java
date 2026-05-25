@@ -1,16 +1,25 @@
 package model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "circulares")
 public class Circular {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String titulo;
 
+    @Column(nullable = false)
     private String archivoPDF;
 
     private LocalDate fechaPublicacion;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "publicado_por_id")
     private Usuario publicadoPor;
 
     public Circular() {}

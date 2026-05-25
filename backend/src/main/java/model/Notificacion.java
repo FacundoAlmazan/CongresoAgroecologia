@@ -1,18 +1,29 @@
 package model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "notificaciones")
 public class Notificacion {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String asunto;
 
+    @Column(length = 5000, nullable = false)
     private String mensaje;
 
     private LocalDate fechaEnvio;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "destinatario_id")
     private Usuario destinatario;
 
+    @ManyToOne
+    @JoinColumn(name = "plantilla_id")
     private PlantillaEmail plantilla;
 
     public Notificacion() {}

@@ -1,17 +1,26 @@
 package model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "agendas")
 public class Agenda {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne(optional = false)
+    @JoinColumn(name = "usuario_id", unique = true)
     private Usuario usuario;
 
+    @OneToMany(mappedBy = "agenda", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemAgenda> items = new ArrayList<>();
 
     public Agenda() {}
     public Agenda(Usuario usuario) { this.usuario = usuario; }
+
 
     public boolean tieneConflicto(Actividad actividad) {
         return items.stream().map(ItemAgenda::getActividad).anyMatch(a -> a.seSuperponeCon(actividad));

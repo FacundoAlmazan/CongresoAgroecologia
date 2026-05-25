@@ -1,16 +1,25 @@
 package model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "qrs")
 public class QR {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String codigo;
 
     private LocalDate fechaGeneracion;
 
+    @Column(nullable = false)
     private Boolean utilizado = false;
 
+    @OneToOne(optional = false)
+    @JoinColumn(name = "inscripcion_id", unique = true)
     private Inscripcion inscripcion;
 
     public QR() {}

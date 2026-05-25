@@ -1,11 +1,17 @@
 package model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "cronogramas")
 public class Cronograma {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToMany(mappedBy = "cronograma")
     private List<Actividad> actividades = new ArrayList<>();
 
     public Cronograma() {}

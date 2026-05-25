@@ -1,21 +1,34 @@
 package model;
 
+import jakarta.persistence.*;
 import model.enums.EstadoAsignacion;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "asignaciones_evaluacion")
 public class AsignacionEvaluacion {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "trabajo_id")
     private Trabajo trabajo;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "evaluador_id")
     private Usuario evaluador;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "asignado_por_id")
     private Usuario asignadoPor;
 
     private LocalDate fechaAsignacion;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EstadoAsignacion estado = EstadoAsignacion.PENDIENTE;
-
+    
     public AsignacionEvaluacion() {}
     public AsignacionEvaluacion(Trabajo trabajo, Usuario evaluador, Usuario asignadoPor) {
         this.trabajo = trabajo;

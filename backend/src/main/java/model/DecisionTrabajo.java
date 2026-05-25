@@ -1,19 +1,31 @@
 package model;
 
+import jakarta.persistence.*;
 import model.enums.EstadoTrabajo;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "decisiones_trabajo")
 public class DecisionTrabajo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDate fecha;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EstadoTrabajo decision;
 
+    @Column(length = 3000)
     private String comentario;
 
+    @OneToOne(optional = false)
+    @JoinColumn(name = "trabajo_id", unique = true)
     private Trabajo trabajo;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "organizador_cientifico_id")
     private Usuario organizadorCientifico;
 
     public DecisionTrabajo() {}

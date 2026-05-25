@@ -1,16 +1,26 @@
 package model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "etapas_congreso")
 public class EtapaCongreso {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false)
     private LocalDate fechaDesde;
 
+    @Column(nullable = false)
     private LocalDate fechaHasta;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "congreso_id")
     private Congreso congreso;
 
     public EtapaCongreso() {}

@@ -1,19 +1,31 @@
 package model;
 
+import jakarta.persistence.*;
 import model.enums.Recomendacion;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "evaluaciones")
 public class Evaluacion {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDate fecha;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Recomendacion recomendacion;
 
+    @Column(length = 3000)
     private String comentarios;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "trabajo_id")
     private Trabajo trabajo;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "evaluador_id")
     private Usuario evaluador;
 
 

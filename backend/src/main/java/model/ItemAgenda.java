@@ -1,11 +1,20 @@
 package model;
 
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "items_agenda")
 public class ItemAgenda {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "agenda_id")
     private Agenda agenda;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "actividad_id")
     private Actividad actividad;
 
     public ItemAgenda() {}

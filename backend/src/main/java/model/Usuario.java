@@ -1,23 +1,38 @@
 package model;
 
-import model.enums.TipoRol;
+import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false)
     private String apellido;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private Boolean activo = true;
 
-    private Set<Rol> roles = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "usuarios_permisos",
+        joinColumns = @JoinColumn(name = "usuario_id"),
+        inverseJoinColumns = @JoinColumn(name = "permiso_id")
+    )
+    private Set<Permiso> permisos = new HashSet<>();
 
     public Usuario() {}
 
@@ -29,12 +44,15 @@ public class Usuario {
         this.activo = true;
     }
 
-    public boolean tieneRol(TipoRol tipoRol) {
-        return roles.stream().anyMatch(rol -> rol.getNombre() == tipoRol);
+    public boolean tienePermiso(String recurso, String accion) {
+        return permisos.stream().anyMatch(permiso ->
+            permiso.getRecurso().equalsIgnoreCase(recurso)
+                && permiso.getAccion().equalsIgnoreCase(accion)
+        );
     }
 
-    public void agregarRol(Rol rol) {
-        this.roles.add(rol);
+    public void agregarPermiso(Permiso permiso) {
+        this.permisos.add(permiso);
     }
 
     public Long getId() { return id; }
@@ -49,6 +67,6 @@ public class Usuario {
     public void setPassword(String password) { this.password = password; }
     public Boolean getActivo() { return activo; }
     public void setActivo(Boolean activo) { this.activo = activo; }
-    public Set<Rol> getRoles() { return roles; }
-    public void setRoles(Set<Rol> roles) { this.roles = roles; }
+    public Set<Permiso> getPermisos() { return permisos; }
+    public void setPermisos(Set<Permiso> permisos) { this.permisos = permisos; }
 }

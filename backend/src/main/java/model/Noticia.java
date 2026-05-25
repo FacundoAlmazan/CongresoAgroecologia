@@ -1,16 +1,25 @@
 package model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "noticias")
 public class Noticia {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String titulo;
 
+    @Column(length = 5000, nullable = false)
     private String contenido;
 
     private LocalDate fechaPublicacion;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "publicado_por_id")
     private Usuario publicadoPor;
 
     public Noticia() {}

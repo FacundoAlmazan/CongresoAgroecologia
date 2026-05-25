@@ -1,23 +1,36 @@
 package model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Entity
+@Table(name = "actividades")
 public class Actividad {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String titulo;
 
+    @Column(length = 3000)
     private String descripcion;
 
+    @Column(nullable = false)
     private String aula;
 
+    @Column(nullable = false)
     private LocalDate fecha;
 
+    @Column(nullable = false)
     private LocalTime horaInicio;
 
+    @Column(nullable = false)
     private LocalTime horaFin;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "cronograma_id")
     private Cronograma cronograma;
 
     public Actividad() {}

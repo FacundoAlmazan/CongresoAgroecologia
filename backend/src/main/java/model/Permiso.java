@@ -1,18 +1,29 @@
 package model;
 
+import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "permisos", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"recurso", "accion"})
+})
 public class Permiso {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String nombre;
 
+    @Column(nullable = false)
     private String recurso;
 
+    @Column(nullable = false)
     private String accion;
 
-    private Set<Rol> roles = new HashSet<>();
+    @ManyToMany(mappedBy = "permisos")
+    private Set<Usuario> usuarios = new HashSet<>();
 
     public Permiso() {}
     public Permiso(String nombre, String recurso, String accion) {
@@ -29,6 +40,6 @@ public class Permiso {
     public void setRecurso(String recurso) { this.recurso = recurso; }
     public String getAccion() { return accion; }
     public void setAccion(String accion) { this.accion = accion; }
-    public Set<Rol> getRoles() { return roles; }
-    public void setRoles(Set<Rol> roles) { this.roles = roles; }
+    public Set<Usuario> getUsuarios() { return usuarios; }
+    public void setUsuarios(Set<Usuario> usuarios) { this.usuarios = usuarios; }
 }

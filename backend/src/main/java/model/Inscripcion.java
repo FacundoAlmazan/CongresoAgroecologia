@@ -1,29 +1,45 @@
 package model;
 
+import jakarta.persistence.*;
 import model.enums.EstadoPago;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "inscripciones")
 public class Inscripcion {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+    @Column(nullable = false)
     private Double monto;
 
     private LocalDate fechaPago;
 
     private String comprobante;
 
+    @Column(nullable = false)
     private Boolean requiereFactura = false;
 
+    @Column(nullable = false)
     private Boolean efectivo = false;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EstadoPago estado = EstadoPago.PENDIENTE;
 
+    @Column(length = 1000)
     private String motivoRechazo;
 
+    @ManyToOne
+    @JoinColumn(name = "validado_por_id")
     private Usuario validadoPor;
 
+    @OneToOne(mappedBy = "inscripcion")
     private QR qr;
 
     public Inscripcion() {}

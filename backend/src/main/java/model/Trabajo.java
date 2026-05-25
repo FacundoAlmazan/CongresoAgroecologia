@@ -1,30 +1,44 @@
 package model;
 
+import jakarta.persistence.*;
 import model.enums.EstadoTrabajo;
 import model.enums.TipoTrabajo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "trabajos")
 public class Trabajo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String titulo;
 
+    @Column(length = 5000)
     private String resumen;
 
     private String archivo;
 
     private LocalDate fechaEnvio;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TipoTrabajo tipo;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EstadoTrabajo estado = EstadoTrabajo.BORRADOR;
 
+    @OneToMany(mappedBy = "trabajo")
     private List<AsignacionEvaluacion> asignaciones = new ArrayList<>();
 
+    @OneToMany(mappedBy = "trabajo")
     private List<Evaluacion> evaluaciones = new ArrayList<>();
 
+    @OneToOne(mappedBy = "trabajo")
     private DecisionTrabajo decisionTrabajo;
 
     public Trabajo() {}
