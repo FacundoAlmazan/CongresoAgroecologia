@@ -3,7 +3,7 @@ package model.dao;
 import jakarta.persistence.EntityManager;
 import model.interfaceDao.IActividadDAO;
 
-public class ActividadDAO implements IActividadDAO {
+public abstract class ActividadDAO implements IActividadDAO {
 
 
 	public ActividadDAO() {}

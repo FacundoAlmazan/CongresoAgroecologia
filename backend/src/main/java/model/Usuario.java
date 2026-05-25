@@ -1,5 +1,6 @@
 package model;
 
+import model.enums.TipoRol;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,13 +27,13 @@ public class Usuario {
     @Column(nullable = false)
     private Boolean activo = true;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
-        name = "usuarios_permisos",
+        name = "usuarios_roles",
         joinColumns = @JoinColumn(name = "usuario_id"),
-        inverseJoinColumns = @JoinColumn(name = "permiso_id")
+        inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
-    private Set<Permiso> permisos = new HashSet<>();
+    private Set<Rol> roles = new HashSet<>();
 
     public Usuario() {}
 
@@ -44,17 +45,14 @@ public class Usuario {
         this.activo = true;
     }
 
-    public boolean tienePermiso(String recurso, String accion) {
-        return permisos.stream().anyMatch(permiso ->
-            permiso.getRecurso().equalsIgnoreCase(recurso)
-                && permiso.getAccion().equalsIgnoreCase(accion)
-        );
+    public boolean tieneRol(TipoRol tipoRol) {
+        return roles.stream().anyMatch(rol -> rol.getNombre() == tipoRol);
     }
 
-    public void agregarPermiso(Permiso permiso) {
-        this.permisos.add(permiso);
+    public void agregarRol(Rol rol) {
+        this.roles.add(rol);
     }
-
+    
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getNombre() { return nombre; }
@@ -67,6 +65,6 @@ public class Usuario {
     public void setPassword(String password) { this.password = password; }
     public Boolean getActivo() { return activo; }
     public void setActivo(Boolean activo) { this.activo = activo; }
-    public Set<Permiso> getPermisos() { return permisos; }
-    public void setPermisos(Set<Permiso> permisos) { this.permisos = permisos; }
+    public Set<Rol> getRoles() { return roles; }
+    public void setRoles(Set<Rol> roles) { this.roles = roles; }  
 }
