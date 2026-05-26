@@ -14,8 +14,30 @@
             org.hibernate.jpa.HibernatePersistenceProvider
         </provider>
         
-        <class>model.Rol</class>
-    	<class>model.Usuario</class>
+		<class>model.Actividad</class>
+		<class>model.Agenda</class>
+		<class>model.AsignacionEvaluacion</class>
+		<class>model.AutorTrabajo</class>
+		<class>model.Circular</class>
+		<class>model.Congreso</class>
+		<class>model.Cronograma</class>
+		<class>model.DatosFactura</class>
+		<class>model.DecisionTrabajo</class>
+		<class>model.DisponibilidadEvaluadorEje</class>
+		<class>model.EjeTematico</class>
+		<class>model.EtapaCongreso</class>
+		<class>model.Evaluacion</class>
+		<class>model.Inscripcion</class>
+		<class>model.ItemAgenda</class>
+		<class>model.Noticia</class>
+		<class>model.Notificacion</class>
+		<class>model.PerfilEvaluador</class>
+		<class>model.PlantillaEmail</class>
+		<class>model.QR</class>
+		<class>model.Rol</class>
+		<class>model.Trabajo</class>
+		<class>model.Usuario</class>
+		
 
         <properties>
 

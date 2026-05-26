@@ -17,6 +17,8 @@ import model.enums.TipoRol;
 @WebServlet("/test-jpa")
 public class TestJpaServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+	
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

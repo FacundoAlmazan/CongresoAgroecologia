@@ -1,12 +1,24 @@
 package model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import model.enums.EstadoPago;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "inscripciones")
 public class Inscripcion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,9 +33,37 @@ public class Inscripcion {
     private LocalDate fechaPago;
 
     private String comprobante;
+    private String comprobanteAcreditacion;
+
+    @Column(length = 500)
+    private String tipoInscripcion;
+
+    @Column(length = 500)
+    private String filiacionInstitucional;
+
+    @Column(length = 1000)
+    private String formasParticipacion;
 
     @Column(nullable = false)
     private Boolean requiereFactura = false;
+
+    @OneToOne(mappedBy = "inscripcion")
+    private DatosFactura datosFactura;
+
+    @Column(nullable = false)
+    private Boolean requiereAdecuacion = false;
+
+    @Column(length = 2000)
+    private String detalleAdecuacion;
+
+    @Column(nullable = false)
+    private Boolean tieneAlergiaOIntolerancia = false;
+
+    @Column(length = 2000)
+    private String detalleAlergiaOIntolerancia;
+
+    @Column(length = 2000)
+    private String observaciones;
 
     @Column(nullable = false)
     private Boolean efectivo = false;
@@ -42,7 +82,9 @@ public class Inscripcion {
     @OneToOne(mappedBy = "inscripcion")
     private QR qr;
 
-    public Inscripcion() {}
+    public Inscripcion() {
+    }
+
     public Inscripcion(Usuario usuario, Double monto, String comprobante) {
         this.usuario = usuario;
         this.monto = monto;
@@ -61,26 +103,179 @@ public class Inscripcion {
         this.motivoRechazo = motivo;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
-    public Double getMonto() { return monto; }
-    public void setMonto(Double monto) { this.monto = monto; }
-    public LocalDate getFechaPago() { return fechaPago; }
-    public void setFechaPago(LocalDate fechaPago) { this.fechaPago = fechaPago; }
-    public String getComprobante() { return comprobante; }
-    public void setComprobante(String comprobante) { this.comprobante = comprobante; }
-    public Boolean getRequiereFactura() { return requiereFactura; }
-    public void setRequiereFactura(Boolean requiereFactura) { this.requiereFactura = requiereFactura; }
-    public Boolean getEfectivo() { return efectivo; }
-    public void setEfectivo(Boolean efectivo) { this.efectivo = efectivo; }
-    public EstadoPago getEstado() { return estado; }
-    public void setEstado(EstadoPago estado) { this.estado = estado; }
-    public String getMotivoRechazo() { return motivoRechazo; }
-    public void setMotivoRechazo(String motivoRechazo) { this.motivoRechazo = motivoRechazo; }
-    public Usuario getValidadoPor() { return validadoPor; }
-    public void setValidadoPor(Usuario validadoPor) { this.validadoPor = validadoPor; }
-    public QR getQr() { return qr; }
-    public void setQr(QR qr) { this.qr = qr; }
+    public void asignarDatosFactura(DatosFactura datosFactura) {
+        this.datosFactura = datosFactura;
+        if (datosFactura != null) {
+            datosFactura.setInscripcion(this);
+            this.requiereFactura = true;
+        }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(Double monto) {
+        this.monto = monto;
+    }
+
+    public LocalDate getFechaPago() {
+        return fechaPago;
+    }
+
+    public void setFechaPago(LocalDate fechaPago) {
+        this.fechaPago = fechaPago;
+    }
+
+    public String getComprobante() {
+        return comprobante;
+    }
+
+    public void setComprobante(String comprobante) {
+        this.comprobante = comprobante;
+    }
+
+    public String getComprobanteAcreditacion() {
+        return comprobanteAcreditacion;
+    }
+
+    public void setComprobanteAcreditacion(String comprobanteAcreditacion) {
+        this.comprobanteAcreditacion = comprobanteAcreditacion;
+    }
+
+    public String getTipoInscripcion() {
+        return tipoInscripcion;
+    }
+
+    public void setTipoInscripcion(String tipoInscripcion) {
+        this.tipoInscripcion = tipoInscripcion;
+    }
+
+    public String getFiliacionInstitucional() {
+        return filiacionInstitucional;
+    }
+
+    public void setFiliacionInstitucional(String filiacionInstitucional) {
+        this.filiacionInstitucional = filiacionInstitucional;
+    }
+
+    public String getFormasParticipacion() {
+        return formasParticipacion;
+    }
+
+    public void setFormasParticipacion(String formasParticipacion) {
+        this.formasParticipacion = formasParticipacion;
+    }
+
+    public Boolean getRequiereFactura() {
+        return requiereFactura;
+    }
+
+    public void setRequiereFactura(Boolean requiereFactura) {
+        this.requiereFactura = requiereFactura;
+    }
+
+    public DatosFactura getDatosFactura() {
+        return datosFactura;
+    }
+
+    public void setDatosFactura(DatosFactura datosFactura) {
+        this.datosFactura = datosFactura;
+    }
+
+    public Boolean getRequiereAdecuacion() {
+        return requiereAdecuacion;
+    }
+
+    public void setRequiereAdecuacion(Boolean requiereAdecuacion) {
+        this.requiereAdecuacion = requiereAdecuacion;
+    }
+
+    public String getDetalleAdecuacion() {
+        return detalleAdecuacion;
+    }
+
+    public void setDetalleAdecuacion(String detalleAdecuacion) {
+        this.detalleAdecuacion = detalleAdecuacion;
+    }
+
+    public Boolean getTieneAlergiaOIntolerancia() {
+        return tieneAlergiaOIntolerancia;
+    }
+
+    public void setTieneAlergiaOIntolerancia(Boolean tieneAlergiaOIntolerancia) {
+        this.tieneAlergiaOIntolerancia = tieneAlergiaOIntolerancia;
+    }
+
+    public String getDetalleAlergiaOIntolerancia() {
+        return detalleAlergiaOIntolerancia;
+    }
+
+    public void setDetalleAlergiaOIntolerancia(String detalleAlergiaOIntolerancia) {
+        this.detalleAlergiaOIntolerancia = detalleAlergiaOIntolerancia;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public Boolean getEfectivo() {
+        return efectivo;
+    }
+
+    public void setEfectivo(Boolean efectivo) {
+        this.efectivo = efectivo;
+    }
+
+    public EstadoPago getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoPago estado) {
+        this.estado = estado;
+    }
+
+    public String getMotivoRechazo() {
+        return motivoRechazo;
+    }
+
+    public void setMotivoRechazo(String motivoRechazo) {
+        this.motivoRechazo = motivoRechazo;
+    }
+
+    public Usuario getValidadoPor() {
+        return validadoPor;
+    }
+
+    public void setValidadoPor(Usuario validadoPor) {
+        this.validadoPor = validadoPor;
+    }
+
+    public QR getQr() {
+        return qr;
+    }
+
+    public void setQr(QR qr) {
+        this.qr = qr;
+    }
 }
