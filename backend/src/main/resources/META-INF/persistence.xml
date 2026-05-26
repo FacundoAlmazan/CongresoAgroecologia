@@ -45,14 +45,17 @@
                 name="jakarta.persistence.jdbc.driver"
                 value="com.mysql.cj.jdbc.Driver"/>
 			    
-		    <property name="jakarta.persistence.jdbc.url"
-	          value="jdbc:mysql://localhost:3306/jyaa?useSSL=false&amp;serverTimezone=UTC"/>
-	
-			<property name="jakarta.persistence.jdbc.user"
-			          value="root"/>
+			<property
+			    name="jakarta.persistence.jdbc.url"
+			    value="jdbc:mysql://dbadmin.jyaa-ci.linti.unlp.edu.ar:3306/jyaa2026_bd7?useSSL=false&amp;serverTimezone=UTC"/>
 			
-			<property name="jakarta.persistence.jdbc.password"
-			          value="root"/>
+			<property
+			    name="jakarta.persistence.jdbc.user"
+			    value="jyaa2026_usr7"/>
+			
+			<property
+			    name="jakarta.persistence.jdbc.password"
+			    value="jyaa2026_pwd7"/>
 
 			<property name="hibernate.dialect"
 			          value="org.hibernate.dialect.MySQLDialect"/>
