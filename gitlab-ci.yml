@@ -1,0 +1,46 @@
+buildDocker:
+  stage: build
+  tags:
+    - jyaa
+  only:
+    - main
+  script:
+    - echo "Construimos la imagen de Docker"
+    - docker buildx build . -t grupo7-docker
+
+detenemosContainer:
+  stage: test
+  tags:
+    - jyaa
+  needs:
+    - buildDocker
+  only:
+    - main
+  script:
+    - echo "Detenemos cualqueir tipo de contenedor existente previo"
+    - docker stop grupo7 || true
+
+eliminamosContainer:
+  stage: test
+  tags:
+    - jyaa
+  only:
+    - main
+  needs:
+    - detenemosContainer
+  script:
+    - echo "Eliminamos cualqueir tipo de contenedor existente previo"
+    - docker rm grupo7 || true
+
+deploy1:
+  stage: deploy
+  tags:
+    - jyaa
+  needs:
+    - eliminamosContainer
+  only:
+    - main
+  script:
+    - echo "Deploy del nuevo contenedor con los cambios"
+    - docker run --network javaproyec_jyaa-network -p 8087:8080 -l "traefik.enable=true" -l "traefik.http.routers.grupo7.rule=Host(\`grupo7.jyaa-ci.linti.unlp.edu.ar\`)" -l "traefik.http.routers.grupo7.entrypoints=websecure" -l "traefik.http.routers.grupo7.tls.certresolver=le" -l "traefik.http.services.grupo7.loadbalancer.server.port=8080" -l io.portainer.accesscontrol.users=grupo7_2026 -d --name grupo7 grupo7-docker
+
