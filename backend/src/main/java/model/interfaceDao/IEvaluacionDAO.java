@@ -3,16 +3,8 @@ package model.interfaceDao;
 import java.util.List;
 import model.Evaluacion;
 
-public interface IEvaluacionDAO {
-
-	List<Evaluacion> getEvaluaciones();
-
-	Evaluacion getByID(Long id);
-
-	void modifyEvaluacion(Evaluacion a);
-
-	boolean deleteByID(Long id);
-
-	void saveEvaluacion(Evaluacion a);
-	
+public interface IEvaluacionDAO extends IGenericDAO<Evaluacion> {
+    List<Evaluacion> getEvaluaciones();
+    void saveEvaluacion(Evaluacion entidad);
+    Evaluacion modifyEvaluacion(Evaluacion entidad);
 }

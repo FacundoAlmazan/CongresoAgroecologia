@@ -4,17 +4,10 @@ import java.util.List;
 import model.Inscripcion;
 import model.enums.EstadoPago;
 
-public interface IInscripcionDAO {
-
-	List<Inscripcion> getInscripciones();
-	List<Inscripcion> getInscripcionesByEstadoPago(EstadoPago p);
-	Inscripcion getByID(Long id);
-	
-
-	void modifyInscripcion(Inscripcion a);
-
-	boolean deleteByID(Long id);
-
-	void saveInscripcion(Inscripcion a);
-	
+public interface IInscripcionDAO extends IGenericDAO<Inscripcion> {
+    List<Inscripcion> getInscripciones();
+    void saveInscripcion(Inscripcion entidad);
+    Inscripcion modifyInscripcion(Inscripcion entidad);
+    List<Inscripcion> getInscripcionesByEstadoPago(EstadoPago p);
+    Inscripcion getByIDConDatosFacturaYQR(Long id);
 }

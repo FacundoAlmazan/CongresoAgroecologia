@@ -25,7 +25,8 @@ import model.DisponibilidadEvaluadorEje;
 import model.EjeTematico;
 import model.EtapaCongreso;
 import model.Evaluacion;
-import model.FactoryEM;
+import model.dao.FactoryEM;
+import model.dao.FactoryDAO;
 import model.Inscripcion;
 import model.ItemAgenda;
 import model.Noticia;
@@ -44,12 +45,59 @@ import model.enums.Recomendacion;
 import model.enums.TipoIdentificacion;
 import model.enums.TipoRol;
 import model.enums.TipoTrabajo;
+import model.interfaceDao.IActividadDAO;
+import model.interfaceDao.IAgendaDAO;
+import model.interfaceDao.IAsignacionEvaluacionDAO;
+import model.interfaceDao.IAutorTrabajoDAO;
+import model.interfaceDao.ICircularDAO;
+import model.interfaceDao.ICongresoDAO;
+import model.interfaceDao.ICronogramaDAO;
+import model.interfaceDao.IDatosFacturaDAO;
+import model.interfaceDao.IDecisionTrabajoDAO;
+import model.interfaceDao.IDisponibilidadEvaluadorEjeDAO;
+import model.interfaceDao.IEjeTematicoDAO;
+import model.interfaceDao.IEtapaCongresoDAO;
+import model.interfaceDao.IEvaluacionDAO;
+import model.interfaceDao.IInscripcionDAO;
+import model.interfaceDao.IItemAgendaDAO;
+import model.interfaceDao.INoticiaDAO;
+import model.interfaceDao.INotificacionDAO;
+import model.interfaceDao.IPerfilEvaluadorDAO;
+import model.interfaceDao.IPlantillaEmailDAO;
+import model.interfaceDao.IQRDAO;
+import model.interfaceDao.IRolDAO;
+import model.interfaceDao.ITrabajoDAO;
+import model.interfaceDao.IUsuarioDAO;
 
 @WebServlet("/test-jpa")
 public class TestJpaServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private String sufijo;
+
+    private IActividadDAO actividadDAO;
+    private IAgendaDAO agendaDAO;
+    private IAsignacionEvaluacionDAO asignacionEvaluacionDAO;
+    private IAutorTrabajoDAO autorTrabajoDAO;
+    private ICircularDAO circularDAO;
+    private ICongresoDAO congresoDAO;
+    private ICronogramaDAO cronogramaDAO;
+    private IDatosFacturaDAO datosFacturaDAO;
+    private IDecisionTrabajoDAO decisionTrabajoDAO;
+    private IDisponibilidadEvaluadorEjeDAO disponibilidadEvaluadorEjeDAO;
+    private IEjeTematicoDAO ejeTematicoDAO;
+    private IEtapaCongresoDAO etapaCongresoDAO;
+    private IEvaluacionDAO evaluacionDAO;
+    private IInscripcionDAO inscripcionDAO;
+    private IItemAgendaDAO itemAgendaDAO;
+    private INoticiaDAO noticiaDAO;
+    private INotificacionDAO notificacionDAO;
+    private IPerfilEvaluadorDAO perfilEvaluadorDAO;
+    private IPlantillaEmailDAO plantillaEmailDAO;
+    private IQRDAO qrDAO;
+    private IRolDAO rolDAO;
+    private ITrabajoDAO trabajoDAO;
+    private IUsuarioDAO usuarioDAO;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -62,41 +110,42 @@ public class TestJpaServlet extends HttpServlet {
 
         try {
             em = FactoryEM.getEntityManager();
+            inicializarDAOs(em);
 
-            out.println("=== TEST JPA / HIBERNATE - CAPA DE PERSISTENCIA ===");
+            out.println("=== TEST DAO / JPA / HIBERNATE - CAPA DE PERSISTENCIA ===");
             out.println("Sufijo de datos de prueba: " + sufijo);
 
-            testRol(em, out);
-            testUsuario(em, out);
-            testUsuarioConRol(em, out);
-            testEjeTematico(em, out);
-            testTrabajo(em, out);
-            testAutorTrabajo(em, out);
-            testPerfilEvaluador(em, out);
-            testDisponibilidadEvaluadorEje(em, out);
-            testInscripcion(em, out);
-            testDatosFactura(em, out);
-            testQR(em, out);
-            testAsignacionEvaluacion(em, out);
-            testEvaluacion(em, out);
-            testDecisionTrabajo(em, out);
-            testCronograma(em, out);
-            testActividad(em, out);
-            testAgenda(em, out);
-            testItemAgenda(em, out);
-            testCongreso(em, out);
-            testEtapaCongreso(em, out);
-            testCircular(em, out);
-            testNoticia(em, out);
-            testPlantillaEmail(em, out);
-            testNotificacion(em, out);
+            testRol(out);
+            testUsuario(out);
+            testUsuarioConRol(out);
+            testEjeTematico(out);
+            testTrabajo(out);
+            testAutorTrabajo(out);
+            testPerfilEvaluador(out);
+            testDisponibilidadEvaluadorEje(out);
+            testInscripcion(out);
+            testDatosFactura(out);
+            testQR(out);
+            testAsignacionEvaluacion(out);
+            testEvaluacion(out);
+            testDecisionTrabajo(out);
+            testCronograma(out);
+            testActividad(out);
+            testAgenda(out);
+            testItemAgenda(out);
+            testCongreso(out);
+            testEtapaCongreso(out);
+            testCircular(out);
+            testNoticia(out);
+            testPlantillaEmail(out);
+            testNotificacion(out);
 
             out.println();
-            out.println("=== TODOS LOS TEST FINALIZARON CORRECTAMENTE ===");
+            out.println("=== TODOS LOS TEST DAO FINALIZARON CORRECTAMENTE ===");
 
         } catch (Exception e) {
             out.println();
-            out.println("ERROR EN TEST JPA:");
+            out.println("ERROR EN TEST DAO/JPA:");
             if (em != null && em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
@@ -108,131 +157,170 @@ public class TestJpaServlet extends HttpServlet {
         }
     }
 
-    private void testRol(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] Rol");
+    private void inicializarDAOs(EntityManager em) {
+        FactoryDAO factoryDAO = new FactoryDAO(em);
+
+        actividadDAO = factoryDAO.getActividadDAO();
+        agendaDAO = factoryDAO.getAgendaDAO();
+        asignacionEvaluacionDAO = factoryDAO.getAsignacionEvaluacionDAO();
+        autorTrabajoDAO = factoryDAO.getAutorTrabajoDAO();
+        circularDAO = factoryDAO.getCircularDAO();
+        congresoDAO = factoryDAO.getCongresoDAO();
+        cronogramaDAO = factoryDAO.getCronogramaDAO();
+        datosFacturaDAO = factoryDAO.getDatosFacturaDAO();
+        decisionTrabajoDAO = factoryDAO.getDecisionTrabajoDAO();
+        disponibilidadEvaluadorEjeDAO = factoryDAO.getDisponibilidadEvaluadorEjeDAO();
+        ejeTematicoDAO = factoryDAO.getEjeTematicoDAO();
+        etapaCongresoDAO = factoryDAO.getEtapaCongresoDAO();
+        evaluacionDAO = factoryDAO.getEvaluacionDAO();
+        inscripcionDAO = factoryDAO.getInscripcionDAO();
+        itemAgendaDAO = factoryDAO.getItemAgendaDAO();
+        noticiaDAO = factoryDAO.getNoticiaDAO();
+        notificacionDAO = factoryDAO.getNotificacionDAO();
+        perfilEvaluadorDAO = factoryDAO.getPerfilEvaluadorDAO();
+        plantillaEmailDAO = factoryDAO.getPlantillaEmailDAO();
+        qrDAO = factoryDAO.getQRDAO();
+        rolDAO = factoryDAO.getRolDAO();
+        trabajoDAO = factoryDAO.getTrabajoDAO();
+        usuarioDAO = factoryDAO.getUsuarioDAO();
+    }
+
+    private void testRol(PrintWriter out) {
+        out.println("\n[TEST DAO] Rol");
 
         Rol rol = new Rol(TipoRol.OC);
-        persistir(em, rol);
+        rolDAO.guardar(rol);
         Long id = id(rol);
         out.println("Alta OK. Id: " + id);
 
-        Rol recuperado = em.find(Rol.class, id);
+        Rol recuperado = rolDAO.getByID(id);
         out.println("Recuperacion OK. Nombre: " + recuperado.getNombre());
 
-        modificar(em, () -> recuperado.setNombre(TipoRol.OC));
-        out.println("Modificacion OK. Nombre: " + em.find(Rol.class, id).getNombre());
+        recuperado.setNombre(TipoRol.OC);
+        rolDAO.modificar(recuperado);
+        out.println("Modificacion OK. Nombre: " + rolDAO.getByID(id).getNombre());
 
-        eliminar(em, recuperado);
-        out.println(em.find(Rol.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        rolDAO.deleteByID(id);
+        out.println(rolDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testUsuario(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] Usuario");
+    private void testUsuario(PrintWriter out) {
+        out.println("\n[TEST DAO] Usuario");
 
         Usuario usuario = nuevoUsuario("usuario");
-        persistir(em, usuario);
+        usuarioDAO.guardar(usuario);
         Long id = id(usuario);
         out.println("Alta OK. Id: " + id);
 
-        Usuario recuperado = em.find(Usuario.class, id);
+        Usuario recuperado = usuarioDAO.getByID(id);
         out.println("Recuperacion OK. Email: " + recuperado.getEmail());
 
-        modificar(em, () -> recuperado.setTelefono("+549221000000"));
-        out.println("Modificacion OK. Telefono: " + em.find(Usuario.class, id).getTelefono());
+        recuperado.setTelefono("+549221000000");
+        usuarioDAO.modificar(recuperado);
+        out.println("Modificacion OK. Telefono: " + usuarioDAO.getByID(id).getTelefono());
 
-        eliminar(em, recuperado);
-        out.println(em.find(Usuario.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        usuarioDAO.deleteByID(id);
+        out.println(usuarioDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testUsuarioConRol(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] Usuario con coleccion de roles");
+    private void testUsuarioConRol(PrintWriter out) {
+        out.println("\n[TEST DAO] Usuario con coleccion de roles");
 
-        Rol rol = obtenerOCrearRol(em, TipoRol.PARTICIPANTE);
+        Rol rol = obtenerOCrearRol(TipoRol.PARTICIPANTE);
         Usuario usuario = nuevoUsuario("usuario_rol");
         usuario.agregarRol(rol);
 
-        persistir(em, usuario);
+        usuarioDAO.guardar(usuario);
         Long id = id(usuario);
         out.println("Alta OK. Id: " + id);
 
-        Usuario recuperado = em.find(Usuario.class, id);
+        Usuario recuperado = usuarioDAO.getByIDConRoles(id);
         out.println("Recuperacion OK. Cantidad roles: " + recuperado.getRoles().size());
 
-        modificar(em, () -> recuperado.setNombre("Usuario Modificado"));
-        out.println("Modificacion OK. Nombre: " + em.find(Usuario.class, id).getNombre());
+        recuperado.setNombre("Usuario Modificado");
+        usuarioDAO.modificar(recuperado);
+        out.println("Modificacion OK. Nombre: " + usuarioDAO.getByID(id).getNombre());
 
-        modificar(em, () -> recuperado.getRoles().clear());
-        eliminar(em, recuperado);
-        out.println(em.find(Usuario.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        recuperado = usuarioDAO.getByIDConRoles(id);
+        recuperado.getRoles().clear();
+        usuarioDAO.modificar(recuperado);
+        usuarioDAO.deleteByID(id);
+        out.println(usuarioDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testEjeTematico(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] EjeTematico");
+    private void testEjeTematico(PrintWriter out) {
+        out.println("\n[TEST DAO] EjeTematico");
 
         EjeTematico eje = nuevoEje("Eje ABM");
-        persistir(em, eje);
+        ejeTematicoDAO.guardar(eje);
         Long id = id(eje);
         out.println("Alta OK. Id: " + id);
 
-        EjeTematico recuperado = em.find(EjeTematico.class, id);
+        EjeTematico recuperado = ejeTematicoDAO.getByID(id);
         out.println("Recuperacion OK. Nombre: " + recuperado.getNombre());
 
-        modificar(em, () -> recuperado.setDescripcion("Descripcion modificada"));
-        out.println("Modificacion OK. Descripcion: " + em.find(EjeTematico.class, id).getDescripcion());
+        recuperado.setDescripcion("Descripcion modificada");
+        ejeTematicoDAO.modificar(recuperado);
+        out.println("Modificacion OK. Descripcion: " + ejeTematicoDAO.getByID(id).getDescripcion());
 
-        eliminar(em, recuperado);
-        out.println(em.find(EjeTematico.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        ejeTematicoDAO.deleteByID(id);
+        out.println(ejeTematicoDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testTrabajo(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] Trabajo");
+    private void testTrabajo(PrintWriter out) {
+        out.println("\n[TEST DAO] Trabajo");
 
-        Usuario autor = crearUsuarioPersistido(em, "autor_trabajo");
-        EjeTematico eje = crearEjePersistido(em, "Eje Trabajo");
+        Usuario autor = crearUsuarioPersistido("autor_trabajo");
+        EjeTematico eje = crearEjePersistido("Eje Trabajo");
         Trabajo trabajo = nuevoTrabajo("Trabajo ABM");
         trabajo.setAutorContacto(autor);
         trabajo.agregarEjeTematico(eje);
 
-        persistir(em, trabajo);
+        trabajoDAO.guardar(trabajo);
         Long id = id(trabajo);
         out.println("Alta OK. Id: " + id);
 
-        Trabajo recuperado = em.find(Trabajo.class, id);
+        Trabajo recuperado = trabajoDAO.getByIDConAutoresYEjes(id);
         out.println("Recuperacion OK. Titulo: " + recuperado.getTitulo());
+        out.println("Ejes cargados: " + recuperado.getEjesTematicos().size());
 
-        modificar(em, () -> recuperado.setEstado(EstadoTrabajo.ENVIADO));
-        out.println("Modificacion OK. Estado: " + em.find(Trabajo.class, id).getEstado());
+        recuperado.setEstado(EstadoTrabajo.ENVIADO);
+        trabajoDAO.modificar(recuperado);
+        out.println("Modificacion OK. Estado: " + trabajoDAO.getByID(id).getEstado());
 
-        modificar(em, () -> recuperado.getEjesTematicos().clear());
-        eliminar(em, recuperado);
-        out.println(em.find(Trabajo.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        recuperado = trabajoDAO.getByIDConAutoresYEjes(id);
+        recuperado.getEjesTematicos().clear();
+        trabajoDAO.modificar(recuperado);
+        trabajoDAO.deleteByID(id);
+        out.println(trabajoDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testAutorTrabajo(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] AutorTrabajo");
+    private void testAutorTrabajo(PrintWriter out) {
+        out.println("\n[TEST DAO] AutorTrabajo");
 
-        Trabajo trabajo = crearTrabajoPersistido(em, "Trabajo Autor");
+        Trabajo trabajo = crearTrabajoPersistido("Trabajo Autor");
         AutorTrabajo autor = new AutorTrabajo("Ana", "Autora", "UNLP", "Argentina", email("autor.trabajo"), 1);
         autor.setTrabajo(trabajo);
 
-        persistir(em, autor);
+        autorTrabajoDAO.guardar(autor);
         Long id = id(autor);
         out.println("Alta OK. Id: " + id);
 
-        AutorTrabajo recuperado = em.find(AutorTrabajo.class, id);
+        AutorTrabajo recuperado = autorTrabajoDAO.getByID(id);
         out.println("Recuperacion OK. Nombre: " + recuperado.getNombre());
 
-        modificar(em, () -> recuperado.setOrganizacion("UNLP modificada"));
-        out.println("Modificacion OK. Organizacion: " + em.find(AutorTrabajo.class, id).getOrganizacion());
+        recuperado.setOrganizacion("UNLP modificada");
+        autorTrabajoDAO.modificar(recuperado);
+        out.println("Modificacion OK. Organizacion: " + autorTrabajoDAO.getByID(id).getOrganizacion());
 
-        eliminar(em, recuperado);
-        out.println(em.find(AutorTrabajo.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        autorTrabajoDAO.deleteByID(id);
+        out.println(autorTrabajoDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testPerfilEvaluador(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] PerfilEvaluador");
+    private void testPerfilEvaluador(PrintWriter out) {
+        out.println("\n[TEST DAO] PerfilEvaluador");
 
-        Usuario evaluador = crearUsuarioPersistido(em, "perfil_eval");
+        Usuario evaluador = crearUsuarioPersistido("perfil_eval");
         PerfilEvaluador perfil = new PerfilEvaluador(evaluador);
         perfil.setEvaluadorEdicionesPasadas(true);
         perfil.setEvaluadorOtrosCongresos(false);
@@ -241,132 +329,138 @@ public class TestJpaServlet extends HttpServlet {
         perfil.setSubareasConocimiento("Sanidad, Nutricion");
         perfil.setComentario("Comentario inicial");
 
-        persistir(em, perfil);
+        perfilEvaluadorDAO.guardar(perfil);
         Long id = id(perfil);
         out.println("Alta OK. Id: " + id);
 
-        PerfilEvaluador recuperado = em.find(PerfilEvaluador.class, id);
+        PerfilEvaluador recuperado = perfilEvaluadorDAO.getByID(id);
         out.println("Recuperacion OK. Formacion: " + recuperado.getFormacionAcademica());
 
-        modificar(em, () -> recuperado.setComentario("Comentario modificado"));
-        out.println("Modificacion OK. Comentario: " + em.find(PerfilEvaluador.class, id).getComentario());
+        recuperado.setComentario("Comentario modificado");
+        perfilEvaluadorDAO.modificar(recuperado);
+        out.println("Modificacion OK. Comentario: " + perfilEvaluadorDAO.getByID(id).getComentario());
 
-        eliminar(em, recuperado);
-        out.println(em.find(PerfilEvaluador.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        perfilEvaluadorDAO.deleteByID(id);
+        out.println(perfilEvaluadorDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testDisponibilidadEvaluadorEje(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] DisponibilidadEvaluadorEje");
+    private void testDisponibilidadEvaluadorEje(PrintWriter out) {
+        out.println("\n[TEST DAO] DisponibilidadEvaluadorEje");
 
-        PerfilEvaluador perfil = crearPerfilEvaluadorPersistido(em, "disp_eval");
-        EjeTematico eje = crearEjePersistido(em, "Eje Disponibilidad");
+        PerfilEvaluador perfil = crearPerfilEvaluadorPersistido("disp_eval");
+        EjeTematico eje = crearEjePersistido("Eje Disponibilidad");
         DisponibilidadEvaluadorEje disponibilidad = new DisponibilidadEvaluadorEje(perfil, eje, 3);
 
-        persistir(em, disponibilidad);
+        disponibilidadEvaluadorEjeDAO.guardar(disponibilidad);
         Long id = id(disponibilidad);
         out.println("Alta OK. Id: " + id);
 
-        DisponibilidadEvaluadorEje recuperada = em.find(DisponibilidadEvaluadorEje.class, id);
+        DisponibilidadEvaluadorEje recuperada = disponibilidadEvaluadorEjeDAO.getByID(id);
         out.println("Recuperacion OK. Cantidad: " + recuperada.getCantidadTrabajos());
 
-        modificar(em, () -> recuperada.setCantidadTrabajos(5));
-        out.println("Modificacion OK. Cantidad: " + em.find(DisponibilidadEvaluadorEje.class, id).getCantidadTrabajos());
+        recuperada.setCantidadTrabajos(5);
+        disponibilidadEvaluadorEjeDAO.modificar(recuperada);
+        out.println("Modificacion OK. Cantidad: " + disponibilidadEvaluadorEjeDAO.getByID(id).getCantidadTrabajos());
 
-        eliminar(em, recuperada);
-        out.println(em.find(DisponibilidadEvaluadorEje.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        disponibilidadEvaluadorEjeDAO.deleteByID(id);
+        out.println(disponibilidadEvaluadorEjeDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testInscripcion(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] Inscripcion");
+    private void testInscripcion(PrintWriter out) {
+        out.println("\n[TEST DAO] Inscripcion");
 
-        Usuario usuario = crearUsuarioPersistido(em, "inscripto");
+        Usuario usuario = crearUsuarioPersistido("inscripto");
         Inscripcion inscripcion = new Inscripcion(usuario, 12000.0, "comprobante.pdf");
         inscripcion.setTipoInscripcion("Estudiante de grado");
         inscripcion.setFiliacionInstitucional("UNLP");
         inscripcion.setFormasParticipacion("Asistente, Presentacion de trabajo");
         inscripcion.setFechaPago(LocalDate.now());
 
-        persistir(em, inscripcion);
+        inscripcionDAO.guardar(inscripcion);
         Long id = id(inscripcion);
         out.println("Alta OK. Id: " + id);
 
-        Inscripcion recuperada = em.find(Inscripcion.class, id);
+        Inscripcion recuperada = inscripcionDAO.getByID(id);
         out.println("Recuperacion OK. Estado: " + recuperada.getEstado());
 
-        modificar(em, () -> recuperada.setEstado(EstadoPago.APROBADO));
-        out.println("Modificacion OK. Estado: " + em.find(Inscripcion.class, id).getEstado());
+        recuperada.setEstado(EstadoPago.APROBADO);
+        inscripcionDAO.modificar(recuperada);
+        out.println("Modificacion OK. Estado: " + inscripcionDAO.getByID(id).getEstado());
 
-        eliminar(em, recuperada);
-        out.println(em.find(Inscripcion.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        inscripcionDAO.deleteByID(id);
+        out.println(inscripcionDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testDatosFactura(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] DatosFactura");
+    private void testDatosFactura(PrintWriter out) {
+        out.println("\n[TEST DAO] DatosFactura");
 
-        Inscripcion inscripcion = crearInscripcionPersistida(em, "factura");
+        Inscripcion inscripcion = crearInscripcionPersistida("factura");
         DatosFactura datos = new DatosFactura("Facundo SRL", "20123456789", "Responsable Inscripto", "Calle 1 123", email("factura"));
         datos.setInscripcion(inscripcion);
 
-        persistir(em, datos);
+        datosFacturaDAO.guardar(datos);
         Long id = id(datos);
         out.println("Alta OK. Id: " + id);
 
-        DatosFactura recuperado = em.find(DatosFactura.class, id);
+        DatosFactura recuperado = datosFacturaDAO.getByID(id);
         out.println("Recuperacion OK. CUIT: " + recuperado.getCuit());
 
-        modificar(em, () -> recuperado.setOtrosDatos("Otros datos modificados"));
-        out.println("Modificacion OK. Otros datos: " + em.find(DatosFactura.class, id).getOtrosDatos());
+        recuperado.setOtrosDatos("Otros datos modificados");
+        datosFacturaDAO.modificar(recuperado);
+        out.println("Modificacion OK. Otros datos: " + datosFacturaDAO.getByID(id).getOtrosDatos());
 
-        eliminar(em, recuperado);
-        out.println(em.find(DatosFactura.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        datosFacturaDAO.deleteByID(id);
+        out.println(datosFacturaDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testQR(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] QR");
+    private void testQR(PrintWriter out) {
+        out.println("\n[TEST DAO] QR");
 
-        Inscripcion inscripcion = crearInscripcionPersistida(em, "qr");
+        Inscripcion inscripcion = crearInscripcionPersistida("qr");
         QR qr = new QR("QR-" + sufijo, inscripcion);
 
-        persistir(em, qr);
+        qrDAO.guardar(qr);
         Long id = id(qr);
         out.println("Alta OK. Id: " + id);
 
-        QR recuperado = em.find(QR.class, id);
+        QR recuperado = qrDAO.getByID(id);
         out.println("Recuperacion OK. Codigo: " + recuperado.getCodigo());
 
-        modificar(em, () -> recuperado.setUtilizado(true));
-        out.println("Modificacion OK. Utilizado: " + em.find(QR.class, id).getUtilizado());
+        recuperado.setUtilizado(true);
+        qrDAO.modificar(recuperado);
+        out.println("Modificacion OK. Utilizado: " + qrDAO.getByID(id).getUtilizado());
 
-        eliminar(em, recuperado);
-        out.println(em.find(QR.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        qrDAO.deleteByID(id);
+        out.println(qrDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testAsignacionEvaluacion(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] AsignacionEvaluacion");
+    private void testAsignacionEvaluacion(PrintWriter out) {
+        out.println("\n[TEST DAO] AsignacionEvaluacion");
 
-        Trabajo trabajo = crearTrabajoPersistido(em, "Trabajo Asignacion");
-        Usuario evaluador = crearUsuarioPersistido(em, "evaluador_asignacion");
-        Usuario asignador = crearUsuarioPersistido(em, "asignador_asignacion");
+        Trabajo trabajo = crearTrabajoPersistido("Trabajo Asignacion");
+        Usuario evaluador = crearUsuarioPersistido("evaluador_asignacion");
+        Usuario asignador = crearUsuarioPersistido("asignador_asignacion");
         AsignacionEvaluacion asignacion = new AsignacionEvaluacion(trabajo, evaluador, asignador);
 
-        persistir(em, asignacion);
+        asignacionEvaluacionDAO.guardar(asignacion);
         Long id = id(asignacion);
         out.println("Alta OK. Id: " + id);
 
-        AsignacionEvaluacion recuperada = em.find(AsignacionEvaluacion.class, id);
+        AsignacionEvaluacion recuperada = asignacionEvaluacionDAO.getByID(id);
         out.println("Recuperacion OK. Estado: " + recuperada.getEstado());
 
-        modificar(em, () -> recuperada.setEstado(EstadoAsignacion.ACEPTADA));
-        out.println("Modificacion OK. Estado: " + em.find(AsignacionEvaluacion.class, id).getEstado());
+        recuperada.setEstado(EstadoAsignacion.ACEPTADA);
+        asignacionEvaluacionDAO.modificar(recuperada);
+        out.println("Modificacion OK. Estado: " + asignacionEvaluacionDAO.getByID(id).getEstado());
 
-        eliminar(em, recuperada);
-        out.println(em.find(AsignacionEvaluacion.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        asignacionEvaluacionDAO.deleteByID(id);
+        out.println(asignacionEvaluacionDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testEvaluacion(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] Evaluacion");
+    private void testEvaluacion(PrintWriter out) {
+        out.println("\n[TEST DAO] Evaluacion");
 
-        AsignacionEvaluacion asignacion = crearAsignacionPersistida(em, "evaluacion");
+        AsignacionEvaluacion asignacion = crearAsignacionPersistida("evaluacion");
         Evaluacion evaluacion = new Evaluacion(asignacion, Recomendacion.APROBADO_CON_CORRECCION, "Comentarios para autores");
         evaluacion.setPertinenteCongreso(true);
         evaluacion.setEjeTematicoCorrecto(true);
@@ -374,247 +468,257 @@ public class TestJpaServlet extends HttpServlet {
         evaluacion.setModalidadRecomendada(ModalidadPresentacion.POSTER);
         evaluacion.setComentariosComision("Comentario privado");
 
-        persistir(em, evaluacion);
+        evaluacionDAO.guardar(evaluacion);
         Long id = id(evaluacion);
         out.println("Alta OK. Id: " + id);
 
-        Evaluacion recuperada = em.find(Evaluacion.class, id);
+        Evaluacion recuperada = evaluacionDAO.getByID(id);
         out.println("Recuperacion OK. Recomendacion: " + recuperada.getRecomendacion());
 
-        modificar(em, () -> recuperada.setComentariosAutores("Comentarios modificados"));
-        out.println("Modificacion OK. Comentarios: " + em.find(Evaluacion.class, id).getComentariosAutores());
+        recuperada.setComentariosAutores("Comentarios modificados");
+        evaluacionDAO.modificar(recuperada);
+        out.println("Modificacion OK. Comentarios: " + evaluacionDAO.getByID(id).getComentariosAutores());
 
-        eliminar(em, recuperada);
-        out.println(em.find(Evaluacion.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        evaluacionDAO.deleteByID(id);
+        out.println(evaluacionDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testDecisionTrabajo(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] DecisionTrabajo");
+    private void testDecisionTrabajo(PrintWriter out) {
+        out.println("\n[TEST DAO] DecisionTrabajo");
 
-        Trabajo trabajo = crearTrabajoPersistido(em, "Trabajo Decision");
-        Usuario organizador = crearUsuarioPersistido(em, "organizador_decision");
+        Trabajo trabajo = crearTrabajoPersistido("Trabajo Decision");
+        Usuario organizador = crearUsuarioPersistido("organizador_decision");
         DecisionTrabajo decision = new DecisionTrabajo(trabajo, organizador, EstadoTrabajo.ACEPTADO, "Decision inicial");
 
-        persistir(em, decision);
+        decisionTrabajoDAO.guardar(decision);
         Long id = id(decision);
         out.println("Alta OK. Id: " + id);
 
-        DecisionTrabajo recuperada = em.find(DecisionTrabajo.class, id);
+        DecisionTrabajo recuperada = decisionTrabajoDAO.getByID(id);
         out.println("Recuperacion OK. Decision: " + recuperada.getDecision());
 
-        modificar(em, () -> recuperada.setComentario("Decision modificada"));
-        out.println("Modificacion OK. Comentario: " + em.find(DecisionTrabajo.class, id).getComentario());
+        recuperada.setComentario("Decision modificada");
+        decisionTrabajoDAO.modificar(recuperada);
+        out.println("Modificacion OK. Comentario: " + decisionTrabajoDAO.getByID(id).getComentario());
 
-        eliminar(em, recuperada);
-        out.println(em.find(DecisionTrabajo.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        decisionTrabajoDAO.deleteByID(id);
+        out.println(decisionTrabajoDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testCronograma(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] Cronograma");
+    private void testCronograma(PrintWriter out) {
+        out.println("\n[TEST DAO] Cronograma");
 
         Cronograma cronograma = new Cronograma();
-        persistir(em, cronograma);
+        cronogramaDAO.guardar(cronograma);
         Long id = id(cronograma);
         out.println("Alta OK. Id: " + id);
 
-        Cronograma recuperado = em.find(Cronograma.class, id);
+        Cronograma recuperado = cronogramaDAO.getByIDConActividades(id);
         out.println("Recuperacion OK. Actividades: " + recuperado.getActividades().size());
 
-        modificar(em, () -> recuperado.setActividades(recuperado.getActividades()));
+        cronogramaDAO.modificar(recuperado);
         out.println("Modificacion OK.");
 
-        eliminar(em, recuperado);
-        out.println(em.find(Cronograma.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        cronogramaDAO.deleteByID(id);
+        out.println(cronogramaDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testActividad(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] Actividad");
+    private void testActividad(PrintWriter out) {
+        out.println("\n[TEST DAO] Actividad");
 
-        Cronograma cronograma = crearCronogramaPersistido(em);
+        Cronograma cronograma = crearCronogramaPersistido();
         Actividad actividad = nuevaActividad("Actividad ABM");
         actividad.setCronograma(cronograma);
 
-        persistir(em, actividad);
+        actividadDAO.guardar(actividad);
         Long id = id(actividad);
         out.println("Alta OK. Id: " + id);
 
-        Actividad recuperada = em.find(Actividad.class, id);
+        Actividad recuperada = actividadDAO.getByID(id);
         out.println("Recuperacion OK. Titulo: " + recuperada.getTitulo());
 
-        modificar(em, () -> recuperada.setAula("Aula modificada"));
-        out.println("Modificacion OK. Aula: " + em.find(Actividad.class, id).getAula());
+        recuperada.setAula("Aula modificada");
+        actividadDAO.modificar(recuperada);
+        out.println("Modificacion OK. Aula: " + actividadDAO.getByID(id).getAula());
 
-        eliminar(em, recuperada);
-        out.println(em.find(Actividad.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        actividadDAO.deleteByID(id);
+        out.println(actividadDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testAgenda(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] Agenda");
+    private void testAgenda(PrintWriter out) {
+        out.println("\n[TEST DAO] Agenda");
 
-        Usuario usuario = crearUsuarioPersistido(em, "agenda_usuario");
+        Usuario usuario = crearUsuarioPersistido("agenda_usuario");
         Agenda agenda = new Agenda(usuario);
 
-        persistir(em, agenda);
+        agendaDAO.guardar(agenda);
         Long id = id(agenda);
         out.println("Alta OK. Id: " + id);
 
-        Agenda recuperada = em.find(Agenda.class, id);
+        Agenda recuperada = agendaDAO.getByIDConItems(id);
         out.println("Recuperacion OK. Usuario: " + recuperada.getUsuario().getEmail());
 
-        modificar(em, () -> recuperada.setItems(recuperada.getItems()));
+        agendaDAO.modificar(recuperada);
         out.println("Modificacion OK.");
 
-        eliminar(em, recuperada);
-        out.println(em.find(Agenda.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        agendaDAO.deleteByID(id);
+        out.println(agendaDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testItemAgenda(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] ItemAgenda");
+    private void testItemAgenda(PrintWriter out) {
+        out.println("\n[TEST DAO] ItemAgenda");
 
-        Usuario usuario = crearUsuarioPersistido(em, "item_agenda_usuario");
-        Agenda agenda = crearAgendaPersistida(em, usuario);
-        Actividad actividad = crearActividadPersistida(em, "Actividad ItemAgenda");
+        Usuario usuario = crearUsuarioPersistido("item_agenda_usuario");
+        Agenda agenda = crearAgendaPersistida(usuario);
+        Actividad actividad = crearActividadPersistida("Actividad ItemAgenda");
         ItemAgenda item = new ItemAgenda(agenda, actividad);
 
-        persistir(em, item);
+        itemAgendaDAO.guardar(item);
         Long id = id(item);
         out.println("Alta OK. Id: " + id);
 
-        ItemAgenda recuperado = em.find(ItemAgenda.class, id);
+        ItemAgenda recuperado = itemAgendaDAO.getByID(id);
         out.println("Recuperacion OK. Actividad: " + recuperado.getActividad().getTitulo());
 
-        modificar(em, () -> recuperado.setActividad(actividad));
+        recuperado.setActividad(actividad);
+        itemAgendaDAO.modificar(recuperado);
         out.println("Modificacion OK.");
 
-        eliminar(em, recuperado);
-        out.println(em.find(ItemAgenda.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        itemAgendaDAO.deleteByID(id);
+        out.println(itemAgendaDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testCongreso(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] Congreso");
+    private void testCongreso(PrintWriter out) {
+        out.println("\n[TEST DAO] Congreso");
 
-        Cronograma cronograma = crearCronogramaPersistido(em);
+        Cronograma cronograma = crearCronogramaPersistido();
         Congreso congreso = new Congreso("Congreso ABM", "V");
         congreso.setFechaInicio(LocalDate.now());
         congreso.setFechaFin(LocalDate.now().plusDays(3));
         congreso.setCronograma(cronograma);
 
-        persistir(em, congreso);
+        congresoDAO.guardar(congreso);
         Long id = id(congreso);
         out.println("Alta OK. Id: " + id);
 
-        Congreso recuperado = em.find(Congreso.class, id);
+        Congreso recuperado = congresoDAO.getByID(id);
         out.println("Recuperacion OK. Nombre: " + recuperado.getNombre());
 
-        modificar(em, () -> recuperado.setNombre("Congreso modificado"));
-        out.println("Modificacion OK. Nombre: " + em.find(Congreso.class, id).getNombre());
+        recuperado.setNombre("Congreso modificado");
+        congresoDAO.modificar(recuperado);
+        out.println("Modificacion OK. Nombre: " + congresoDAO.getByID(id).getNombre());
 
-        eliminar(em, recuperado);
-        out.println(em.find(Congreso.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        congresoDAO.deleteByID(id);
+        out.println(congresoDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testEtapaCongreso(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] EtapaCongreso");
+    private void testEtapaCongreso(PrintWriter out) {
+        out.println("\n[TEST DAO] EtapaCongreso");
 
-        Congreso congreso = crearCongresoPersistido(em, "Congreso Etapa");
+        Congreso congreso = crearCongresoPersistido("Congreso Etapa");
         EtapaCongreso etapa = new EtapaCongreso("Recepcion de trabajos", LocalDate.now(), LocalDate.now().plusDays(30));
         etapa.setCongreso(congreso);
 
-        persistir(em, etapa);
+        etapaCongresoDAO.guardar(etapa);
         Long id = id(etapa);
         out.println("Alta OK. Id: " + id);
 
-        EtapaCongreso recuperada = em.find(EtapaCongreso.class, id);
+        EtapaCongreso recuperada = etapaCongresoDAO.getByID(id);
         out.println("Recuperacion OK. Nombre: " + recuperada.getNombre());
 
-        modificar(em, () -> recuperada.setNombre("Etapa modificada"));
-        out.println("Modificacion OK. Nombre: " + em.find(EtapaCongreso.class, id).getNombre());
+        recuperada.setNombre("Etapa modificada");
+        etapaCongresoDAO.modificar(recuperada);
+        out.println("Modificacion OK. Nombre: " + etapaCongresoDAO.getByID(id).getNombre());
 
-        eliminar(em, recuperada);
-        out.println(em.find(EtapaCongreso.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        etapaCongresoDAO.deleteByID(id);
+        out.println(etapaCongresoDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testCircular(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] Circular");
+    private void testCircular(PrintWriter out) {
+        out.println("\n[TEST DAO] Circular");
 
-        Usuario usuario = crearUsuarioPersistido(em, "circular_publicador");
+        Usuario usuario = crearUsuarioPersistido("circular_publicador");
         Circular circular = new Circular("Circular ABM", "circular.pdf", usuario);
         circular.setFechaPublicacion(LocalDate.now());
 
-        persistir(em, circular);
+        circularDAO.guardar(circular);
         Long id = id(circular);
         out.println("Alta OK. Id: " + id);
 
-        Circular recuperada = em.find(Circular.class, id);
+        Circular recuperada = circularDAO.getByID(id);
         out.println("Recuperacion OK. Titulo: " + recuperada.getTitulo());
 
-        modificar(em, () -> recuperada.setTitulo("Circular modificada"));
-        out.println("Modificacion OK. Titulo: " + em.find(Circular.class, id).getTitulo());
+        recuperada.setTitulo("Circular modificada");
+        circularDAO.modificar(recuperada);
+        out.println("Modificacion OK. Titulo: " + circularDAO.getByID(id).getTitulo());
 
-        eliminar(em, recuperada);
-        out.println(em.find(Circular.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        circularDAO.deleteByID(id);
+        out.println(circularDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testNoticia(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] Noticia");
+    private void testNoticia(PrintWriter out) {
+        out.println("\n[TEST DAO] Noticia");
 
-        Usuario usuario = crearUsuarioPersistido(em, "noticia_publicador");
+        Usuario usuario = crearUsuarioPersistido("noticia_publicador");
         Noticia noticia = new Noticia("Noticia ABM", "Contenido de prueba", usuario);
         noticia.setFechaPublicacion(LocalDate.now());
 
-        persistir(em, noticia);
+        noticiaDAO.guardar(noticia);
         Long id = id(noticia);
         out.println("Alta OK. Id: " + id);
 
-        Noticia recuperada = em.find(Noticia.class, id);
+        Noticia recuperada = noticiaDAO.getByID(id);
         out.println("Recuperacion OK. Titulo: " + recuperada.getTitulo());
 
-        modificar(em, () -> recuperada.setContenido("Contenido modificado"));
-        out.println("Modificacion OK. Contenido: " + em.find(Noticia.class, id).getContenido());
+        recuperada.setContenido("Contenido modificado");
+        noticiaDAO.modificar(recuperada);
+        out.println("Modificacion OK. Contenido: " + noticiaDAO.getByID(id).getContenido());
 
-        eliminar(em, recuperada);
-        out.println(em.find(Noticia.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        noticiaDAO.deleteByID(id);
+        out.println(noticiaDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testPlantillaEmail(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] PlantillaEmail");
+    private void testPlantillaEmail(PrintWriter out) {
+        out.println("\n[TEST DAO] PlantillaEmail");
 
         PlantillaEmail plantilla = new PlantillaEmail("Asunto ABM", "Cuerpo de prueba");
-        persistir(em, plantilla);
+        plantillaEmailDAO.guardar(plantilla);
         Long id = id(plantilla);
         out.println("Alta OK. Id: " + id);
 
-        PlantillaEmail recuperada = em.find(PlantillaEmail.class, id);
+        PlantillaEmail recuperada = plantillaEmailDAO.getByID(id);
         out.println("Recuperacion OK. Asunto: " + recuperada.getAsunto());
 
-        modificar(em, () -> recuperada.setCuerpo("Cuerpo modificado"));
-        out.println("Modificacion OK. Cuerpo: " + em.find(PlantillaEmail.class, id).getCuerpo());
+        recuperada.setCuerpo("Cuerpo modificado");
+        plantillaEmailDAO.modificar(recuperada);
+        out.println("Modificacion OK. Cuerpo: " + plantillaEmailDAO.getByID(id).getCuerpo());
 
-        eliminar(em, recuperada);
-        out.println(em.find(PlantillaEmail.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        plantillaEmailDAO.deleteByID(id);
+        out.println(plantillaEmailDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
-    private void testNotificacion(EntityManager em, PrintWriter out) {
-        out.println("\n[TEST] Notificacion");
+    private void testNotificacion(PrintWriter out) {
+        out.println("\n[TEST DAO] Notificacion");
 
-        Usuario destinatario = crearUsuarioPersistido(em, "notificacion_destinatario");
-        PlantillaEmail plantilla = crearPlantillaPersistida(em);
+        Usuario destinatario = crearUsuarioPersistido("notificacion_destinatario");
+        PlantillaEmail plantilla = crearPlantillaPersistida();
         Notificacion notificacion = new Notificacion("Notificacion ABM", "Mensaje de prueba", destinatario);
         notificacion.setPlantilla(plantilla);
         notificacion.setFechaEnvio(LocalDate.now());
 
-        persistir(em, notificacion);
+        notificacionDAO.guardar(notificacion);
         Long id = id(notificacion);
         out.println("Alta OK. Id: " + id);
 
-        Notificacion recuperada = em.find(Notificacion.class, id);
+        Notificacion recuperada = notificacionDAO.getByID(id);
         out.println("Recuperacion OK. Asunto: " + recuperada.getAsunto());
 
-        modificar(em, () -> recuperada.setMensaje("Mensaje modificado"));
-        out.println("Modificacion OK. Mensaje: " + em.find(Notificacion.class, id).getMensaje());
+        recuperada.setMensaje("Mensaje modificado");
+        notificacionDAO.modificar(recuperada);
+        out.println("Modificacion OK. Mensaje: " + notificacionDAO.getByID(id).getMensaje());
 
-        eliminar(em, recuperada);
-        out.println(em.find(Notificacion.class, id) == null ? "Baja OK." : "Baja FALLIDA.");
+        notificacionDAO.deleteByID(id);
+        out.println(notificacionDAO.getByID(id) == null ? "Baja OK." : "Baja FALLIDA.");
     }
 
     private Usuario nuevoUsuario(String prefijo) {
@@ -627,9 +731,9 @@ public class TestJpaServlet extends HttpServlet {
         return usuario;
     }
 
-    private Usuario crearUsuarioPersistido(EntityManager em, String prefijo) {
+    private Usuario crearUsuarioPersistido(String prefijo) {
         Usuario usuario = nuevoUsuario(prefijo);
-        persistir(em, usuario);
+        usuarioDAO.guardar(usuario);
         return usuario;
     }
 
@@ -643,11 +747,11 @@ public class TestJpaServlet extends HttpServlet {
         return trabajo;
     }
 
-    private Trabajo crearTrabajoPersistido(EntityManager em, String titulo) {
-        Usuario autor = crearUsuarioPersistido(em, "autor_" + titulo.replace(" ", "_"));
+    private Trabajo crearTrabajoPersistido(String titulo) {
+        Usuario autor = crearUsuarioPersistido("autor_" + titulo.replace(" ", "_"));
         Trabajo trabajo = nuevoTrabajo(titulo);
         trabajo.setAutorContacto(autor);
-        persistir(em, trabajo);
+        trabajoDAO.guardar(trabajo);
         return trabajo;
     }
 
@@ -655,42 +759,42 @@ public class TestJpaServlet extends HttpServlet {
         return new EjeTematico(nombre + " " + sufijo, "Descripcion de prueba");
     }
 
-    private EjeTematico crearEjePersistido(EntityManager em, String nombre) {
+    private EjeTematico crearEjePersistido(String nombre) {
         EjeTematico eje = nuevoEje(nombre);
-        persistir(em, eje);
+        ejeTematicoDAO.guardar(eje);
         return eje;
     }
 
-    private PerfilEvaluador crearPerfilEvaluadorPersistido(EntityManager em, String prefijo) {
-        Usuario usuario = crearUsuarioPersistido(em, prefijo);
+    private PerfilEvaluador crearPerfilEvaluadorPersistido(String prefijo) {
+        Usuario usuario = crearUsuarioPersistido(prefijo);
         PerfilEvaluador perfil = new PerfilEvaluador(usuario);
         perfil.setFormacionAcademica("Curso de posgrado");
         perfil.setAreasConocimiento("Agricultura urbana");
         perfil.setSubareasConocimiento("Manejo de suelo");
-        persistir(em, perfil);
+        perfilEvaluadorDAO.guardar(perfil);
         return perfil;
     }
 
-    private Inscripcion crearInscripcionPersistida(EntityManager em, String prefijo) {
-        Usuario usuario = crearUsuarioPersistido(em, "usuario_" + prefijo);
+    private Inscripcion crearInscripcionPersistida(String prefijo) {
+        Usuario usuario = crearUsuarioPersistido("usuario_" + prefijo);
         Inscripcion inscripcion = new Inscripcion(usuario, 15000.0, "comprobante_" + prefijo + ".pdf");
         inscripcion.setFechaPago(LocalDate.now());
-        persistir(em, inscripcion);
+        inscripcionDAO.guardar(inscripcion);
         return inscripcion;
     }
 
-    private AsignacionEvaluacion crearAsignacionPersistida(EntityManager em, String prefijo) {
-        Trabajo trabajo = crearTrabajoPersistido(em, "Trabajo " + prefijo);
-        Usuario evaluador = crearUsuarioPersistido(em, "evaluador_" + prefijo);
-        Usuario asignador = crearUsuarioPersistido(em, "asignador_" + prefijo);
+    private AsignacionEvaluacion crearAsignacionPersistida(String prefijo) {
+        Trabajo trabajo = crearTrabajoPersistido("Trabajo " + prefijo);
+        Usuario evaluador = crearUsuarioPersistido("evaluador_" + prefijo);
+        Usuario asignador = crearUsuarioPersistido("asignador_" + prefijo);
         AsignacionEvaluacion asignacion = new AsignacionEvaluacion(trabajo, evaluador, asignador);
-        persistir(em, asignacion);
+        asignacionEvaluacionDAO.guardar(asignacion);
         return asignacion;
     }
 
-    private Cronograma crearCronogramaPersistido(EntityManager em) {
+    private Cronograma crearCronogramaPersistido() {
         Cronograma cronograma = new Cronograma();
-        persistir(em, cronograma);
+        cronogramaDAO.guardar(cronograma);
         return cronograma;
     }
 
@@ -700,65 +804,45 @@ public class TestJpaServlet extends HttpServlet {
         return actividad;
     }
 
-    private Actividad crearActividadPersistida(EntityManager em, String titulo) {
-        Cronograma cronograma = crearCronogramaPersistido(em);
+    private Actividad crearActividadPersistida(String titulo) {
+        Cronograma cronograma = crearCronogramaPersistido();
         Actividad actividad = nuevaActividad(titulo);
         actividad.setCronograma(cronograma);
-        persistir(em, actividad);
+        actividadDAO.guardar(actividad);
         return actividad;
     }
 
-    private Agenda crearAgendaPersistida(EntityManager em, Usuario usuario) {
+    private Agenda crearAgendaPersistida(Usuario usuario) {
         Agenda agenda = new Agenda(usuario);
-        persistir(em, agenda);
+        agendaDAO.guardar(agenda);
         return agenda;
     }
 
-    private Congreso crearCongresoPersistido(EntityManager em, String nombre) {
-        Cronograma cronograma = crearCronogramaPersistido(em);
+    private Congreso crearCongresoPersistido(String nombre) {
+        Cronograma cronograma = crearCronogramaPersistido();
         Congreso congreso = new Congreso(nombre + " " + sufijo, "V");
         congreso.setFechaInicio(LocalDate.now());
         congreso.setFechaFin(LocalDate.now().plusDays(3));
         congreso.setCronograma(cronograma);
-        persistir(em, congreso);
+        congresoDAO.guardar(congreso);
         return congreso;
     }
 
-    private PlantillaEmail crearPlantillaPersistida(EntityManager em) {
+    private PlantillaEmail crearPlantillaPersistida() {
         PlantillaEmail plantilla = new PlantillaEmail("Asunto plantilla " + sufijo, "Cuerpo plantilla");
-        persistir(em, plantilla);
+        plantillaEmailDAO.guardar(plantilla);
         return plantilla;
     }
 
-    private Rol obtenerOCrearRol(EntityManager em, TipoRol tipoRol) {
-        return em.createQuery("SELECT r FROM Rol r WHERE r.nombre = :nombre", Rol.class)
-                .setParameter("nombre", tipoRol)
-                .getResultStream()
-                .findFirst()
-                .orElseGet(() -> {
-                    Rol rol = new Rol(tipoRol);
-                    persistir(em, rol);
-                    return rol;
-                });
-    }
+    private Rol obtenerOCrearRol(TipoRol tipoRol) {
+        Rol existente = rolDAO.getByNombre(tipoRol);
+        if (existente != null) {
+            return existente;
+        }
 
-    private void persistir(EntityManager em, Object entidad) {
-        em.getTransaction().begin();
-        em.persist(entidad);
-        em.getTransaction().commit();
-    }
-
-    private void modificar(EntityManager em, Runnable cambios) {
-        em.getTransaction().begin();
-        cambios.run();
-        em.getTransaction().commit();
-    }
-
-    private void eliminar(EntityManager em, Object entidad) {
-        em.getTransaction().begin();
-        Object gestionada = em.contains(entidad) ? entidad : em.merge(entidad);
-        em.remove(gestionada);
-        em.getTransaction().commit();
+        Rol rol = new Rol(tipoRol);
+        rolDAO.guardar(rol);
+        return rol;
     }
 
     private Long id(Object entidad) {

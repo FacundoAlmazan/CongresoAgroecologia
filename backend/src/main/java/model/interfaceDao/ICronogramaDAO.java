@@ -3,16 +3,9 @@ package model.interfaceDao;
 import java.util.List;
 import model.Cronograma;
 
-public interface ICronogramaDAO {
-
-	List<Cronograma> getCronogramas();
-
-	Cronograma getByID(Long id);
-
-	void modifyCronograma(Cronograma a);
-
-	boolean deleteByID(Long id);
-
-	void saveCronograma(Cronograma a);
-	
+public interface ICronogramaDAO extends IGenericDAO<Cronograma> {
+    List<Cronograma> getCronogramas();
+    void saveCronograma(Cronograma entidad);
+    Cronograma modifyCronograma(Cronograma entidad);
+    Cronograma getByIDConActividades(Long id);
 }
