@@ -47,7 +47,7 @@
 			    
 			<property
 			    name="jakarta.persistence.jdbc.url"
-			    value="jdbc:mysql://dbadmin.jyaa-ci.linti.unlp.edu.ar:3306/jyaa2026_bd7?useSSL=false&amp;serverTimezone=UTC"/>
+			    value="jdbc:mysql://mysql.java.linti.unlp.edu.ar:3306/jyaa2026_bd7?useSSL=false&amp;serverTimezone=UTC"/>
 			
 			<property
 			    name="jakarta.persistence.jdbc.user"
