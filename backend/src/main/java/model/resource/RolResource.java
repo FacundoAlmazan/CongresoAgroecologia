@@ -39,31 +39,4 @@ public class RolResource {
         return Response.ok(entidad).build();
     }
 
-    @POST
-    public Response crear(Rol entidad) {
-        dao.guardar(entidad);
-        return Response.created(URI.create("/roles/" + entidad.getId()))
-                .entity(entidad)
-                .build();
-    }
-
-    @PUT
-    @Path("/{id}")
-    public Response modificar(@PathParam("id") Long id, Rol entidad) {
-        if (dao.getByID(id) == null) {
-            throw new NotFoundException("Rol no encontrado con id " + id);
-        }
-        entidad.setId(id);
-        return Response.ok(dao.modificar(entidad)).build();
-    }
-
-    @DELETE
-    @Path("/{id}")
-    public Response eliminar(@PathParam("id") Long id) {
-        boolean eliminado = dao.deleteByID(id);
-        if (!eliminado) {
-            throw new NotFoundException("Rol no encontrado con id " + id);
-        }
-        return Response.noContent().build();
-    }
 }
