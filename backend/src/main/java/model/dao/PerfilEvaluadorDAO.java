@@ -1,13 +1,17 @@
 package model.dao;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import model.PerfilEvaluador;
 import model.interfaceDao.IPerfilEvaluadorDAO;
 
+@RequestScoped
 public class PerfilEvaluadorDAO extends GenericDAO<PerfilEvaluador> implements IPerfilEvaluadorDAO {
 
+    @Inject
     public PerfilEvaluadorDAO(EntityManager em) {
         super(em, PerfilEvaluador.class);
     }

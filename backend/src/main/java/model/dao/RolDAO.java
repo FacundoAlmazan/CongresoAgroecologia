@@ -1,5 +1,7 @@
 package model.dao;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -7,8 +9,10 @@ import model.Rol;
 import model.interfaceDao.IRolDAO;
 import model.enums.TipoRol;
 
+@RequestScoped
 public class RolDAO extends GenericDAO<Rol> implements IRolDAO {
 
+    @Inject
     public RolDAO(EntityManager em) {
         super(em, Rol.class);
     }

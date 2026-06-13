@@ -1,5 +1,7 @@
 package model.dao;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -7,8 +9,10 @@ import model.Inscripcion;
 import model.interfaceDao.IInscripcionDAO;
 import model.enums.EstadoPago;
 
+@RequestScoped
 public class InscripcionDAO extends GenericDAO<Inscripcion> implements IInscripcionDAO {
 
+    @Inject
     public InscripcionDAO(EntityManager em) {
         super(em, Inscripcion.class);
     }

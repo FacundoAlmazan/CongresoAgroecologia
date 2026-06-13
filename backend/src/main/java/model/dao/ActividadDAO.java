@@ -1,13 +1,17 @@
 package model.dao;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import model.Actividad;
 import model.interfaceDao.IActividadDAO;
 
+@RequestScoped
 public class ActividadDAO extends GenericDAO<Actividad> implements IActividadDAO {
 
+    @Inject
     public ActividadDAO(EntityManager em) {
         super(em, Actividad.class);
     }

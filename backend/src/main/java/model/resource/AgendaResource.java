@@ -1,96 +1,69 @@
 package model.resource;
 
-import model.Agenda;
-import model.dao.FactoryDAO;
-import model.dao.FactoryEM;
-import model.Actividad;
-import model.interfaceDao.IAgendaDAO;
-
-import jakarta.ws.rs.*;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.Response.Status;
-//import java.util.List;
+import java.net.URI;
+import model.Agenda;
+import model.interfaceDao.IAgendaDAO;
 
-@Path("/agenda")
+@Path("/agendas")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AgendaResource {
 
-    // Instancia del DAO (en una app real se inyectaría con CDI o @Context)
-    private final IAgendaDAO agendaDAO = new FactoryDAO(FactoryEM.getEntityManager()).getAgendaDAO();
+    @Inject
+    private IAgendaDAO dao;
 
-    /** No hace falta
-    // 1. Obtener todas las agendas
     @GET
-    public List<Agenda> obtenerTodas() {
-        return agendaDAO.findAll();
+    public Response listar() {
+        return Response.ok(dao.listarTodos()).build();
     }
-**/
-    
+
     @GET
     @Path("/{id}")
     public Response obtenerPorId(@PathParam("id") Long id) {
-        Agenda agenda = agendaDAO.getByID(id);
-        if (agenda == null) {
-            return Response.status(Status.NOT_FOUND)
-                           .entity("{\"error\": \"Agenda no encontrada\"}")
-                           .build();
+        Agenda entidad = dao.getByID(id);
+        if (entidad == null) {
+            throw new NotFoundException("Agenda no encontrado con id " + id);
         }
-        return Response.ok(agenda).build();
+        return Response.ok(entidad).build();
     }
 
-    
     @POST
-    public Response crearAgenda(Agenda agenda) {
-        try {
-            agendaDAO.saveAgenda(agenda);
-            return Response.status(Status.CREATED).entity(agenda).build();
-        } catch (Exception e) {
-            return Response.status(Status.BAD_REQUEST)
-                           .entity("{\"error\": \"No se pudo crear la agenda\"}")
-                           .build();
-        }
+    public Response crear(Agenda entidad) {
+        dao.guardar(entidad);
+        return Response.created(URI.create("/agendas/" + entidad.getId()))
+                .entity(entidad)
+                .build();
     }
 
-    // 4. Agregar una actividad a una agenda específica (Maneja el conflicto de la entidad)
-    @POST
-    @Path("/{id}/actividades")
-    public Response agregarActividad(@PathParam("id") Long id, Actividad actividad) {
-        Agenda agenda = agendaDAO.getByID(id);
-        if (agenda == null) {
-            return Response.status(Status.NOT_FOUND)
-                           .entity("{\"error\": \"Agenda no encontrada\"}")
-                           .build();
+    @PUT
+    @Path("/{id}")
+    public Response modificar(@PathParam("id") Long id, Agenda entidad) {
+        if (dao.getByID(id) == null) {
+            throw new NotFoundException("Agenda no encontrado con id " + id);
         }
-
-        try {
-            // Se ejecuta la lógica de negocio interna de la entidad Agenda
-            agenda.agregarActividad(actividad);
-            
-            // Se actualiza el estado en la base de datos a través del DAO
-            agendaDAO.modifyAgenda(agenda);
-            
-            return Response.ok(agenda).build();
-        } catch (IllegalArgumentException e) {
-            // Captura el conflicto de superposición de horarios provisto por la entidad
-            return Response.status(Status.CONFLICT)
-                           .entity("{\"error\": \"" + e.getMessage() + "\"}")
-                           .build();
-        }
+        entidad.setId(id);
+        return Response.ok(dao.modificar(entidad)).build();
     }
 
-    // 5. Eliminar una agenda
     @DELETE
     @Path("/{id}")
-    public Response eliminarAgenda(@PathParam("id") Long id) {
-        Agenda agenda = agendaDAO.getByID(id);
-        if (agenda == null) {
-            return Response.status(Status.NOT_FOUND)
-                           .entity("{\"error\": \"Agenda no encontrada\"}")
-                           .build();
+    public Response eliminar(@PathParam("id") Long id) {
+        boolean eliminado = dao.deleteByID(id);
+        if (!eliminado) {
+            throw new NotFoundException("Agenda no encontrado con id " + id);
         }
-        agendaDAO.deleteByID(id);
         return Response.noContent().build();
     }
 }

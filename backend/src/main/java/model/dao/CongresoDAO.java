@@ -1,13 +1,17 @@
 package model.dao;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import model.Congreso;
 import model.interfaceDao.ICongresoDAO;
 
+@RequestScoped
 public class CongresoDAO extends GenericDAO<Congreso> implements ICongresoDAO {
 
+    @Inject
     public CongresoDAO(EntityManager em) {
         super(em, Congreso.class);
     }

@@ -1,5 +1,7 @@
 package model.dao;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -7,8 +9,10 @@ import model.AsignacionEvaluacion;
 import model.interfaceDao.IAsignacionEvaluacionDAO;
 import model.enums.EstadoAsignacion;
 
+@RequestScoped
 public class AsignacionEvaluacionDAO extends GenericDAO<AsignacionEvaluacion> implements IAsignacionEvaluacionDAO {
 
+    @Inject
     public AsignacionEvaluacionDAO(EntityManager em) {
         super(em, AsignacionEvaluacion.class);
     }

@@ -1,13 +1,17 @@
 package model.dao;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import model.EjeTematico;
 import model.interfaceDao.IEjeTematicoDAO;
 
+@RequestScoped
 public class EjeTematicoDAO extends GenericDAO<EjeTematico> implements IEjeTematicoDAO {
 
+    @Inject
     public EjeTematicoDAO(EntityManager em) {
         super(em, EjeTematico.class);
     }

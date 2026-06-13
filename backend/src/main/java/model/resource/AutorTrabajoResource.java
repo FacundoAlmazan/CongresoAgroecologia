@@ -1,65 +1,69 @@
 package model.resource;
 
-import java.util.List;
-
-import jakarta.ws.rs.*;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.Response.Status;
+import java.net.URI;
 import model.AutorTrabajo;
-import model.dao.FactoryDAO;
-import model.dao.FactoryEM;
 import model.interfaceDao.IAutorTrabajoDAO;
 
-@Path("/autorTrabajo")
+@Path("/autores-trabajo")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AutorTrabajoResource {
-	private final IAutorTrabajoDAO autorDao=new FactoryDAO(FactoryEM.getEntityManager()).getAutorTrabajoDAO();
-	
-	@GET
-	public List<AutorTrabajo> obtenerTodos(){
-		return autorDao.getAutoresTrabajo();
-	}
-	
-	@GET
-	@Path("/{id}")
-	public Response obtenerPorId(@PathParam("id") Long id) {
-		AutorTrabajo autor=autorDao.getByID(id);
-		if (autor == null) 
-			return Response.status(Status.NOT_FOUND).entity("No se encontró el Autor").build();
-		return Response.ok(autor).build();
-		
-	}
-	
-	//public Response modificar?   De momento lo dejo sin posibilidad
-	
-	@POST
-	public Response crearAutor(AutorTrabajo autor) {
-		//Podriamos agregar algun tipo de validacion, por ejemplo por email.
-		try {
-			autorDao.guardar(autor);
-			return Response.status(Status.CREATED).entity(autor).build();
-		} catch (Exception e) {
-			return Response.status(Status.BAD_REQUEST).entity("No se pudo crear el autor").build();
-		}
-	}
-	
 
-	
-	@DELETE
-	@Path("/{id}")
-	public Response eliminarAutor(@PathParam("id") Long id) {
-		//Agregar funcion en service para verificar que el Trabajo no se quede sin autores
-		AutorTrabajo autor= autorDao.getByID(id);
-		if(autor!=null){
-			autorDao.deleteByID(id);
-			return Response.noContent().build();
-		}
-		return Response.status(Status.NOT_FOUND).entity("No existe el Autor").build();
-	}
-	
-	
-	
-	
+    @Inject
+    private IAutorTrabajoDAO dao;
+
+    @GET
+    public Response listar() {
+        return Response.ok(dao.listarTodos()).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response obtenerPorId(@PathParam("id") Long id) {
+        AutorTrabajo entidad = dao.getByID(id);
+        if (entidad == null) {
+            throw new NotFoundException("AutorTrabajo no encontrado con id " + id);
+        }
+        return Response.ok(entidad).build();
+    }
+
+    @POST
+    public Response crear(AutorTrabajo entidad) {
+        dao.guardar(entidad);
+        return Response.created(URI.create("/autores-trabajo/" + entidad.getId()))
+                .entity(entidad)
+                .build();
+    }
+
+    @PUT
+    @Path("/{id}")
+    public Response modificar(@PathParam("id") Long id, AutorTrabajo entidad) {
+        if (dao.getByID(id) == null) {
+            throw new NotFoundException("AutorTrabajo no encontrado con id " + id);
+        }
+        entidad.setId(id);
+        return Response.ok(dao.modificar(entidad)).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response eliminar(@PathParam("id") Long id) {
+        boolean eliminado = dao.deleteByID(id);
+        if (!eliminado) {
+            throw new NotFoundException("AutorTrabajo no encontrado con id " + id);
+        }
+        return Response.noContent().build();
+    }
 }
