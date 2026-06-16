@@ -3,6 +3,7 @@ package model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "actividades")
@@ -31,6 +32,7 @@ public class Actividad {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "cronograma_id")
+    @JsonIgnore
     private Cronograma cronograma;
 
     public Actividad() {}

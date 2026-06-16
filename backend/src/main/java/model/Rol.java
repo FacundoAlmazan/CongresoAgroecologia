@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import model.enums.TipoRol;
 import java.util.HashSet;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "roles")
@@ -18,6 +19,7 @@ public class Rol {
     private TipoRol nombre;
 
     @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
     private Set<Usuario> usuarios = new HashSet<>();
 
     public Rol() {}

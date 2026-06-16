@@ -3,6 +3,7 @@ package model;
 import jakarta.persistence.*;
 import model.enums.EstadoAsignacion;
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "asignaciones_evaluacion")
@@ -13,6 +14,7 @@ public class AsignacionEvaluacion {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "trabajo_id")
+    @JsonIgnore
     private Trabajo trabajo;
 
     @ManyToOne(optional = false)

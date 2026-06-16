@@ -11,6 +11,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "perfiles_evaluador")
@@ -22,6 +23,7 @@ public class PerfilEvaluador {
 
     @OneToOne(optional = false)
     @JoinColumn(name = "usuario_id", unique = true)
+    @JsonIgnore
     private Usuario usuario;
 
     @Column(nullable = false)
