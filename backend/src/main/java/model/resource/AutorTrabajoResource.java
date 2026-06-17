@@ -1,5 +1,7 @@
 package model.resource;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -16,6 +18,7 @@ import java.net.URI;
 import model.AutorTrabajo;
 import model.interfaceDao.IAutorTrabajoDAO;
 
+@Tag(name = "AutorTrabajo", description = "Endpoints REST para AutorTrabajo")
 @Path("/autores-trabajo")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -25,12 +28,14 @@ public class AutorTrabajoResource {
     private IAutorTrabajoDAO dao;
 
     @GET
+    @Operation(summary = "Listar recursos")
     public Response listar() {
         return Response.ok(dao.listarTodos()).build();
     }
 
     @GET
     @Path("/{id}")
+    @Operation(summary = "Obtener recurso por id")
     public Response obtenerPorId(@PathParam("id") Long id) {
         AutorTrabajo entidad = dao.getByID(id);
         if (entidad == null) {
@@ -40,6 +45,7 @@ public class AutorTrabajoResource {
     }
 
     @POST
+    @Operation(summary = "Crear recurso")
     public Response crear(AutorTrabajo entidad) {
         dao.guardar(entidad);
         return Response.created(URI.create("/autores-trabajo/" + entidad.getId()))
@@ -49,6 +55,7 @@ public class AutorTrabajoResource {
 
     @PUT
     @Path("/{id}")
+    @Operation(summary = "Modificar recurso")
     public Response modificar(@PathParam("id") Long id, AutorTrabajo entidad) {
         if (dao.getByID(id) == null) {
             throw new NotFoundException("AutorTrabajo no encontrado con id " + id);
@@ -59,6 +66,7 @@ public class AutorTrabajoResource {
 
     @DELETE
     @Path("/{id}")
+    @Operation(summary = "Eliminar recurso")
     public Response eliminar(@PathParam("id") Long id) {
         boolean eliminado = dao.deleteByID(id);
         if (!eliminado) {

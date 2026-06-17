@@ -34,6 +34,21 @@
     <url-pattern>/api/*</url-pattern>
 </servlet-mapping>
 
+<servlet>
+    <servlet-name>OpenApi</servlet-name>
+    <servlet-class>io.swagger.v3.jaxrs2.integration.OpenApiServlet</servlet-class>
+    <init-param>
+        <param-name>openApi.configuration.resourcePackages</param-name>
+        <param-value>model.resource,model.config</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>OpenApi</servlet-name>
+    <url-pattern>/openapi/*</url-pattern>
+</servlet-mapping>
+
     <!-- Definición de la página de inicio por defecto -->
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

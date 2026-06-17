@@ -1,5 +1,7 @@
 package model.resource;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -16,6 +18,7 @@ import java.net.URI;
 import model.Cronograma;
 import model.interfaceDao.ICronogramaDAO;
 
+@Tag(name = "Cronograma", description = "Endpoints REST para Cronograma")
 @Path("/cronogramas")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -25,12 +28,14 @@ public class CronogramaResource {
     private ICronogramaDAO dao;
 
     @GET
+    @Operation(summary = "Listar recursos")
     public Response listar() {
         return Response.ok(dao.listarTodos()).build();
     }
 
     @GET
     @Path("/{id}")
+    @Operation(summary = "Obtener recurso por id")
     public Response obtenerPorId(@PathParam("id") Long id) {
         Cronograma entidad = dao.getByID(id);
         if (entidad == null) {
@@ -40,6 +45,7 @@ public class CronogramaResource {
     }
 
     @POST
+    @Operation(summary = "Crear recurso")
     public Response crear(Cronograma entidad) {
         dao.guardar(entidad);
         return Response.created(URI.create("/cronogramas/" + entidad.getId()))
@@ -49,6 +55,7 @@ public class CronogramaResource {
 
     @PUT
     @Path("/{id}")
+    @Operation(summary = "Modificar recurso")
     public Response modificar(@PathParam("id") Long id, Cronograma entidad) {
         if (dao.getByID(id) == null) {
             throw new NotFoundException("Cronograma no encontrado con id " + id);
@@ -59,6 +66,7 @@ public class CronogramaResource {
 
     @DELETE
     @Path("/{id}")
+    @Operation(summary = "Eliminar recurso")
     public Response eliminar(@PathParam("id") Long id) {
         boolean eliminado = dao.deleteByID(id);
         if (!eliminado) {
