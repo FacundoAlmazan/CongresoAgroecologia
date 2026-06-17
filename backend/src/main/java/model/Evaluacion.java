@@ -5,7 +5,7 @@ import model.enums.ModalidadPresentacion;
 import model.enums.Recomendacion;
 import model.enums.TipoTrabajo;
 import java.time.LocalDate;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "evaluaciones")
@@ -64,7 +64,7 @@ public class Evaluacion {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "trabajo_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"evaluaciones", "asignaciones"})
     private Trabajo trabajo;
 
     @ManyToOne(optional = false)
