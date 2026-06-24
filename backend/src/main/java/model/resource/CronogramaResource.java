@@ -46,6 +46,13 @@ public class CronogramaResource {
 
     @POST
     @Operation(summary = "Crear recurso")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+        description = "Cronograma nuevo. No enviar id al crear",
+        content = @io.swagger.v3.oas.annotations.media.Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @io.swagger.v3.oas.annotations.media.ExampleObject(value = "{}")
+        )
+    )
     public Response crear(Cronograma entidad) {
         dao.guardar(entidad);
         return Response.created(URI.create("/cronogramas/" + entidad.getId()))
@@ -56,6 +63,13 @@ public class CronogramaResource {
     @PUT
     @Path("/{id}")
     @Operation(summary = "Modificar recurso")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+        description = "Cronograma actualizado",
+        content = @io.swagger.v3.oas.annotations.media.Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @io.swagger.v3.oas.annotations.media.ExampleObject(value = "{}")
+        )
+    )
     public Response modificar(@PathParam("id") Long id, Cronograma entidad) {
         if (dao.getByID(id) == null) {
             throw new NotFoundException("Cronograma no encontrado con id " + id);

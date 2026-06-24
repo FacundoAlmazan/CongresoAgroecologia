@@ -37,6 +37,13 @@ public class AsignacionEvaluacionResource {
 
     @POST
     @Operation(summary = "Crear recurso")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+        description = "Asignación a crear. Los IDs deben existir",
+        content = @io.swagger.v3.oas.annotations.media.Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @io.swagger.v3.oas.annotations.media.ExampleObject(value = "{\"trabajo\":{\"id\":1},\"evaluador\":{\"id\":2},\"asignadoPor\":{\"id\":1},\"fechaAsignacion\":\"2026-06-17\"}")
+        )
+    )
     public Response crear(AsignacionEvaluacion asignacion) {
         AsignacionEvaluacion creada = asignacionService.crear(asignacion);
         return Response.created(URI.create("/asignaciones-evaluacion/" + creada.getId())).entity(creada).build();
@@ -45,6 +52,13 @@ public class AsignacionEvaluacionResource {
     @PUT
     @Path("/{id}")
     @Operation(summary = "Modificar recurso")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+        description = "Asignación actualizada",
+        content = @io.swagger.v3.oas.annotations.media.Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @io.swagger.v3.oas.annotations.media.ExampleObject(value = "{\"trabajo\":{\"id\":1},\"evaluador\":{\"id\":2},\"asignadoPor\":{\"id\":1},\"fechaAsignacion\":\"2026-06-17\"}")
+        )
+    )
     public Response modificar(@PathParam("id") Long id, AsignacionEvaluacion asignacion) { return Response.ok(asignacionService.modificar(id, asignacion)).build(); }
 
     @DELETE

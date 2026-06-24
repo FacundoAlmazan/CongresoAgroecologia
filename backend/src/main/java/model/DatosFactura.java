@@ -1,6 +1,7 @@
 package model;
 
 import jakarta.persistence.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 
 @Entity
@@ -8,24 +9,31 @@ import jakarta.persistence.*;
 public class DatosFactura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "1")
     private Long id;
 
     @Column(nullable = false)
+    @Schema(example = "Universidad Nacional de La Plata")
     private String razonSocial;
 
     @Column(nullable = false)
+    @Schema(example = "30-54666670-7")
     private String cuit;
 
     @Column(nullable = false)
+    @Schema(example = "Exento")
     private String condicionIva;
 
     @Column(nullable = false)
+    @Schema(example = "Calle 50 y 120, La Plata")
     private String domicilioFiscal;
 
     @Column(nullable = false)
+    @Schema(example = "facturacion@unlp.edu.ar")
     private String emailFactura;
 
     @Column(length = 1000)
+    @Schema(example = "Enviar factura por correo electrónico")
     private String otrosDatos;
 
     @OneToOne(optional = false)

@@ -39,6 +39,13 @@ public class TrabajoResource {
 
     @POST
     @Operation(summary = "Crear recurso")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+        description = "Trabajo a crear. autorContacto.id y ejesTematicos.id deben existir",
+        content = @io.swagger.v3.oas.annotations.media.Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @io.swagger.v3.oas.annotations.media.ExampleObject(value = "{\"titulo\":\"Manejo agroecológico de suelos\",\"resumen\":\"Resumen del trabajo presentado al congreso.\",\"archivo\":\"trabajo.pdf\",\"passwordTrabajo\":\"clave123\",\"telefonoContacto\":\"+5492211234567\",\"modalidadSolicitada\":\"ORAL\",\"tipo\":\"TRABAJO_CIENTIFICO\",\"autorContacto\":{\"id\":1},\"ejesTematicos\":[{\"id\":1}]}")
+        )
+    )
     public Response crear(Trabajo trabajo) {
         Trabajo creado = trabajoService.crear(trabajo);
         return Response.created(URI.create("/trabajos/" + creado.getId())).entity(creado).build();
@@ -47,6 +54,13 @@ public class TrabajoResource {
     @PUT
     @Path("/{id}")
     @Operation(summary = "Modificar recurso")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+        description = "Trabajo actualizado",
+        content = @io.swagger.v3.oas.annotations.media.Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @io.swagger.v3.oas.annotations.media.ExampleObject(value = "{\"titulo\":\"Manejo agroecológico de semillas\",\"resumen\":\"Resumen del trabajo presentado al congreso.\",\"archivo\":\"trabajo.pdf\",\"passwordTrabajo\":\"clave123\",\"telefonoContacto\":\"+5492211234567\",\"modalidadSolicitada\":\"ORAL\",\"tipo\":\"TRABAJO_CIENTIFICO\",\"autorContacto\":{\"id\":1},\"ejesTematicos\":[{\"id\":1}]}")
+        )
+    )
     public Response modificar(@PathParam("id") Long id, Trabajo trabajo) { return Response.ok(trabajoService.modificar(id, trabajo)).build(); }
 
     @DELETE
@@ -62,6 +76,13 @@ public class TrabajoResource {
     @POST
     @Path("/{id}/asignar-evaluador")
     @Operation(summary = "Asignar evaluador a trabajo")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+        description = "IDs necesarios para asignar evaluador",
+        content = @io.swagger.v3.oas.annotations.media.Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @io.swagger.v3.oas.annotations.media.ExampleObject(value = "{\"evaluadorId\":2,\"asignadoPorId\":1}")
+        )
+    )
     public Response asignarEvaluador(@PathParam("id") Long trabajoId, Map<String, Long> body) {
         AsignacionEvaluacion asignacion = trabajoService.asignarEvaluador(trabajoId, body.get("evaluadorId"), body.get("asignadoPorId"));
         return Response.status(Response.Status.CREATED).entity(asignacion).build();

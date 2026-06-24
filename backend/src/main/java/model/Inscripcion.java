@@ -14,6 +14,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import model.enums.EstadoPago;
 import java.time.LocalDate;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "inscripciones")
@@ -21,30 +22,40 @@ public class Inscripcion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "1")
     private Long id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
+    @Schema(description = "Usuario participante. En POST alcanza con enviar {\"id\": 1}.")
     private Usuario usuario;
 
     @Column(nullable = false)
+    @Schema(example = "15000")
     private Double monto;
 
+    @Schema(type = "string", format = "date", example = "2026-06-17")
     private LocalDate fechaPago;
 
+    @Schema(example = "comprobante-transferencia.pdf")
     private String comprobante;
+    @Schema(example = "acreditacion.pdf")
     private String comprobanteAcreditacion;
 
     @Column(length = 500)
+    @Schema(example = "PARTICIPANTE")
     private String tipoInscripcion;
 
     @Column(length = 500)
+    @Schema(example = "UNLP")
     private String filiacionInstitucional;
 
     @Column(length = 1000)
+    @Schema(example = "Asistente")
     private String formasParticipacion;
 
     @Column(nullable = false)
+    @Schema(example = "true")
     private Boolean requiereFactura = false;
 
     @OneToOne(mappedBy = "inscripcion")
@@ -66,13 +77,16 @@ public class Inscripcion {
     private String observaciones;
 
     @Column(nullable = false)
+    @Schema(example = "false")
     private Boolean efectivo = false;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "PENDIENTE")
     private EstadoPago estado = EstadoPago.PENDIENTE;
 
     @Column(length = 1000)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "Comprobante ilegible")
     private String motivoRechazo;
 
     @ManyToOne

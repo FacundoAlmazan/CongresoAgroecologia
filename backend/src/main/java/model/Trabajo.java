@@ -10,37 +10,48 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "trabajos")
 public class Trabajo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "1")
     private Long id;
 
     @Column(nullable = false)
+    @Schema(example = "Manejo agroecológico de suelos")
     private String titulo;
 
     @Column(length = 5000)
+    @Schema(example = "Resumen del trabajo presentado al congreso.")
     private String resumen;
 
+    @Schema(example = "trabajo.pdf")
     private String archivo;
+    @Schema(type = "string", format = "date", example = "2026-06-17")
     private LocalDate fechaEnvio;
 
     @Column(nullable = false)
+    @Schema(example = "clave123")
     private String passwordTrabajo;
 
+    @Schema(example = "+5492211234567")
     private String telefonoContacto;
 
     @Enumerated(EnumType.STRING)
+    @Schema(example = "ORAL")
     private ModalidadPresentacion modalidadSolicitada;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Schema(example = "TRABAJO_CIENTIFICO")
     private TipoTrabajo tipo;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "BORRADOR")
     private EstadoTrabajo estado = EstadoTrabajo.BORRADOR;
 
     @ManyToOne

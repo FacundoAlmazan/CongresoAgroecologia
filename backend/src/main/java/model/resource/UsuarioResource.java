@@ -37,6 +37,13 @@ public class UsuarioResource {
 
     @POST
     @Operation(summary = "Crear recurso")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+        description = "Usuario a registrar",
+        content = @io.swagger.v3.oas.annotations.media.Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @io.swagger.v3.oas.annotations.media.ExampleObject(value = "{\"nombre\":\"Facundo\",\"apellido\":\"Almazan\",\"email\":\"facu.swagger@test.com\",\"password\":\"1234\",\"telefono\":\"+5492211234567\",\"tipoIdentificacion\":\"DNI\",\"numeroIdentificacion\":\"12345678\",\"nacionalidad\":\"Argentina\",\"institucion\":\"UNLP\"}")
+        )
+    )
     public Response crear(Usuario usuario) {
         Usuario creado = usuarioService.crear(usuario);
         return Response.created(URI.create("/usuarios/" + creado.getId())).entity(creado).build();
@@ -45,6 +52,13 @@ public class UsuarioResource {
     @PUT
     @Path("/{id}")
     @Operation(summary = "Modificar recurso")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+        description = "Datos actualizados del usuario",
+        content = @io.swagger.v3.oas.annotations.media.Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @io.swagger.v3.oas.annotations.media.ExampleObject(value = "{\"nombre\":\"Facundo\",\"apellido\":\"Almazan\",\"email\":\"facu.swagger.mod@test.com\",\"password\":\"1234\",\"telefono\":\"+5492211234567\",\"tipoIdentificacion\":\"DNI\",\"numeroIdentificacion\":\"12345678\",\"nacionalidad\":\"Argentina\",\"institucion\":\"UNLP\"}")
+        )
+    )
     public Response modificar(@PathParam("id") Long id, Usuario usuario) { return Response.ok(usuarioService.modificar(id, usuario)).build(); }
 
     @DELETE

@@ -37,6 +37,13 @@ public class ActividadResource {
 
     @POST
     @Operation(summary = "Crear recurso")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+        description = "Actividad a crear. El cronograma.id debe existir en la base",
+        content = @io.swagger.v3.oas.annotations.media.Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @io.swagger.v3.oas.annotations.media.ExampleObject(value = "{\"titulo\":\"Charla de prueba\",\"descripcion\":\"Actividad creada desde Swagger\",\"aula\":\"Aula 1\",\"fecha\":\"2026-06-17\",\"horaInicio\":\"09:00:00\",\"horaFin\":\"10:00:00\",\"cronograma\":{\"id\":1}}")
+        )
+    )
     public Response crear(Actividad actividad) {
         Actividad creada = actividadService.crear(actividad);
         return Response.created(URI.create("/actividades/" + creada.getId())).entity(creada).build();
@@ -45,6 +52,13 @@ public class ActividadResource {
     @PUT
     @Path("/{id}")
     @Operation(summary = "Modificar recurso")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+        description = "Actividad actualizada",
+        content = @io.swagger.v3.oas.annotations.media.Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @io.swagger.v3.oas.annotations.media.ExampleObject(value = "{\"titulo\":\"Charla modificada\",\"descripcion\":\"Actividad creada desde Swagger\",\"aula\":\"Aula 1\",\"fecha\":\"2026-06-17\",\"horaInicio\":\"09:00:00\",\"horaFin\":\"10:00:00\",\"cronograma\":{\"id\":1}}")
+        )
+    )
     public Response modificar(@PathParam("id") Long id, Actividad actividad) { return Response.ok(actividadService.modificar(id, actividad)).build(); }
 
     @DELETE

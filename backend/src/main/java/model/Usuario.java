@@ -5,36 +5,48 @@ import model.enums.TipoRol;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "1")
     private Long id;
 
     @Column(nullable = false)
+    @Schema(example = "Facundo")
     private String nombre;
 
     @Column(nullable = false)
+    @Schema(example = "Almazan")
     private String apellido;
 
     @Column(nullable = false, unique = true)
+    @Schema(example = "facu.swagger@test.com")
     private String email;
 
     @Column(nullable = false)
+    @Schema(example = "1234")
     private String password;
 
+    @Schema(example = "+5492211234567")
     private String telefono;
 
     @Enumerated(EnumType.STRING)
+    @Schema(example = "DNI")
     private TipoIdentificacion tipoIdentificacion;
 
+    @Schema(example = "12345678")
     private String numeroIdentificacion;
+    @Schema(example = "Argentina")
     private String nacionalidad;
+    @Schema(example = "UNLP")
     private String institucion;
 
     @Column(nullable = false)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "true")
     private Boolean activo = true;
 
     @ManyToMany
