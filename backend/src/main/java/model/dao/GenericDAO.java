@@ -23,16 +23,26 @@ public abstract class GenericDAO<T> {
     }
 
     public void guardar(T entidad) {
-        em.getTransaction().begin();
-        em.persist(entidad);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.persist(entidad);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            rollbackSiActivo();
+            throw e;
+        }
     }
 
     public T modificar(T entidad) {
-        em.getTransaction().begin();
-        T actualizada = em.merge(entidad);
-        em.getTransaction().commit();
-        return actualizada;
+        try {
+            em.getTransaction().begin();
+            T actualizada = em.merge(entidad);
+            em.getTransaction().commit();
+            return actualizada;
+        } catch (RuntimeException e) {
+            rollbackSiActivo();
+            throw e;
+        }
     }
 
     public boolean deleteByID(Long id) {
@@ -40,10 +50,22 @@ public abstract class GenericDAO<T> {
         if (entidad == null) {
             return false;
         }
-        em.getTransaction().begin();
-        T gestionada = em.contains(entidad) ? entidad : em.merge(entidad);
-        em.remove(gestionada);
-        em.getTransaction().commit();
-        return true;
+
+        try {
+            em.getTransaction().begin();
+            T gestionada = em.contains(entidad) ? entidad : em.merge(entidad);
+            em.remove(gestionada);
+            em.getTransaction().commit();
+            return true;
+        } catch (RuntimeException e) {
+            rollbackSiActivo();
+            throw e;
+        }
+    }
+
+    private void rollbackSiActivo() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
     }
 }

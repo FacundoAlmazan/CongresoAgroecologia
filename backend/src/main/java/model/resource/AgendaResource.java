@@ -45,7 +45,18 @@ public class AgendaResource {
     }
 
     @POST
-    @Operation(summary = "Crear recurso")
+    @Operation(summary = "Crear agenda")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+    	    description = "Datos para crear una agenda. Usar un usuario existente.",
+    	    content = @io.swagger.v3.oas.annotations.media.Content(
+    	        mediaType = MediaType.APPLICATION_JSON,
+    	        examples = @io.swagger.v3.oas.annotations.media.ExampleObject(
+    	            name = "Crear agenda",
+    	            summary = "Reemplazar usuario.id por un ID existente",
+    	            value = "{\"usuario\":{\"id\":1}}"
+    	        )
+    	    )
+    )
     public Response crear(Agenda entidad) {
         dao.guardar(entidad);
         return Response.created(URI.create("/agendas/" + entidad.getId()))
@@ -56,6 +67,17 @@ public class AgendaResource {
     @PUT
     @Path("/{id}")
     @Operation(summary = "Modificar recurso")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "Datos para modificar una agenda. Usar IDs existentes.",
+            content = @io.swagger.v3.oas.annotations.media.Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @io.swagger.v3.oas.annotations.media.ExampleObject(
+                    name = "Modificar agenda",
+                    summary = "Reemplazar usuario.id por un ID existente",
+                    value = "{\"usuario\":{\"id\":1}}"
+                )
+            )
+        )
     public Response modificar(@PathParam("id") Long id, Agenda entidad) {
         if (dao.getByID(id) == null) {
             throw new NotFoundException("Agenda no encontrado con id " + id);
@@ -63,6 +85,7 @@ public class AgendaResource {
         entidad.setId(id);
         return Response.ok(dao.modificar(entidad)).build();
     }
+
 
     @DELETE
     @Path("/{id}")
