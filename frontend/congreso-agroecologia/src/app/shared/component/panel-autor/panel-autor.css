@@ -1,0 +1,4 @@
+  body { font-family: 'Manrope', sans-serif; background-color: #f5fced; color: #171d14; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .tonal-shift-no-border { border: none !important; }

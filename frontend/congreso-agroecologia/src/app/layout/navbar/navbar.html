@@ -1,0 +1,15 @@
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-2xl shadow-[0_8px_32px_rgba(23,29,20,0.04)] flex justify-between items-center px-6 md:px-12 h-20">
+<div class="text-xl font-headline font-bold text-emerald-900">
+    <a  [routerLink]="['/home']">V Congreso de Agroecología</a>    
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-emerald-800/70 font-medium hover:text-emerald-900 transition-all duration-300 font-label tracking-wide" href="#">Noticias</a>
+<a class="text-emerald-800/70 font-medium hover:text-emerald-900 transition-all duration-300 font-label tracking-wide" href="#">Cronograma</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:block px-4 py-2 text-primary font-bold hover:opacity-80 transition-opacity">Crear Usuario</button>
+<a [routerLink]="['/panel_usuario']">
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-bold shadow-sm hover:scale-[0.98] active:opacity-80 transition-all duration-300">Iniciar Sesión</button>
+</a>
+</div>
+</nav>

@@ -1,0 +1,121 @@
+
+<div class="flex justify-center">
+<!-- Main Content -->
+<main class="flex-1 p-8">
+<div class="max-w-6xl mx-auto space-y-12">
+<!-- Section 1: User Search -->
+<section class="animate-in fade-in slide-in-from-bottom-4 duration-500 text-center md:text-left">
+<div class="mb-6">
+<h2 class="text-3xl font-bold text-on-surface mb-2">Administración de Usuarios</h2>
+<p class="text-on-surface-variant font-body">Gestione los accesos y credenciales de los participantes del congreso.</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl shadow-sm inline-flex flex-wrap items-end gap-6 border-outline-variant/10 border justify-center md:justify-start">
+<div class="space-y-2 text-left">
+<label class="text-xs font-bold uppercase tracking-widest text-primary block">Nombre o Código</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm" data-icon="badge">badge</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-lowest border-none rounded-lg focus:ring-2 focus:ring-primary/20 text-sm w-64 shadow-sm" placeholder="Ej: USR-123" type="text"/>
+</div>
+</div>
+<div class="space-y-2 text-left">
+<label class="text-xs font-bold uppercase tracking-widest text-primary block">Permiso</label>
+<select class="pl-4 pr-10 py-2 bg-surface-container-lowest border-none rounded-lg focus:ring-2 focus:ring-primary/20 text-sm w-48 shadow-sm appearance-none cursor-pointer">
+<option>Todos los niveles</option>
+<option>Evaluador</option>
+<option>SUDO</option>
+<option>Publisher</option>
+<option>Verificador</option>
+</select>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-bold text-sm h-[38px] hover:shadow-md transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="filter_alt">filter_alt</span>
+                            Filtrar
+                        </button>
+</div>
+</section>
+<!-- Section 2: Search Results -->
+<section class="space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span>
+                            Resultados encontrados (2)
+                        </h3>
+</div>
+<div class="grid gap-6">
+<!-- User 1 Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-outline-variant/10 group hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-all">
+<div class="flex flex-col md:flex-row md:items-center gap-8">
+<div class="flex-1 space-y-4">
+<div class="flex items-center gap-4">
+<div>
+<div class="flex items-center gap-2">
+<h4 class="text-xl font-bold text-on-surface">Ana Silvestri</h4>
+<span class="bg-surface-container px-2 py-0.5 rounded text-[10px] font-bold text-primary tracking-tighter">USR-902</span>
+</div>
+<p class="text-sm text-on-surface-variant">DNI: 12.345.678</p>
+</div>
+</div>
+<div class="flex gap-6 text-xs text-outline font-medium">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+                                            Ingreso: 10 Oct 2023
+                                        </span>
+</div>
+</div>
+<div class="flex flex-row gap-2 justify-end"><button class="px-4 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-on-primary shadow-sm hover:scale-105 active:scale-95">Administrador</button>
+<button class="px-4 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-on-primary shadow-sm hover:scale-105 active:scale-95">Evaluador</button>
+<button class="px-4 py-2 rounded-lg text-xs font-bold transition-all border-2 border-outline-variant/50 text-outline-variant hover:bg-surface-container-low">Organizador Científico</button></div>
+</div>
+</div>
+<!-- User 2 Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-outline-variant/10 group hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-all">
+<div class="flex flex-col md:flex-row md:items-center gap-8">
+<div class="flex-1 space-y-4">
+<div class="flex items-center gap-4">
+<div>
+<div class="flex items-center gap-2">
+<h4 class="text-xl font-bold text-on-surface">Carlos Mendoza</h4>
+<span class="bg-surface-container px-2 py-0.5 rounded text-[10px] font-bold text-primary tracking-tighter">USR-115</span>
+</div>
+<p class="text-sm text-on-surface-variant">DNI: 87.654.321</p>
+</div>
+</div>
+<div class="flex gap-6 text-xs text-outline font-medium">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+                                            Ingreso: 15 Nov 2023
+                                        </span>
+</div>
+</div>
+<div class="flex flex-row gap-2 justify-end"><button class="px-4 py-2 rounded-lg text-xs font-bold transition-all border-2 border-outline-variant/50 text-outline-variant hover:bg-surface-container-low">Administrador</button>
+<button class="px-4 py-2 rounded-lg text-xs font-bold transition-all border-2 border-outline-variant/50 text-outline-variant hover:bg-surface-container-low">Evaluador</button>
+<button class="px-4 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-on-primary shadow-sm hover:scale-105 active:scale-95">Organizador Científico</button></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: System Log CTA -->
+<section class="pt-8">
+<div class="bg-gradient-to-r from-primary to-primary-container p-[1px] rounded-2xl overflow-hidden shadow-xl">
+<div class="bg-surface-container-lowest p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="relative z-10 space-y-4 text-center md:text-left">
+<h3 class="text-3xl font-bold text-primary">Trazabilidad del Sistema</h3>
+<p class="text-on-surface-variant max-w-md">Acceda al registro detallado de todas las operaciones, modificaciones y accesos realizados en el archivo central.</p>
+<button class="mt-4 bg-primary text-on-primary px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transition-all flex items-center gap-3 active:scale-95">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+                                    Consultar LOG del Sistema
+                                </button>
+</div>
+<div class="relative z-10 w-full md:w-auto">
+<div class="w-full md:w-64 h-48 rounded-xl bg-surface-container-low border border-outline-variant/30 overflow-hidden flex items-center justify-center grayscale opacity-60">
+<img alt="Code display representing logs" class="object-cover w-full h-full" data-alt="close up of binary code and log files on a computer screen in a dim tech environment with green highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAJm6flyBfSTNbamc_Tf8kFtQ73WmC2zJ2WnQHkOVQcXqgSk-l3Czlr4279P5DGvVeZsgviMq42PN2MSh42kPWFwvXVOA_GTIXsySXBCquWSldxwGVdYnZif1IdpOsR1YGTWIprX6J9OyzHLrCJX-Uq8HV1p5I-0v_oiCmnsWQhUG0Sv5T9L1zyCvduwh30RbRnqwX_XmokUrCMTV5eHdmRu5FTeIK6ktJSEfaFS7mrh2glkJ_MQJhdO4LMtNG45WKO-nlsTJ6tH7s"/>
+</div>
+</div>
+<!-- Decorative background icon -->
+<span class="material-symbols-outlined absolute -right-12 -bottom-12 text-[18rem] text-primary/5 select-none pointer-events-none" data-icon="history_edu">history_edu</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
