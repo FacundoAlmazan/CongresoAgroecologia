@@ -1,18 +1,9 @@
-export enum ModalidadPresentacion {
-  // Definir los valores correspondientes al enum de Java, por ejemplo:
-  // PRESENCIAL = 'PRESENCIAL',
-  // VIRTUAL = 'VIRTUAL'
-}
+import { EstadoTrabajo } from "./EstadoTrabajo.enum.model";
+import { ModalidadPresentacion } from "./ModalidadPresentacion.enum.model";
+import { TipoTrabajo } from "./TipoTrabajo.enum.model";
+import { Usuario } from "./usuario.model";
 
-export enum TipoTrabajo {
-  // Definir los valores correspondientes al enum de Java
-}
-
-export enum EstadoTrabajo {
-  BORRADOR = 'BORRADOR',
-  // Agregar el resto de los estados de la aplicación
-}
-/*
+/**
 
 export interface Trabajo {
   id?: number; // Opcional si se genera en el backend al crear el registro
@@ -31,4 +22,4 @@ export interface Trabajo {
   asignaciones: AsignacionEvaluacion[];
   evaluaciones: Evaluacion[];
   decisionTrabajo?: DecisionTrabajo;
-}*/
+} */

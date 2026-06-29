@@ -1,0 +1,6 @@
+
+export enum TipoTrabajo {
+    TRABAJO_CIENTIFICO,
+    RELATO_EXPERIENCIA,
+    PROPUESTA_TALLER
+}

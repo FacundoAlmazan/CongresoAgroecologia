@@ -1,10 +1,10 @@
-export enum EstadoPago {
-  PENDIENTE = 'PENDIENTE',
-  // Agregar el resto de los estados del enum de Java, por ejemplo: APROBADO, RECHAZADO
-}
-/* 
+import { DatosFactura } from "./datosFactura.model";
+import { EstadoPago } from "./EstadoPago.enum.model";
+import { Usuario } from "./usuario.model";
+
+
 export interface Inscripcion {
-  id?: number; // Opcional por ser autogenerado en el backend
+  id?: number; 
   usuario: Usuario; // Obligatorio debido a optional = false en el ManyToOne
   monto: number;
   fechaPago?: string; // Formato string ISO (YYYY-MM-DD) para persistencia en JSON
@@ -14,7 +14,7 @@ export interface Inscripcion {
   filiacionInstitucional?: string;
   formasParticipacion?: string;
   requiereFactura: boolean;
-  datosFactura?: DatosFactura; // Relación OneToOne inversa, puede ser indefinida
+  datosFactura?: DatosFactura;
   requiereAdecuacion: boolean;
   detalleAdecuacion?: string;
   tieneAlergiaOIntolerancia: boolean;
@@ -23,6 +23,6 @@ export interface Inscripcion {
   efectivo: boolean;
   estado: EstadoPago;
   motivoRechazo?: string;
-  validadoPor?: Usuario; // Relación ManyToOne opcional
-  qr?: QR; // Relación OneToOne inversa, puede ser indefinida
-}*/
+  validadoPor?: Usuario; 
+  //qr?: QR; // Relación OneToOne inversa, puede ser indefinida
+}
