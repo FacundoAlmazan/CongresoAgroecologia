@@ -1,12 +1,14 @@
+export interface CronogramaRef {
+  id: number;
+}
+
 export interface Actividad {
   id?: number;
   titulo: string;
-  autor: string;
-  descripcion: string;
-  fecha: Date; 
-  horaInicio: string;
-  horaFin:string;
-  aula:string;
-  //falta cronograma
-
+  descripcion?: string;
+  aula: string;
+  fecha: string | number[];
+  horaInicio: string | number[];
+  horaFin: string | number[];
+  cronograma: CronogramaRef;
 }

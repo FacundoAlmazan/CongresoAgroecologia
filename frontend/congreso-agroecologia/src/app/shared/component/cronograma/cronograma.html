@@ -1,0 +1,309 @@
+<main
+  class="pb-24 px-6 max-w-screen-2xl mx-auto pt-32 transition-all duration-500"
+  [class.blur-[8px]]="modalAbierto"
+  [class.opacity-50]="modalAbierto"
+  [class.pointer-events-none]="modalAbierto"
+>
+  <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
+    <div class="max-w-2xl">
+      <h1 class="text-6xl md:text-7xl font-headline text-primary mb-4 tracking-tight leading-tight">
+        Cronograma del Congreso
+      </h1>
+
+      <p class="text-xl pt-8 text-on-surface/80 max-w-xl leading-relaxed">
+        Explore la agenda completa de la quinta edición del congreso. Un espacio para la convergencia de saberes ancestrales y biotecnología regenerativa.
+      </p>
+    </div>
+
+    <button class="flex items-center gap-2 px-8 py-4 bg-gradient-to-br from-primary to-emerald-700 text-white rounded-2xl shadow-lg hover:shadow-primary/20 transition-all active:scale-95">
+      <span class="material-symbols-outlined">event_available</span>
+      <span class="font-bold tracking-tight">Mi Agenda</span>
+    </button>
+  </div>
+
+  <div class="flex items-center gap-3 mb-12 p-1.5 bg-slate-50 w-fit rounded-3xl border border-slate-100">
+    <button class="px-8 py-3 rounded-2xl bg-primary text-white font-bold active-pill-shadow transition-all">
+      Martes
+    </button>
+
+    <button class="px-8 py-3 rounded-2xl text-on-surface hover:bg-slate-200/50 font-semibold transition-all">
+      Miércoles
+    </button>
+
+    <button class="px-8 py-3 rounded-2xl text-on-surface hover:bg-slate-200/50 font-semibold transition-all">
+      Jueves
+    </button>
+
+    @if (esAdmin) {
+      <button
+        type="button"
+        (click)="abrirModalCrear()"
+        class="ml-4 px-6 py-3 rounded-2xl border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all flex items-center gap-2"
+      >
+        <span class="material-symbols-outlined">add</span>
+        Crear nueva actividad
+      </button>
+    }
+  </div>
+
+  @if (error) {
+    <div class="mb-6 rounded-2xl bg-red-50 text-red-700 px-6 py-4 font-bold">
+      {{ error }}
+    </div>
+  }
+
+  @if (cargando) {
+    <p class="text-primary font-bold">Cargando actividades...</p>
+  }
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+    <div class="flex flex-col gap-6">
+      <div class="border-b border-slate-100 pb-4 mb-2">
+        <h2 class="text-center text-sm font-bold tracking-widest uppercase text-primary font-display">
+          POR LA MAÑANA
+        </h2>
+      </div>
+
+      @for (actividad of actividadesManiana; track actividad.id ?? actividad.titulo) {
+        <div class="group bg-white rounded-3xl p-6 border-l-[6px] border-primary shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-lg transition-all">
+          <div class="flex justify-between items-start mb-2">
+            <div class="flex gap-3 text-slate-400 text-xs font-bold uppercase">
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">schedule</span>
+                {{ horaComoString(actividad.horaInicio) }}
+              </span>
+
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">location_on</span>
+                {{ actividad.aula }}
+              </span>
+            </div>
+
+            @if (esAdmin) {
+              <div class="flex gap-2">
+                <button
+                  type="button"
+                  class="p-1 hover:text-primary transition-colors"
+                  (click)="abrirModalEditar(actividad)"
+                >
+                  <span class="material-symbols-outlined text-lg">edit</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="p-1 hover:text-red-500 transition-colors"
+                  (click)="confirmarEliminar(actividad)"
+                >
+                  <span class="material-symbols-outlined text-lg">delete</span>
+                </button>
+              </div>
+            }
+          </div>
+
+          <h3 class="text-xl font-display font-bold text-slate-900 group-hover:text-primary transition-colors">
+            {{ actividad.titulo }}
+          </h3>
+
+          @if (actividad.descripcion) {
+            <p class="mt-2 text-sm text-slate-500">
+              {{ actividad.descripcion }}
+            </p>
+          }
+        </div>
+      } @empty {
+        <p class="text-slate-500">No hay actividades por la mañana.</p>
+      }
+    </div>
+
+    <div class="flex flex-col gap-6">
+      <div class="border-b border-slate-100 pb-4 mb-2">
+        <h2 class="text-center text-sm font-bold tracking-widest uppercase text-primary font-display">
+          POR LA TARDE
+        </h2>
+      </div>
+
+      @for (actividad of actividadesTarde; track actividad.id ?? actividad.titulo) {
+        <div class="group bg-white rounded-3xl p-6 border-l-[6px] border-primary shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-lg transition-all">
+          <div class="flex justify-between items-start mb-2">
+            <div class="flex gap-3 text-slate-400 text-xs font-bold uppercase">
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">schedule</span>
+                {{ horaComoString(actividad.horaInicio) }}
+              </span>
+
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">location_on</span>
+                {{ actividad.aula }}
+              </span>
+            </div>
+
+            @if (esAdmin) {
+              <div class="flex gap-2">
+                <button
+                  type="button"
+                  class="p-1 hover:text-primary transition-colors"
+                  (click)="abrirModalEditar(actividad)"
+                >
+                  <span class="material-symbols-outlined text-lg">edit</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="p-1 hover:text-red-500 transition-colors"
+                  (click)="confirmarEliminar(actividad)"
+                >
+                  <span class="material-symbols-outlined text-lg">delete</span>
+                </button>
+              </div>
+            }
+          </div>
+
+          <h3 class="text-xl font-display font-bold text-slate-900 group-hover:text-primary transition-colors">
+            {{ actividad.titulo }}
+          </h3>
+
+          @if (actividad.descripcion) {
+            <p class="mt-2 text-sm text-slate-500">
+              {{ actividad.descripcion }}
+            </p>
+          }
+        </div>
+      } @empty {
+        <p class="text-slate-500">No hay actividades por la tarde.</p>
+      }
+    </div>
+  </div>
+</main>
+
+@if (modalAbierto) {
+  <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-8 modal-blur bg-black/5">
+    <div class="bg-white w-full max-w-2xl rounded-[2.5rem] shadow-[0_32px_120px_0_rgba(0,97,86,0.12)] overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="px-8 pt-12 pb-6 text-center">
+        <h2 class="font-headline text-4xl text-[#006156] mb-3">
+          {{ modoEdicion ? 'Editar actividad' : 'Crear nueva actividad' }}
+        </h2>
+
+        <p class="text-[#171d14]/60 text-sm">
+          {{ modoEdicion ? 'Modificá los datos de la actividad.' : 'Añade una nueva sesión al cronograma del congreso.' }}
+        </p>
+      </div>
+
+      <form #actividadForm="ngForm" (ngSubmit)="guardarActividad()">
+        <div class="flex-1 overflow-y-auto px-10 py-4 custom-scrollbar space-y-8">
+          <div>
+            <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-[#006156] mb-3">
+              Título de la actividad
+            </label>
+
+            <input
+              class="w-full bg-[#f5fced] border-none rounded-2xl px-6 py-5 focus:ring-2 focus:ring-[#b7f481] transition-all placeholder:text-[#171d14]/30 font-medium"
+              placeholder="Ej. Avances en Permacultura"
+              type="text"
+              name="titulo"
+              [(ngModel)]="actividadFormData.titulo"
+              required
+            />
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-[#006156] mb-3">
+              Descripción
+            </label>
+
+            <textarea
+              class="w-full bg-[#f5fced] border-none rounded-2xl px-6 py-5 focus:ring-2 focus:ring-[#b7f481] transition-all placeholder:text-[#171d14]/30 font-medium resize-none"
+              placeholder="Breve resumen de la sesión..."
+              rows="4"
+              name="descripcion"
+              [(ngModel)]="actividadFormData.descripcion"
+            ></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-[#006156] mb-3">
+                Aula / Sala
+              </label>
+
+              <select
+                class="w-full bg-[#f5fced] border-none rounded-2xl px-6 py-5 focus:ring-2 focus:ring-[#b7f481] transition-all font-medium"
+                name="aula"
+                [(ngModel)]="actividadFormData.aula"
+                required
+              >
+                <option value="">Seleccionar ubicación</option>
+                <option value="Auditorio Principal">Auditorio Principal</option>
+                <option value="Auditorio C2">Auditorio C2</option>
+                <option value="Jardín Principal">Jardín Principal</option>
+                <option value="Panel Plenario">Panel Plenario</option>
+                <option value="Aula 1">Aula 1</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-[#006156] mb-3">
+                Fecha
+              </label>
+
+              <input
+                class="w-full bg-[#f5fced] border-none rounded-2xl px-6 py-5 focus:ring-2 focus:ring-[#b7f481] transition-all font-medium"
+                type="date"
+                name="fecha"
+                [(ngModel)]="actividadFormData.fecha"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-[#006156] mb-3">
+                Hora de inicio
+              </label>
+
+              <input
+                class="w-full bg-[#f5fced] border-none rounded-2xl px-6 py-5 focus:ring-2 focus:ring-[#b7f481] transition-all font-medium"
+                type="time"
+                name="horaInicio"
+                [(ngModel)]="actividadFormData.horaInicio"
+                required
+              />
+            </div>
+
+            <div>
+              <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-[#006156] mb-3">
+                Hora de finalización
+              </label>
+
+              <input
+                class="w-full bg-[#f5fced] border-none rounded-2xl px-6 py-5 focus:ring-2 focus:ring-[#b7f481] transition-all font-medium"
+                type="time"
+                name="horaFin"
+                [(ngModel)]="actividadFormData.horaFin"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="px-10 py-10 flex items-center justify-center gap-8">
+          <button
+            type="button"
+            class="text-[#006156] font-bold hover:underline transition-all active:scale-95"
+            (click)="cerrarModal()"
+          >
+            Cancelar
+          </button>
+
+          <button
+            type="submit"
+            [disabled]="actividadForm.invalid"
+            class="px-12 py-4 rounded-full font-bold bg-[#006156] text-white shadow-lg shadow-[#006156]/20 hover:shadow-xl transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Guardar Actividad
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

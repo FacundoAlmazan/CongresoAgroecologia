@@ -5,6 +5,7 @@ import { FormularioPaper } from './shared/component/formulario-paper/formulario-
 import { PanelControl } from './shared/component/panel-control/panel-control';
 import { PanelEvaluaciones } from './shared/component/panel-evaluaciones/panel-evaluaciones';
 import { PanelAutor } from './shared/component/panel-autor/panel-autor';
+import { Cronograma } from './shared/component/cronograma/cronograma';
 
 export const routes: Routes = [
 { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,5 +15,6 @@ export const routes: Routes = [
 {path:'panel_control', component: PanelControl },
 {path:'panel_evaluaciones', component: PanelEvaluaciones },
 {path:'panel_autor', component: PanelAutor },
+{ path: 'cronograma', component: Cronograma },
 //{path:'', component:  },
 ];

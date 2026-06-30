@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  background-color: #f5fced;
+  min-height: 100vh;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.active-pill-shadow {
+  box-shadow: 0 10px 25px -5px rgba(0, 97, 86, 0.3);
+}
+
+.modal-blur {
+  backdrop-filter: blur(12px) brightness(0.95);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #bfcaba;
+  border-radius: 10px;
+}

@@ -4,7 +4,12 @@
 </div>
 <div class="hidden md:flex items-center gap-8">
 <a class="text-emerald-800/70 font-medium hover:text-emerald-900 transition-all duration-300 font-label tracking-wide" href="#">Noticias</a>
-<a class="text-emerald-800/70 font-medium hover:text-emerald-900 transition-all duration-300 font-label tracking-wide" href="#">Cronograma</a>
+<a
+  [routerLink]="['/cronograma']"
+  class="text-emerald-800/70 font-medium hover:text-emerald-900 transition-all duration-300 font-label tracking-wide"
+>
+  Cronograma
+</a>
 </div>
 <div class="flex items-center gap-4">
 <button class="hidden md:block px-4 py-2 text-primary font-bold hover:opacity-80 transition-opacity">Crear Usuario</button>
