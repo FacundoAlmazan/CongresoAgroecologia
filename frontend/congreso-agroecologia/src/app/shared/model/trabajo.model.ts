@@ -1,9 +1,14 @@
+import { AsignacionEvaluacion } from "./asignacionEvaluacion.model";
+import { AutorTrabajo } from "./autorTrabajo.model";
+import { DecisionTrabajo } from "./decisionTrabajo.model";
+import { EjeTematico } from "./ejeTematico.model";
 import { EstadoTrabajo } from "./EstadoTrabajo.enum.model";
+import { Evaluacion } from "./evaluacion.model";
 import { ModalidadPresentacion } from "./ModalidadPresentacion.enum.model";
 import { TipoTrabajo } from "./TipoTrabajo.enum.model";
 import { Usuario } from "./usuario.model";
 
-/**
+
 
 export interface Trabajo {
   id?: number; // Opcional si se genera en el backend al crear el registro
@@ -22,4 +27,4 @@ export interface Trabajo {
   asignaciones: AsignacionEvaluacion[];
   evaluaciones: Evaluacion[];
   decisionTrabajo?: DecisionTrabajo;
-} */
+} 

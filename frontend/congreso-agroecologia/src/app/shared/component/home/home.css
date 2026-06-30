@@ -1,0 +1,27 @@
+.material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .activity-card-shadow {
+            box-shadow: 0 10px 30px -12px rgba(0, 97, 86, 0.15);
+        }
+        .activity-card-shadow:hover {
+            box-shadow: 0 20px 40px -15px rgba(56, 107, 1, 0.25);
+        }
+        .title-underline {
+            position: relative;
+        }
+        .title-underline::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 40px;
+            height: 2px;
+            background-color: currentColor;
+            opacity: 0.3;
+            transition: width 0.3s ease;
+        }
+        .group:hover .title-underline::after {
+            width: 100%;
+            opacity: 0.6;
+        }

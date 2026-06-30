@@ -16,5 +16,95 @@
 <a [routerLink]="['/panel_usuario']">
 <button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-bold shadow-sm hover:scale-[0.98] active:opacity-80 transition-all duration-300">Iniciar Sesión</button>
 </a>
+
+<button (click)="activo=!activo" aria-label="Abrir menú" class="p-2 text-emerald-900 hover:bg-emerald-50 rounded-full transition-colors flex items-center justify-center" id="menu-toggle"><span class="material-symbols-outlined text-3xl">menu</span></button>
+
+
 </div>
 </nav>
+
+
+<!-- Sidebar Drawer -->
+
+<div  class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] opacity-0 pointer-events-none transition-opacity duration-300" id="sidebar-overlay"></div>
+<aside (click)="activo=false"  [class.translate-x-full]="!activo"class="fixed top-0 right-0 h-full w-80 bg-primary z-[70] translate-x-full transition-transform duration-300 ease-in-out shadow-2xl overflow-y-auto" id="sidebar-drawer">
+<div class="p-6 flex justify-end">
+<button class="text-white/80 hover:text-white transition-colors" id="close-sidebar">
+<span class="material-symbols-outlined text-3xl">close</span>
+</button>
+</div>
+<nav  class="px-8 pb-12 flex flex-col gap-6 font-headline">
+<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<span class="material-symbols-outlined">home</span> Inicio
+        </a>
+<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<span class="material-symbols-outlined">assignment</span> Inscripción y aranceles
+        </a>
+<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<span class="material-symbols-outlined">newspaper</span> Circulares y novedades
+        </a>
+<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<span class="material-symbols-outlined">architecture</span> Talleres
+        </a>
+<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<span class="material-symbols-outlined">calendar_month</span> Cronograma del congreso
+        </a>
+<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<span class="material-symbols-outlined">school</span> Curso pre-congreso
+        </a>
+<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<span class="material-symbols-outlined">map</span> Visitas pos-congreso
+        </a>
+<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<span class="material-symbols-outlined">upload_file</span> Envío de trabajos
+        </a>
+<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<span class="material-symbols-outlined">hiking</span> Turismo y recreación
+        </a>
+<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<span class="material-symbols-outlined">hotel</span> Alojamientos
+        </a>
+<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<span class="material-symbols-outlined">directions_bus</span> Servicios y transportes en La Plata
+        </a>
+<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<span class="material-symbols-outlined">account_balance</span> Organizadores
+        </a>
+<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<span class="material-symbols-outlined">mail</span> Contacto
+        </a>
+</nav>
+</aside>
+
+
+<script>
+    (function() {
+        const menuToggle = document.getElementById('menu-toggle');
+        const closeSidebar = document.getElementById('close-sidebar');
+        const sidebar = document.getElementById('sidebar-drawer');
+        const overlay = document.getElementById('sidebar-overlay');
+        const links = document.querySelectorAll('.sidebar-link');
+
+        function openMenu() {
+            sidebar.classList.remove('translate-x-full');
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            sidebar.classList.add('translate-x-full');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = '';
+        }
+
+        menuToggle.addEventListener('click', openMenu);
+        closeSidebar.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+        
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                closeMenu();
+            });
+        });
+    })();
+</script>
