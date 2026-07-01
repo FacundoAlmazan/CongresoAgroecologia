@@ -12,7 +12,7 @@ import { Usuario } from '../../shared/model/usuario.model';
 export class Navbar {
   activo = false;
   menuUsuarioAbierto = false;
-
+  estaLogueado=true;
   constructor(
     private authService: AuthService,
     private router: Router
@@ -21,11 +21,11 @@ export class Navbar {
   get usuarioActual(): Usuario | null {
     return this.authService.getUsuarioActual();
   }
-
+/*
   get estaLogueado(): boolean {
     return this.usuarioActual !== null;
   }
-
+*/
   get inicialesUsuario(): string {
     const nombre = this.usuarioActual?.nombre ?? '';
     const apellido = this.usuarioActual?.apellido ?? '';
