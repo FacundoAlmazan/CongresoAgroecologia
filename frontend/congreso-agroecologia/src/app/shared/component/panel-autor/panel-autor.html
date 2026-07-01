@@ -33,7 +33,7 @@
 </div>
 <div class="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-4">
 <a [routerLink]="['/formulario_paper']">
-<button class="flex items-center justify-center gap-3 bg-primary text-on-primary px-8 py-4 rounded-lg font-bold text-lg hover:bg-primary-container transition-colors shadow-lg shadow-primary/10 group" style="">
+<button class="flex w-full q-center justify-center gap-3 bg-primary text-on-primary px-8 py-4 rounded-lg font-bold text-lg hover:bg-primary-container transition-colors shadow-lg shadow-primary/10 group" style="">
 <span class="material-symbols-outlined" style="">upload_file</span>
                         Subir trabajo
                     </button></a>
@@ -54,6 +54,14 @@
                 </div>
 </div>
 <div class="space-y-6">
+
+<!-- USO DE TRABAJO-CARD 
+<div class="space-y-6">
+  @for (item of listadoTrabajos; track item.id) {
+    <app-trabajo-card [trabajo]="item"></app-trabajo-card>
+  }
+</div>-->
+
 <!-- Card 1: En revisión -->
 <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-[0_8px_32px_rgba(23,29,20,0.02)] flex flex-col md:flex-row md:items-center justify-between gap-8 group hover:shadow-lg transition-all duration-300">
 <div class="flex-1 space-y-2">

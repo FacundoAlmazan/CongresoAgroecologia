@@ -28,38 +28,42 @@
 <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 <div class="lg:col-span-9">
 <div class="bg-surface-container-lowest p-8 md:p-14 rounded-2xl shadow-[0_12px_48px_rgba(23,29,20,0.06)] border border-outline-variant/20">
-<form action="#" class="space-y-10">
+
+
+    <form action="#" (ngSubmit)="enviarFormulario()" class="space-y-10">
 <!-- Text Input -->
 <div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="author-name">Nombre del autor principal</label>
-<input class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="author-name" placeholder="Ej: Dr. Roberto García" type="text"/>
-</div><div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="author-title">Título/especialidad (opcional)</label>
-<input class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="author-title" placeholder="Ej: Especialista en Agroecología" type="text"/>
-</div><div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="other-authors">Otros autores (opcional)</label>
-<input class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="other-authors" placeholder="Ej: María López, Juan Pérez" type="text"/>
-</div><div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="thematic-axis">Eje temático</label>
+
+
+    <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="doc-name">
+        Nombre del documento/trabajo</label>
+<input [(ngModel)]="paper.titulo" name="titulo" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="doc-name" placeholder="Ej: Impacto de la rotación de cultivos en suelos áridos" type="text"/>
+</div>
+<div class="space-y-3">
+
+    <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="thematic-axis">
+    Eje temático</label>
 <div class="relative">
-<select class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest appearance-none cursor-pointer text-lg" id="thematic-axis">
+
+    <select [(ngModel)]="paper.ejesTematicos" name="ejesTematicos" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest appearance-none cursor-pointer text-lg" id="thematic-axis">
 <option disabled="" selected="" value="">Seleccione un eje temático</option>
 <option value="axis1">Sustentabilidad y Biodiversidad</option>
 <option value="axis2">Soberanía Alimentaria</option>
 <option value="axis3">Políticas Públicas Agroecológicas</option>
 <option value="axis4">Innovación Campesina</option>
 </select>
+
 <span class="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-2xl">expand_more</span>
 </div>
-</div><div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="doc-name">Nombre del documento/trabajo</label>
-<input class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="doc-name" placeholder="Ej: Impacto de la rotación de cultivos en suelos áridos" type="text"/>
 </div>
+
+
 <!-- Dropdown -->
 <div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="category">Categoría del trabajo</label>
+<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="category">
+    Categoría del trabajo</label>
 <div class="relative">
-<select class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest appearance-none cursor-pointer text-lg" id="category">
+<select [(ngModel)]="paper.tipo" name="tipo" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest appearance-none cursor-pointer text-lg" id="category">
 <option disabled="" selected="" value="">Seleccione una categoría</option>
 <option value="biotech">Biotecnología</option>
 <option value="agroforest">Agroforestería</option>
@@ -67,30 +71,103 @@
 <option value="soil">Ciencia del Suelo</option>
 <option value="water">Gestión Hídrica</option>
 </select>
+
 <span class="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-2xl">expand_more</span>
 </div>
 </div>
+
+
 <!-- Dropzone (Main Central Focus) -->
 <div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Archivo del manuscrito</label>
+<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">
+    Archivo del manuscrito</label>
 <div class="group relative flex flex-col items-center justify-center w-full min-h-[300px] border-2 border-dashed border-primary/30 rounded-2xl bg-primary-container/5 hover:bg-surface-container-lowest hover:border-primary transition-all cursor-pointer">
 <div class="p-8 rounded-full bg-primary-container/15 mb-6 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-primary text-6xl" style="font-variation-settings: 'FILL' 1;">upload_file</span>
 </div>
 <p class="text-on-surface font-bold text-2xl mb-2">Arrastre su archivo aquí</p>
 <p class="text-on-surface-variant text-base">O haga clic para buscar en su ordenador (PDF, DOCX hasta 10MB)</p>
-<input class="absolute inset-0 opacity-0 cursor-pointer" type="file"/>
+<input [(ngModel)]="paper.archivo" name="archivo" class="absolute inset-0 opacity-0 cursor-pointer" type="file"/>
 </div>
 </div>
+
 <!-- Textarea -->
 <div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="comments">Comentarios adicionales</label>
+<label [(ngModel)]="paper.resumen" name="resumen" class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="comments">Resumen (Abstract)</label>
 <textarea class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="comments" placeholder="Alguna nota relevante para los revisores..." rows="5"></textarea>
 </div>
+
+
+<div class="space-y-4">
+
+    <label class="font-label text-m uppercase tracking-widest text-tertiary font-bold" for="other-authors">
+    Datos del autor principal/contacto</label>
+</div>
+<div class="space-y-3">
+<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="author-name">
+    Nombre</label>
+<input  class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="author-name" placeholder="Ej: Dr. Roberto García" type="text"/>
+</div><div class="space-y-3">
+
+    <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="author-title">
+    Título/especialidad (opcional)</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="author-title" placeholder="Ej: Especialista en Agroecología" type="text"/>
+</div>
+
+<!-- Inchequeable
+<div class="space-y-4">
+
+    <label  class="font-label text-m uppercase tracking-widest text-tertiary font-bold" for="other-authors">
+    Autores (Opcional)</label>
+</div>
+<div class=" autores_container">
+<div *ngFor="let autor of paper.autores; let i = index" class="tarjeta-autor">
+      <div class="tarjeta-encabezado">
+        <h4>Autor #{{ autor.ordenAutor }}</h4>
+        <button type="button" class="btn-eliminar" (click)="eliminarAutor(i)">Eliminar</button>
+      </div>
+      
+      <div class="tarjeta-cuerpo">
+        <div class="campo-grupo">
+          <label>Nombre *</label>
+          <input type="text" [(ngModel)]="autor.nombre" name="nombre_{{i}}" required>
+        </div>
+        
+        <div class="campo-grupo">
+          <label>Apellido *</label>
+          <input type="text" [(ngModel)]="autor.apellido" name="apellido_{{i}}" required>
+        </div>
+
+        <div class="campo-grupo">
+          <label>Correo Electrónico *</label>
+          <input type="email" [(ngModel)]="autor.email" name="email_{{i}}" required>
+        </div>
+
+        <div class="campo-grupo">
+          <label>Organización</label>
+          <input type="text" [(ngModel)]="autor.organizacion" name="organizacion_{{i}}">
+        </div>
+
+        <div class="campo-grupo">
+          <label>País</label>
+          <input type="text" [(ngModel)]="autor.pais" name="pais_{{i}}">
+        </div>
+      </div></div>
+    
+</div>
+<div *ngIf="mensajeError" class="alerta-error">
+    {{ mensajeError }}
+  </div>
+<button (click)="agregarAutor()" class="group w-full md:w-auto bg-gradient-to-r from-primary to-primary-container text-on-primary px-6 py-3 rounded-x2 font-bold text-xl shadow-2xl shadow-primary/30 flex items-center justify-center gap-4 active:scale-95 transition-all" >
+<span>+ Agregar Autor</span>
+</button>
+
+ -->
+
 <!-- Submit Button (Central Focus) -->
 <div class="pt-8 flex justify-center">
 <button class="group w-full md:w-auto bg-gradient-to-r from-primary to-primary-container text-on-primary px-16 py-5 rounded-xl font-bold text-xl shadow-2xl shadow-primary/30 flex items-center justify-center gap-4 active:scale-95 transition-all" type="submit">
-<span>Enviar Trabajo</span>
+<span>Guardar Trabajo</span>
 <span class="material-symbols-outlined text-2xl transition-transform group-hover:translate-x-1">send</span>
 </button>
 </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from "@angular/router";
+//import { TrabajoCard } from "./trabajo-card/trabajo-card";
 
 @Component({
   selector: 'app-panel-autor',
