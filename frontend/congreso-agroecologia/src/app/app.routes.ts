@@ -12,6 +12,7 @@ export const routes: Routes = [
 {path:'home', component:Home},
  { path: 'panel_usuario', component: PanelUsuario },
  {path:'formulario_paper', component: FormularioPaper },
+ { path: 'formulario_paper_edicion/:id', component: FormularioPaper },
 {path:'panel_control', component: PanelControl },
 {path:'panel_evaluaciones', component: PanelEvaluaciones },
 {path:'panel_autor', component: PanelAutor },

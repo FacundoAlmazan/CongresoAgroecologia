@@ -1,5 +1,5 @@
 export enum TipoIdentificacion {
-    DNI,
-    PASAPORTE,
-    OTRO
+    DNI='DNI',
+    PASAPORTE='PASAPORTE',
+    OTRO='OTRO'
 }

@@ -1,6 +1,6 @@
 
 export enum EstadoAsignacion {
-    PENDIENTE,
-    ACEPTADA,
-    RECHAZADA
+    PENDIENTE='PENDIENTE',
+    ACEPTADA='ACEPTADA',
+    RECHAZADA='RECHAZADA'
 }

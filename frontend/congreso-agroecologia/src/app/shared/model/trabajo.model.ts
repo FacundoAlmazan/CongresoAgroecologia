@@ -14,17 +14,17 @@ export interface Trabajo {
   id?: number; // Opcional si se genera en el backend al crear el registro
   titulo: string;
   resumen?: string;
+  tipo: TipoTrabajo;
+  modalidadSolicitada?: ModalidadPresentacion;
+  ejesTematicos: EjeTematico[];
+  passwordTrabajo?: string;
   archivo?: string;
   fechaEnvio?: string; // Formato string ISO (YYYY-MM-DD) recomendado para la serialización
-  passwordTrabajo: string;
   telefonoContacto?: string;
-  modalidadSolicitada?: ModalidadPresentacion;
-  tipo: TipoTrabajo;
-  estado: EstadoTrabajo;
+  estado?: EstadoTrabajo;
   autorContacto?: Usuario;
   autores: AutorTrabajo[];
-  ejesTematicos: EjeTematico[];
-  asignaciones: AsignacionEvaluacion[];
-  evaluaciones: Evaluacion[];
+  asignaciones?: AsignacionEvaluacion[];
+  evaluaciones?: Evaluacion[];
   decisionTrabajo?: DecisionTrabajo;
 } 

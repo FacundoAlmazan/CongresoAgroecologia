@@ -1,5 +1,5 @@
 export enum EstadoPago {
-    PENDIENTE,
-    APROBADO,
-    RECHAZADO
+    PENDIENTE='PENDIENTE',
+    APROBADO='APROBADO',
+    RECHAZADO='RECHAZADO'
 }
