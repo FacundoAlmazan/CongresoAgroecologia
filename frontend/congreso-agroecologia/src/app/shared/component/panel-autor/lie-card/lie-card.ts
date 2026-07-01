@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Trabajo } from '../../../model/trabajo.model';
 import { EstadoTrabajo } from '../../../model/EstadoTrabajo.enum.model';
 import { TipoTrabajo } from '../../../model/TipoTrabajo.enum.model';
+import { RouterLink } from "@angular/router";
 
 
 @Component({
   selector: 'app-lie-card',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './lie-card.html',
   styleUrl: './lie-card.css',
 })

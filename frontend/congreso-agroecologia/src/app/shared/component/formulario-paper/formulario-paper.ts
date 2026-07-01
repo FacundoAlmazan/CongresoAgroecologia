@@ -89,10 +89,6 @@ ngOnInit(): void {
       return;
     }
 
-    if (this.paper.autores.length === 0) {
-      this.mensajeError = 'Debe registrar al menos un autor para el trabajo técnico.';
-      return;
-    }
 
     if (this.esEdicion && this.paper.id) {
       this.modificar();
