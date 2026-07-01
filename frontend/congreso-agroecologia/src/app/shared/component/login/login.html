@@ -1,0 +1,80 @@
+<main class="login-page">
+  <section class="login-card">
+    <header class="text-center mb-10">
+      <h1 class="text-3xl font-serif font-bold text-verdant-text-dark heading-underline">
+        Iniciar Sesión
+      </h1>
+    </header>
+
+    @if (error) {
+      <div class="mb-6 rounded-lg bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
+        {{ error }}
+      </div>
+    }
+
+    <form #loginForm="ngForm" class="space-y-6" (ngSubmit)="login()">
+      <div>
+        <label class="block text-xs font-bold text-verdant-text-dark uppercase tracking-wider mb-2">
+          DNI
+        </label>
+
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+            <span class="material-symbols-outlined text-gray-400" style="font-size: 20px;">badge</span>
+          </div>
+
+          <input
+            class="block w-full pl-12 pr-4 py-3 bg-verdant-input border-none rounded-lg focus:ring-2 focus:ring-verdant-accent transition-all duration-200 text-verdant-text-dark placeholder-gray-400"
+            name="numeroIdentificacion"
+            placeholder="00.000.000"
+            type="text"
+            required
+            [(ngModel)]="credenciales.numeroIdentificacion"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-verdant-text-dark uppercase tracking-wider mb-2">
+          Contraseña
+        </label>
+
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+            <span class="material-symbols-outlined text-gray-400" style="font-size: 20px;">lock</span>
+          </div>
+
+          <input
+            class="block w-full pl-12 pr-4 py-3 bg-verdant-input border-none rounded-lg focus:ring-2 focus:ring-verdant-accent transition-all duration-200 text-verdant-text-dark placeholder-gray-400"
+            name="password"
+            placeholder="........"
+            type="password"
+            required
+            [(ngModel)]="credenciales.password"
+          />
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button
+          class="w-full bg-verdant-primary hover:bg-[#004d43] text-white font-semibold py-3.5 px-4 rounded-lg shadow-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-verdant-primary disabled:opacity-50 disabled:cursor-not-allowed"
+          type="submit"
+          [disabled]="loginForm.invalid || cargando"
+        >
+          {{ cargando ? 'Ingresando...' : 'Entrar' }}
+        </button>
+      </div>
+    </form>
+
+    <footer class="mt-12 text-center">
+      <p class="text-sm text-verdant-text-muted mb-1">¿No tienes una cuenta?</p>
+
+      <a
+        class="text-verdant-primary hover:text-verdant-accent font-medium text-sm transition-colors duration-200"
+        routerLink="/registro"
+      >
+        Crear usuario
+      </a>
+    </footer>
+  </section>
+</main>

@@ -1,9 +1,7 @@
-
-
 export enum TipoRol {
-    ADMIN,
-    OC,
-    EVALUADOR,
-    AUTOR,
-    PARTICIPANTE
+  ADMIN = 'ADMIN',
+  OC = 'OC',
+  EVALUADOR = 'EVALUADOR',
+  AUTOR = 'AUTOR',
+  PARTICIPANTE = 'PARTICIPANTE'
 }

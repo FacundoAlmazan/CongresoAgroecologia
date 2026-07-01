@@ -16,9 +16,55 @@
 <p class="font-body text-xl md:text-2xl text-white/80 mb-10">Buenos Aires, Argentina</p>
 </div>
 <div class="mt-12 md:mt-0 md:absolute md:right-8 md:bottom-24">
-<button class="bg-surface-container-lowest text-primary px-10 py-5 rounded-lg font-bold text-xl flex items-center gap-3 hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                Inscribirse ahora <span class="material-symbols-outlined">arrow_forward</span>
-</button>
+@if (!tieneInscripcion) {
+  <a
+    [routerLink]="estaLogueado ? ['/inscripcion-congreso'] : ['/login']"
+    class="bg-surface-container-lowest text-primary px-10 py-5 rounded-lg font-bold text-xl flex items-center gap-3 hover:shadow-2xl hover:scale-105 transition-all duration-300"
+  >
+    Inscribirse ahora
+    <span class="material-symbols-outlined">arrow_forward</span>
+  </a>
+}
+
+@if (inscripcionPendiente) {
+  <div class="bg-white/90 rounded-2xl p-8 shadow-xl">
+    <p class="text-primary font-bold uppercase tracking-wide">
+      Estado de inscripción:
+    </p>
+
+    <h3 class="text-3xl font-bold text-amber-500 mt-2 mb-6">
+      Pendiente de revisión
+    </h3>
+
+    <a
+      [routerLink]="['/inscripcion-congreso']"
+      class="bg-primary text-white px-10 py-5 rounded-lg font-bold text-xl flex items-center gap-3 hover:shadow-2xl hover:scale-105 transition-all duration-300"
+    >
+      Ver mi inscripción
+      <span class="material-symbols-outlined">open_in_new</span>
+    </a>
+  </div>
+}
+
+@if (inscripcionAprobada) {
+  <div class="bg-white/90 rounded-2xl p-8 shadow-xl">
+    <p class="text-primary font-bold uppercase tracking-wide">
+      Estado de inscripción:
+    </p>
+
+    <h3 class="text-3xl font-bold text-lime-500 mt-2 mb-6">
+      Inscripción validada
+    </h3>
+
+    <a
+      [routerLink]="['/inscripcion-congreso']"
+      class="bg-primary text-white px-10 py-5 rounded-lg font-bold text-xl flex items-center gap-3 hover:shadow-2xl hover:scale-105 transition-all duration-300"
+    >
+      Comprobar estado
+      <span class="material-symbols-outlined">open_in_new</span>
+    </a>
+  </div>
+}
 </div>
 </div>
 </section>

@@ -1,0 +1,274 @@
+<main class="inscripcion-page">
+  <section class="mb-16">
+    <div class="flex flex-col md:flex-row justify-between items-start gap-8">
+      <h1 class="font-serif text-6xl md:text-7xl text-verdant-dark leading-tight max-w-xl">
+        Formulario de inscripción
+      </h1>
+
+      <div class="md:max-w-xs border-l-2 border-green-200 pl-6 py-2 mt-4">
+        <p class="text-verdant-gray text-lg leading-relaxed">
+          Unite al congreso nacional de agroecología en una jornada de saberes compartidos.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  @if (error) {
+    <div class="mb-8 rounded-xl bg-red-50 px-6 py-4 text-red-700 font-semibold">
+      {{ error }}
+    </div>
+  }
+
+  @if (exito) {
+    <div class="mb-8 rounded-xl bg-green-50 px-6 py-4 text-green-700 font-semibold">
+      {{ exito }}
+    </div>
+  }
+
+  <section class="mb-12">
+    <div class="flex items-center justify-between border-b border-gray-100 pb-2 mb-8">
+      <h2 class="text-verdant-dark font-medium tracking-tight">
+        Instancia y Rol de Participación
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      @for (instancia of instancias; track instancia) {
+        <button
+          type="button"
+          class="relative border-2 rounded-xl p-6 hover:shadow-sm transition-all cursor-pointer text-left"
+          [class.border-verdant-dark]="instanciaSeleccionada === instancia"
+          [class.border-gray-100]="instanciaSeleccionada !== instancia"
+          [class.bg-white]="instanciaSeleccionada === instancia"
+          (click)="seleccionarInstancia(instancia)"
+        >
+          <div class="flex justify-between mb-4">
+            <span class="text-verdant-dark text-2xl">✦</span>
+
+            <div
+              class="w-5 h-5 rounded-full border-2 flex items-center justify-center"
+              [class.bg-verdant-dark]="instanciaSeleccionada === instancia"
+              [class.border-verdant-dark]="instanciaSeleccionada === instancia"
+              [class.border-gray-300]="instanciaSeleccionada !== instancia"
+            >
+              @if (instanciaSeleccionada === instancia) {
+                <span class="text-white text-xs">✓</span>
+              }
+            </div>
+          </div>
+
+          <h3 class="font-semibold text-lg mb-1">{{ instancia }}</h3>
+
+          <p class="text-sm text-verdant-gray">
+            @if (instancia === 'Pre-congreso') {
+              Talleres técnicos y visitas de campo.
+            } @else if (instancia === 'Congreso') {
+              Ponencias magistrales y mesas de debate.
+            } @else {
+              Redacción de actas y alianzas estratégicas.
+            }
+          </p>
+        </button>
+      }
+    </div>
+  </section>
+
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+    <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      @for (categoria of categorias; track categoria.nombre) {
+        <button
+          type="button"
+          class="p-8 rounded-xl border flex flex-col justify-between h-44 cursor-pointer text-left transition-colors"
+          [class.border-verdant-accent]="categoriaSeleccionada.nombre === categoria.nombre"
+          [class.bg-green-50]="categoriaSeleccionada.nombre === categoria.nombre"
+          [class.border-gray-100]="categoriaSeleccionada.nombre !== categoria.nombre"
+          [class.bg-white]="categoriaSeleccionada.nombre !== categoria.nombre"
+          (click)="seleccionarCategoria(categoria)"
+        >
+          <span class="font-semibold text-verdant-dark">{{ categoria.nombre }}</span>
+          <span class="font-serif text-3xl text-verdant-dark">
+            ${{ categoria.monto }}
+          </span>
+        </button>
+      }
+    </div>
+
+    <div class="botanical-pattern rounded-2xl p-8 text-white flex flex-col justify-between relative overflow-hidden min-h-[350px]">
+      <div>
+        <h3 class="font-serif text-3xl mb-6">Guía de Tarifas</h3>
+
+        <p class="text-green-50 text-sm leading-relaxed opacity-90 max-w-[220px]">
+          Seleccioná la categoría que corresponda. El pago quedará pendiente hasta que un administrador lo apruebe.
+        </p>
+      </div>
+
+      <div class="bg-white text-verdant-dark px-6 py-3 rounded-lg font-medium text-center">
+        Total: ${{ categoriaSeleccionada.monto }}
+      </div>
+    </div>
+  </section>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+    <section>
+      <div class="flex items-center gap-2 border-b border-gray-100 pb-2 mb-6">
+        <span class="text-verdant-dark font-medium">03.</span>
+        <h2 class="text-verdant-dark font-medium">Documentación de rol</h2>
+      </div>
+
+      <label class="dashed-border rounded-2xl p-12 bg-verdant-light/50 text-center flex flex-col items-center justify-center min-h-[280px] cursor-pointer hover:bg-verdant-light transition-colors">
+        <input
+          type="file"
+          class="hidden"
+          accept=".pdf,.jpg,.jpeg,.png"
+          (change)="seleccionarComprobanteAcreditacion($event)"
+        />
+
+        <div class="w-14 h-14 bg-green-300/50 rounded-xl flex items-center justify-center mb-4">
+          📄
+        </div>
+
+        <h4 class="font-semibold text-verdant-dark mb-1">
+          Subir Documentación de Rol
+        </h4>
+
+        <p class="text-xs text-verdant-gray">
+          PDF o JPG aquí.
+        </p>
+
+        @if (comprobanteAcreditacion) {
+          <p class="mt-4 text-sm font-semibold text-verdant-dark">
+            {{ comprobanteAcreditacion }}
+          </p>
+        }
+      </label>
+    </section>
+
+    <section>
+      <div class="flex items-center gap-2 border-b border-gray-100 pb-2 mb-6">
+        <span class="text-verdant-dark font-medium">04.</span>
+        <h2 class="text-verdant-dark font-medium">Pago</h2>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 border border-gray-50 shadow-sm min-h-[280px]">
+        <div class="flex items-start gap-4 mb-8">
+          <div class="w-10 h-10 bg-green-50 rounded flex items-center justify-center">
+            🧾
+          </div>
+
+          <div>
+            <h4 class="font-serif text-xl text-verdant-dark">
+              Comprobante de Pago
+            </h4>
+
+            <p class="text-[10px] uppercase tracking-widest text-verdant-gray font-bold">
+              Transacción requerida
+            </p>
+          </div>
+        </div>
+
+        <label class="dashed-border rounded-xl p-8 bg-verdant-light/30 text-center cursor-pointer block">
+          <input
+            type="file"
+            class="hidden"
+            accept=".pdf,.jpg,.jpeg,.png"
+            (change)="seleccionarComprobantePago($event)"
+          />
+
+          <p class="text-verdant-gray text-sm mb-1">
+            Soltar archivo aquí
+          </p>
+
+          <p class="text-[10px] text-gray-400">
+            o haz clic para explorar
+          </p>
+
+          @if (comprobante) {
+            <p class="mt-4 text-sm font-semibold text-verdant-dark">
+              {{ comprobante }}
+            </p>
+          }
+        </label>
+      </div>
+    </section>
+  </div>
+
+  <section class="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="bg-white rounded-2xl p-6 border border-gray-100">
+      <label class="flex items-center gap-3 font-semibold text-verdant-dark">
+        <input type="checkbox" [(ngModel)]="requiereFactura" />
+        Requiere factura
+      </label>
+
+      @if (requiereFactura) {
+        <div class="mt-6 grid grid-cols-1 gap-4">
+          <input class="input-inscripcion" placeholder="Razón social" [(ngModel)]="razonSocial" name="razonSocial" />
+          <input class="input-inscripcion" placeholder="CUIT" [(ngModel)]="cuit" name="cuit" />
+          <input class="input-inscripcion" placeholder="Condición IVA" [(ngModel)]="condicionIva" name="condicionIva" />
+          <input class="input-inscripcion" placeholder="Domicilio fiscal" [(ngModel)]="domicilioFiscal" name="domicilioFiscal" />
+          <input class="input-inscripcion" placeholder="Email factura" [(ngModel)]="emailFactura" name="emailFactura" />
+        </div>
+      }
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 border border-gray-100">
+      <label class="flex items-center gap-3 font-semibold text-verdant-dark">
+        <input type="checkbox" [(ngModel)]="tieneAlergiaOIntolerancia" />
+        Tiene alergia o intolerancia
+      </label>
+
+      @if (tieneAlergiaOIntolerancia) {
+        <textarea
+          class="input-inscripcion mt-6 min-h-24"
+          placeholder="Detalle alergia o intolerancia"
+          [(ngModel)]="detalleAlergiaOIntolerancia"
+          name="detalleAlergiaOIntolerancia"
+        ></textarea>
+      }
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 border border-gray-100">
+      <label class="flex items-center gap-3 font-semibold text-verdant-dark">
+        <input type="checkbox" [(ngModel)]="requiereAdecuacion" />
+        Requiere adecuación
+      </label>
+
+      @if (requiereAdecuacion) {
+        <textarea
+          class="input-inscripcion mt-6 min-h-24"
+          placeholder="Detalle adecuación"
+          [(ngModel)]="detalleAdecuacion"
+          name="detalleAdecuacion"
+        ></textarea>
+      }
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 border border-gray-100">
+      <label class="font-semibold text-verdant-dark">
+        Observaciones
+      </label>
+
+      <textarea
+        class="input-inscripcion mt-4 min-h-24"
+        placeholder="Observaciones adicionales"
+        [(ngModel)]="observaciones"
+        name="observaciones"
+      ></textarea>
+    </div>
+  </section>
+
+  <footer class="flex flex-col md:flex-row justify-between items-center gap-8 border-t border-gray-100 pt-12">
+    <p class="text-xs text-verdant-gray max-w-sm leading-relaxed">
+      Al finalizar, confirmas que has leído los términos y condiciones de participación y el código de ética del Congreso.
+    </p>
+
+    <button
+      type="button"
+      class="bg-verdant-dark text-white font-serif text-xl px-10 py-5 rounded-lg flex items-center gap-4 hover:bg-verdant-accent transition-all shadow-xl shadow-verdant-dark/20 disabled:opacity-50 disabled:cursor-not-allowed"
+      [disabled]="cargando"
+      (click)="finalizarInscripcion()"
+    >
+      {{ cargando ? 'Enviando...' : 'Finalizar Inscripción' }}
+      →
+    </button>
+  </footer>
+</main>
