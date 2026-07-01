@@ -1,0 +1,66 @@
+:host {
+  display: block;
+}
+
+.inscripcion-page {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 8rem 1.5rem 4rem;
+  font-family: Inter, system-ui, sans-serif;
+  color: #334155;
+}
+
+.text-verdant-dark {
+  color: #005248;
+}
+
+.text-verdant-gray {
+  color: #6b7280;
+}
+
+.bg-verdant-dark {
+  background: #005248;
+}
+
+.bg-verdant-accent {
+  background: #006d5b;
+}
+
+.bg-verdant-light {
+  background: #f1f8f1;
+}
+
+.border-verdant-dark {
+  border-color: #005248;
+}
+
+.border-verdant-accent {
+  border-color: #006d5b;
+}
+
+.font-serif {
+  font-family: 'DM Serif Display', Georgia, serif;
+}
+
+.dashed-border {
+  border: 2px dashed #d1e7d1;
+}
+
+.botanical-pattern {
+  background-color: #004d40;
+  background-image: url("https://www.transparenttextures.com/patterns/leaves.png");
+}
+
+.input-inscripcion {
+  width: 100%;
+  border: none;
+  border-radius: 0.75rem;
+  background: #f1f8f1;
+  padding: 0.9rem 1rem;
+  color: #334155;
+}
+
+.input-inscripcion:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #006d5b;
+}

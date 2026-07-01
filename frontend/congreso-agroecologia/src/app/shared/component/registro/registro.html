@@ -1,0 +1,142 @@
+<main class="registro-page">
+  <section class="registro-card">
+    <header class="text-center mb-10">
+      <h1 class="serif-heading text-4xl md:text-5xl text-gray-900 mb-4">
+        Crea tu cuenta
+      </h1>
+
+      <p class="text-gray-600 text-lg">
+        Complete los campos para registrarte en el sitio.
+      </p>
+    </header>
+
+    @if (error) {
+      <div class="mb-6 rounded-2xl bg-red-50 px-5 py-4 text-sm font-semibold text-red-700">
+        {{ error }}
+      </div>
+    }
+
+    @if (exito) {
+      <div class="mb-6 rounded-2xl bg-green-50 px-5 py-4 text-sm font-semibold text-green-700">
+        {{ exito }}
+      </div>
+    }
+
+    <form #registroForm="ngForm" class="space-y-6" (ngSubmit)="registrar()">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-6">
+        <div class="flex flex-col gap-2">
+          <label class="font-semibold text-gray-800 ml-1">Nombre</label>
+          <input
+            class="input-registro"
+            placeholder="Ej. Juan"
+            type="text"
+            name="nombre"
+            required
+            [(ngModel)]="usuario.nombre"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="font-semibold text-gray-800 ml-1">Apellido</label>
+          <input
+            class="input-registro"
+            placeholder="Ej. Pérez"
+            type="text"
+            name="apellido"
+            required
+            [(ngModel)]="usuario.apellido"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="font-semibold text-gray-800 ml-1">DNI</label>
+          <input
+            class="input-registro"
+            placeholder="00.000.000"
+            type="text"
+            name="numeroIdentificacion"
+            required
+            [(ngModel)]="usuario.numeroIdentificacion"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="font-semibold text-gray-800 ml-1">Correo electrónico</label>
+          <input
+            class="input-registro"
+            placeholder="example@agro.org"
+            type="email"
+            name="email"
+            required
+            [(ngModel)]="usuario.email"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="font-semibold text-gray-800 ml-1">Teléfono</label>
+          <input
+            class="input-registro"
+            placeholder="+5492211234567"
+            type="text"
+            name="telefono"
+            [(ngModel)]="usuario.telefono"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="font-semibold text-gray-800 ml-1">Institución</label>
+          <input
+            class="input-registro"
+            placeholder="UNLP"
+            type="text"
+            name="institucion"
+            [(ngModel)]="usuario.institucion"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="font-semibold text-gray-800 ml-1">Contraseña</label>
+          <input
+            class="input-registro"
+            placeholder="........"
+            type="password"
+            name="password"
+            required
+            [(ngModel)]="usuario.password"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="font-semibold text-gray-800 ml-1">Repetir contraseña</label>
+          <input
+            class="input-registro"
+            placeholder="........"
+            type="password"
+            name="repetirPassword"
+            required
+            [(ngModel)]="repetirPassword"
+          />
+        </div>
+      </div>
+
+      <div class="pt-6">
+        <button
+          class="w-full bg-agro-green-dark text-white font-bold py-5 rounded-2xl text-xl hover:bg-opacity-90 transition-all btn-shadow disabled:opacity-50 disabled:cursor-not-allowed"
+          type="submit"
+          [disabled]="registroForm.invalid || cargando"
+        >
+          {{ cargando ? 'Registrando...' : 'Registrarse' }}
+        </button>
+      </div>
+    </form>
+
+    <footer class="mt-8 text-center">
+      <p class="text-gray-600">
+        ¿Ya tienes una cuenta?
+        <a class="text-agro-green-dark font-medium hover:underline" routerLink="/login">
+          Inicia sesión
+        </a>
+      </p>
+    </footer>
+  </section>
+</main>

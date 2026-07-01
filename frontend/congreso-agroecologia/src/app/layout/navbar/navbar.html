@@ -12,10 +12,51 @@
 </a>
 </div>
 <div class="flex items-center gap-4">
-<button class="hidden md:block px-4 py-2 text-primary font-bold hover:opacity-80 transition-opacity">Crear Usuario</button>
-<a [routerLink]="['/panel_usuario']">
-<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-bold shadow-sm hover:scale-[0.98] active:opacity-80 transition-all duration-300">Iniciar Sesión</button>
-</a>
+@if (!estaLogueado) {
+  <a [routerLink]="['/registro']">
+    <button class="hidden md:block px-4 py-2 text-primary font-bold hover:opacity-80 transition-opacity">
+      Crear Usuario
+    </button>
+  </a>
+
+  <a [routerLink]="['/login']">
+    <button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-bold shadow-sm hover:scale-[0.98] active:opacity-80 transition-all duration-300">
+      Iniciar Sesión
+    </button>
+  </a>
+}
+
+@if (estaLogueado) {
+  <div class="relative">
+    <button
+      type="button"
+      (click)="toggleMenuUsuario()"
+      class="w-10 h-10 rounded-full bg-lime-300 text-emerald-900 font-bold flex items-center justify-center shadow-sm hover:scale-105 transition-all"
+    >
+      {{ inicialesUsuario }}
+    </button>
+
+    @if (menuUsuarioAbierto) {
+      <div class="absolute right-0 top-12 w-48 bg-white rounded-xl shadow-xl border border-emerald-50 overflow-hidden z-[90]">
+        <a
+          [routerLink]="['/panel_usuario']"
+          (click)="menuUsuarioAbierto = false"
+          class="block px-4 py-3 text-sm font-semibold text-emerald-900 hover:bg-emerald-50"
+        >
+          Panel de usuario
+        </a>
+
+        <button
+          type="button"
+          (click)="cerrarSesion()"
+          class="w-full text-left px-4 py-3 text-sm font-semibold text-red-600 hover:bg-red-50"
+        >
+          Cerrar sesión
+        </button>
+      </div>
+    }
+  </div>
+}
 
 <button (click)="activo=true" aria-label="Abrir menú" class="p-2 text-emerald-900 hover:bg-emerald-50 rounded-full transition-colors flex items-center justify-center" id="menu-toggle"><span class="material-symbols-outlined text-3xl">menu</span></button>
 
