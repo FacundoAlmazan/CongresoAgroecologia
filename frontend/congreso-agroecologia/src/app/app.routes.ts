@@ -9,6 +9,8 @@ import { Cronograma } from './shared/component/cronograma/cronograma';
 import { Login } from './shared/component/login/login';
 import { Registro } from './shared/component/registro/registro';
 import { InscripcionCongreso } from './shared/component/inscripcion-congreso/inscripcion-congreso';
+import { AsignarEvaluadores } from './shared/component/OC/asignar-evaluadores/asignar-evaluadores';
+import { AsignacionTrabajo } from './shared/component/OC/asignacion-trabajo/asignacion-trabajo';
 
 
 export const routes: Routes = [
@@ -25,5 +27,7 @@ export const routes: Routes = [
 { path: 'login', component: Login },
 { path: 'registro', component: Registro },
 { path: 'inscripcion-congreso', component: InscripcionCongreso },
+{ path: 'asignar_evaluadores', component: AsignarEvaluadores },
+{ path: 'asignacion_trabajo', component: AsignacionTrabajo },
 //{path:'', component:  },
 ];
