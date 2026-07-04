@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Trabajo } from '../../../../model/trabajo.model';
 import { TipoTrabajo } from '../../../../model/TipoTrabajo.enum.model';
 import { RouterLink } from "@angular/router";
@@ -12,7 +12,7 @@ import { RouterLink } from "@angular/router";
 export class CardAsignar {
   max=2;
 
-  trabajo: Trabajo={
+  @Input() trabajo: Trabajo={
     id: 1,
     titulo: 'Nombre de la variable en TS',
     tipo: TipoTrabajo.TRABAJO_CIENTIFICO,

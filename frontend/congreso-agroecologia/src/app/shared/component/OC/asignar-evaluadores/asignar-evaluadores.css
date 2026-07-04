@@ -8,3 +8,6 @@
             box-shadow: 0 4px 20px rgba(0, 97, 86, 0.08);
             transform: translateY(-1px);
         }
+        main{
+            margin: 100px 0;
+        }

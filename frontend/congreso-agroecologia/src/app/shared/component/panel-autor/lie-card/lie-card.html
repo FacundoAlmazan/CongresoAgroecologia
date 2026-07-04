@@ -1,49 +1,26 @@
-<div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-[0_8px_32px_rgba(23,29,20,0.02)] flex flex-col md:flex-row md:items-center justify-between gap-8 group hover:shadow-lg transition-all duration-300"
-     >
-  
-  <div class="flex-1 space-y-2">
-    <div class="flex items-center gap-3 mb-1">
-      <span class="text-tertiary font-bold tracking-wider text-xs uppercase bg-tertiary-fixed/20 px-2 py-0.5 rounded">
-        ID: {{ trabajo.id }}
-      </span>
-      
-      <div class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold" 
-           >
-        <span class="material-symbols-outlined text-sm" >
-          
-        </span>
-        {{ texto }}
-      </div>
-    </div>
+
+
+<div class="my-4 bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-[0_8px_32px_rgba(23,29,20,0.02)] flex flex-col md:flex-row md:items-center justify-between gap-8 group hover:shadow-lg transition-all duration-300">
+<div class="flex-1 space-y-2">
+<div class="flex items-center gap-3 mb-1">
+<span class="text-tertiary font-bold tracking-wider text-xs uppercase bg-tertiary-fixed/20 px-2 py-0.5 rounded">ID: {{ trabajo.id }}</span>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold">
+<span class="material-symbols-outlined text-sm">visibility</span>
+                                {{texto}}
+                            </div>
+<span class="text-on-surface-variant/60 text-[10px] font-bold uppercase tracking-widest ml-2">Cambios en la corrección</span></div>
 <a [routerLink]="['/evaluaciones']">
     <h3 class="text-xl font-bold text-on-surface group-hover:text-primary transition-colors">
       {{ trabajo.titulo }}
     </h3></a>
-  </div>
-
-  <div class="flex flex-wrap items-center gap-3" >
-    <button 
-            [routerLink]="['/formulario_paper_edicion',trabajo.id]"
-            [disabled]="!edit"
-            class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors font-bold">
-      <span class="material-symbols-outlined text-sm">edit_note</span>
-      Editar entrega
-    </button>
-
-    
-    <button 
-        [disabled]="!enviar"
-            
-            class="flex bg-primary items-center gap-2 px-4 py-2 rounded-lg   hover:bg-surface-container-high transition-colors font-bold">
-      
-     Enviar Trabajo
-    </button>
-
-    <button 
-            class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors font-bold">
-      <span class="material-symbols-outlined">forum</span>
-      Ver Devoluciones 
-    </button>
-  </div>
-
 </div>
+<div class="flex flex-wrap items-center gap-3"><button [routerLink]="['/formulario_paper_edicion',trabajo.id]"
+            [disabled]="!edit" [ngClass]="estilo" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors font-bold"><span class="material-symbols-outlined text-sm">edit_note</span>Editar entrega</button>
+  <button (click)="enviarTrabajo()" [disabled]="!enviar"  [ngClass]="estilo" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary-container transition-colors font-bold shadow-sm"><span class="material-symbols-outlined text-sm">send</span>Enviar</button></div>
+</div>
+
+
+
+
+
+   
