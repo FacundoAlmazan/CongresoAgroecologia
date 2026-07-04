@@ -11,6 +11,9 @@ import { Registro } from './shared/component/registro/registro';
 import { InscripcionCongreso } from './shared/component/inscripcion-congreso/inscripcion-congreso';
 import { AsignarEvaluadores } from './shared/component/OC/asignar-evaluadores/asignar-evaluadores';
 import { AsignacionTrabajo } from './shared/component/OC/asignacion-trabajo/asignacion-trabajo';
+import { Evaluaciones } from './shared/component/evaluaciones/evaluaciones';
+import { ResultadoEvaluacion } from './shared/component/resultado-evaluacion/resultado-evaluacion';
+import { FormularioEvaluacion } from './shared/component/formulario-evaluacion/formulario-evaluacion';
 
 
 export const routes: Routes = [
@@ -29,5 +32,8 @@ export const routes: Routes = [
 { path: 'inscripcion-congreso', component: InscripcionCongreso },
 { path: 'asignar_evaluadores', component: AsignarEvaluadores },
 { path: 'asignacion_trabajo', component: AsignacionTrabajo },
+{ path: 'evaluaciones', component: Evaluaciones },
+{ path: 'resultado_evaluacion', component: ResultadoEvaluacion },
+{ path: 'formulario_evaluacion', component: FormularioEvaluacion },
 //{path:'', component:  },
 ];

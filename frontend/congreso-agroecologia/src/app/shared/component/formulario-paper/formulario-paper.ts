@@ -77,7 +77,10 @@ ngOnInit(): void {
     ejesTematicos: [],
   autores:[],  
   };
+  
   }
+
+
 
   //CRUD 
   enviarFormulario(): void {
@@ -132,43 +135,3 @@ ngOnInit(): void {
   
 }
 
-
-
-  /*
-
-  // Función para agregar una nueva tarjeta de autor al contenedor
-  agregarAutor(): void {
-    this.mensajeError = '';
-    const cantidadAutores = this.paper.autores.length;
-
-    // Si ya existen autores, validamos que el último agregado sea válido antes de permitir otro
-    if (cantidadAutores > 0) {
-      const ultimoAutor = this.paper.autores[cantidadAutores - 1];
-      
-      if (!this.validarAutor(ultimoAutor)) {
-        this.mensajeError = 'Por favor, complete correctamente los campos obligatorios del autor anterior antes de agregar uno nuevo.';
-        return;
-      }
-    }
-
-    // Creación del nuevo objeto autor con los campos obligatorios inicializados
-    const nuevoAutor: AutorTrabajo = {
-      nombre: '',
-      apellido: '',
-      email: '',
-      ordenAutor: cantidadAutores + 1, // Se asigna el orden de forma correlativa automática
-      trabajo: this.paper // Se vincula la referencia al trabajo actual
-    };
-
-    // Al empujar el objeto al arreglo, Angular actualizará el DOM automáticamente
-    this.paper.autores.push(nuevoAutor);
-  }
-
-  // Función opcional para remover un autor específico si el usuario se arrepiente
-  eliminarAutor(index: number): void {
-    this.paper.autores.splice(index, 1);
-    // Reordenar el campo ordenAutor de los miembros restantes
-    this.paper.autores.forEach((autor, i) => {
-      autor.ordenAutor = i + 1;
-    });
-  }*/
