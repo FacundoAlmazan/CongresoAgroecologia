@@ -15,9 +15,9 @@ import { TrabajoService } from '../../service/trabajo.service';
   styleUrl: './formulario-paper.css',
 })
 export class FormularioPaper implements OnInit{
-   
+visibleCard = 'hidden';   
 visible: string = 'hidden';
-
+autor:AutorTrabajo=this.inicializarAutor();
 private esEdicion:boolean=false;
 
   
@@ -31,7 +31,17 @@ constructor(
     private trabajoService: TrabajoService
   ) {}
 
-
+inicializarAutor(): AutorTrabajo {
+  return {
+    nombre: '',
+    apellido: '',
+    organizacion: '',
+    pais: '',
+    email: '',
+    ordenAutor: 0,
+    trabajo: this.paper
+  };
+}
 
 
   // Función para evaluar si un objeto AutorTrabajo individual es válido para enviar
@@ -75,12 +85,31 @@ ngOnInit(): void {
     titulo: '',    
     tipo: TipoTrabajo.RELATO_EXPERIENCIA,    
     ejesTematicos: [],
-  autores:[],  
+  autores:AUTORES_MOCK,  
   };
   
   }
 abrirAutor(){this.visible=''}
 cerrarAutor(){this.visible='hidden'}
+crearAutor(){
+  this.autor.ordenAutor = this.paper.autores.length + 1;
+  this.paper.autores.push({ ...this.autor });
+
+  this.autor = this.inicializarAutor();
+  this.cerrarAutor();
+
+  
+}
+
+abrirCard(autor: AutorTrabajo): void {
+  this.autor = autor;
+  this.visibleCard = '';
+}
+
+cerrarCard(): void {
+  this.visibleCard = 'hidden';
+  this.autor=this.inicializarAutor();
+}
 
   //CRUD 
   enviarFormulario(): void {
@@ -115,6 +144,7 @@ cerrarAutor(){this.visible='hidden'}
     });
   }
 
+
   // Lógica para actualizar un paper existente utilizando un método PUT
   private modificar(): void {
     // Al conocer con certeza que el ID existe, forzamos su conversión de tipo si es necesario
@@ -135,3 +165,37 @@ cerrarAutor(){this.visible='hidden'}
   
 }
 
+
+
+export const AUTORES_MOCK: AutorTrabajo[] = [
+  {
+    id: 1,
+    nombre: 'Juan',
+    apellido: 'Pérez',
+    organizacion: 'Universidad Nacional de La Plata',
+    pais: 'Argentina',
+    email: 'juan.perez@unlp.edu.ar',
+    ordenAutor: 1,
+    trabajo: {} as Trabajo
+  },
+  {
+    id: 2,
+    nombre: 'María',
+    apellido: 'González',
+    organizacion: 'Universidad de Buenos Aires',
+    pais: 'Argentina',
+    email: 'maria.gonzalez@uba.ar',
+    ordenAutor: 2,
+    trabajo: {} as Trabajo
+  },
+  {
+    id: 3,
+    nombre: 'Carlos',
+    apellido: 'Rodríguez',
+    organizacion: 'Universidad de la República',
+    pais: 'Uruguay',
+    email: 'carlos.rodriguez@udelar.edu.uy',
+    ordenAutor: 3,
+    trabajo: {} as Trabajo
+  }
+];

@@ -24,7 +24,7 @@
 
     <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div class="lg:col-span-9">
-            <form class="space-y-12" #paperForm="ngForm" >
+            <form class="space-y-12" #paperForm="ngForm" (ngSubmit)="enviarFormulario()" >
                 <!-- Section 1: Información del Paper -->
                 <div class="bg-surface-container-lowest p-8 md:p-12 rounded-2xl shadow-[0_12px_48px_rgba(23,29,20,0.06)] border border-outline-variant/20">
                     <div class="flex items-center gap-3 mb-8 pb-4 border-b border-outline-variant/30">
@@ -35,7 +35,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="space-y-3 md:col-span-2">
                             <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="paper-title">Nombre del trabajo</label>
-                            <input [(ngModel)]="paper.titulo" name="titulo" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="paper-title" placeholder="Ej: Restauración de suelos mediante policultivos" type="text">
+                            <input [(ngModel)]="paper.titulo" required name="titulo" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="paper-title" placeholder="Ej: Restauración de suelos mediante policultivos" type="text">
                         </div>
 
                         <div class="space-y-3">
@@ -55,7 +55,7 @@
                             <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="category">Categoría del trabajo</label>
                             <div class="relative">
                                 <select [(ngModel)]="paper.tipo" name="tipo" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest cursor-pointer text-lg" id="category">
-                                    <option disabled="" selected="" value="">Seleccione una categoría</option>
+                                    <option disabled="" selected="" >Seleccione una categoría</option>
                                     <option value="TRABAJO CIENTIFICO">TRABAJO CIENTIFICO</option>
                                     <option value="RELATO DE EXPERIENCIA">RELATO DE EXPERIENCIA</option>
                                     <option value="PROPUESTA DE TALLER">PROPUESTA DE TALLER</option>
@@ -66,12 +66,9 @@
 
                         <!-- Example of Error State -->
                         <div class="space-y-3">
-                            <label class="font-label text-xs uppercase tracking-widest text-error font-bold" for="contact-phone">Teléfono de contacto</label>
-                            <input  [(ngModel)]="paper.telefonoContacto" name="telefonoContacto" class="w-full bg-error-container/20 border border-error rounded-lg p-5 focus:ring-2 focus:ring-error/30 transition-all placeholder:text-outline text-lg" id="contact-phone" placeholder="Ej: +54 9 11 1234-5678" type="tel" value="">
-                            <p class="text-error text-xs font-medium flex items-center gap-1">
-                                <span class="material-symbols-outlined text-sm">error</span>
-                                Este campo es obligatorio para la coordinación.
-                            </p>
+                            <label class="font-label text-xs uppercase tracking-widest  font-bold" for="contact-phone">Teléfono de contacto</label>
+                            <input  [(ngModel)]="paper.telefonoContacto" name="telefonoContacto" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" placeholder="Ej: +54 9 11 1234-5678" type="tel" value="">
+                            
                         </div>
 
                         <div class="md:col-span-2 pt-4">
@@ -137,16 +134,18 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- Author Card 1 -->
+                         @for (auth of paper.autores; track auth.id) {
                         <div class="flex items-center justify-between p-4 bg-surface-container rounded-xl border border-outline-variant/40">
+                            <a class="text-primary hover:underline cursor-pointer">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
-                                    RG
+                                    {{auth.ordenAutor}}
                                 </div>
-                                <div>
-                                    <p class="font-bold text-on-surface">Dr. Roberto García</p>
-                                    <p class="text-xs text-on-surface-variant">Autor Principal</p>
+                                <div (click)="abrirCard(auth)">
+                                    <p class="font-bold text-on-surface">{{auth.nombre}} {{auth.apellido}}</p>
+                                    <p class="text-xs text-on-surface-variant">{{auth.email}}</p>
                                 </div>
-                            </div>
+                            </div></a>
                             <div class="flex gap-1">
                                 <button type="button" class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors">
                                     <span class="material-symbols-outlined text-xl">edit</span>
@@ -155,28 +154,8 @@
                                     <span class="material-symbols-outlined text-xl">delete</span>
                                 </button>
                             </div>
-                        </div>
-
-                        <!-- Author Card 2 -->
-                        <div class="flex items-center justify-between p-4 bg-surface-container rounded-xl border border-outline-variant/40">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary font-bold">
-                                    ML
-                                </div>
-                                <div>
-                                    <p class="font-bold text-on-surface">María López</p>
-                                    <p class="text-xs text-on-surface-variant">Co-autor</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-1">
-                                <button type="button" class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors">
-                                    <span class="material-symbols-outlined text-xl">edit</span>
-                                </button>
-                                <button type="button" class="p-2 text-error hover:bg-error-container/30 rounded-lg transition-colors">
-                                    <span class="material-symbols-outlined text-xl">delete</span>
-                                </button>
-                            </div>
-                        </div>
+                        </div>}
+                        
                     </div>
                 </div>
 
@@ -222,38 +201,138 @@
         <span class="material-symbols-outlined">close</span>
       </button>
     </div>
-    <form id="author-form" class="p-6 space-y-4">
+    <form id="author-form" #formAutor="ngForm"  class="p-6 space-y-4">
       <div class="grid grid-cols-2 gap-4">
         <div class="space-y-1">
           <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Nombre</label>
-          <input type="text" name="nombre" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Ej: Juan">
+          <input [(ngModel)]="autor.nombre" type="text" name="nombre" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Ej: Juan">
           <p class="error-msg hidden text-error text-[10px] font-medium">Campo requerido</p>
         </div>
         <div class="space-y-1">
-          <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Apellido</label>
-          <input type="text" name="apellido" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Ej: Pérez">
+          <label  class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Apellido</label>
+          <input [(ngModel)]="autor.apellido" type="text" name="apellido" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Ej: Pérez">
           <p class="error-msg hidden text-error text-[10px] font-medium">Campo requerido</p>
         </div>
       </div>
       <div class="space-y-1">
         <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Organización</label>
-        <input type="text" name="org" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Ej: Universidad Nacional">
+        <input [(ngModel)]="autor.organizacion" type="text" name="org" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Ej: Universidad Nacional">
         <p class="error-msg hidden text-error text-[10px] font-medium">Campo requerido</p>
       </div>
       <div class="space-y-1">
         <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">País</label>
-        <input type="text" name="pais" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Ej: Argentina">
+        <input [(ngModel)]="autor.pais" type="text" name="pais" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Ej: Argentina">
         <p class="error-msg hidden text-error text-[10px] font-medium">Campo requerido</p>
       </div>
       <div class="space-y-1">
         <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Email</label>
-        <input type="email" name="email" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="ejemplo@correo.com">
+        <input [(ngModel)]="autor.email" type="email" name="email" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="ejemplo@correo.com">
         <p class="error-msg hidden text-error text-[10px] font-medium">Email inválido</p>
       </div>
       <div class="flex justify-end gap-3 pt-4">
-        <button type="button" id="cancel-modal-btn" class="px-6 py-2 rounded-lg font-bold text-stone-600 hover:bg-surface-container transition-colors">Cancelar</button>
-        <button type="submit" class="bg-primary text-on-primary px-8 py-2 rounded-lg font-bold hover:bg-primary-container transition-colors">Guardar</button>
+        <button type="button" (click)="autor=inicializarAutor();cerrarAutor()" id="cancel-modal-btn" class="px-6 py-2 rounded-lg font-bold text-stone-600 hover:bg-surface-container transition-colors">Cancelar</button>
+        <button type="submit" (click)="crearAutor()" class="bg-primary text-on-primary px-8 py-2 rounded-lg font-bold hover:bg-primary-container transition-colors">Guardar</button>
       </div>
     </form>
+  </div>
+</div>
+
+
+
+
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-surface/40 backdrop-blur-sm"
+  [ngClass]="visibleCard">
+
+  <div class="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl border border-outline-variant/30 overflow-hidden">
+
+    <div class="flex items-center justify-between p-6 border-b border-outline-variant/20">
+      <h2 class="font-headline text-2xl font-bold text-on-surface">
+        Datos del Autor
+      </h2>
+
+      <button
+        (click)="cerrarCard()"
+        class="p-2 hover:bg-surface-container rounded-full transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <div class="p-6 space-y-5">
+
+      <div class="grid grid-cols-2 gap-4">
+
+        <div class="space-y-1">
+          <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">
+            Nombre
+          </label>
+
+          <div class="w-full bg-surface-container-low rounded-lg p-3 text-on-surface">
+            {{ autor.nombre }}
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">
+            Apellido
+          </label>
+
+          <div class="w-full bg-surface-container-low rounded-lg p-3 text-on-surface">
+            {{ autor.apellido }}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">
+          Organización
+        </label>
+
+        <div class="w-full bg-surface-container-low rounded-lg p-3 text-on-surface">
+          {{ autor.organizacion || '-' }}
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">
+          País
+        </label>
+
+        <div class="w-full bg-surface-container-low rounded-lg p-3 text-on-surface">
+          {{ autor.pais || '-' }}
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">
+          Email
+        </label>
+
+        <div class="w-full bg-surface-container-low rounded-lg p-3 text-on-surface break-all">
+          {{ autor.email }}
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">
+          Orden de Autor
+        </label>
+
+        <div class="w-full bg-surface-container-low rounded-lg p-3 text-on-surface">
+          {{ autor.ordenAutor }}
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-4">
+        <button
+          (click)="cerrarCard()"
+          class="bg-primary text-on-primary px-8 py-2 rounded-lg font-bold hover:bg-primary-container transition-colors">
+          Cerrar
+        </button>
+      </div>
+
+    </div>
+
   </div>
 </div>
