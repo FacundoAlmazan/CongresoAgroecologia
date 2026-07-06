@@ -41,56 +41,22 @@
                         </h3>
 </div>
 <div class="grid gap-6">
-<!-- User 1 Card -->
-<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-outline-variant/10 group hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-all">
-<div class="flex flex-col md:flex-row md:items-center gap-8">
-<div class="flex-1 space-y-4">
-<div class="flex items-center gap-4">
-<div>
-<div class="flex items-center gap-2">
-<h4 class="text-xl font-bold text-on-surface">Ana Silvestri</h4>
-<span class="bg-surface-container px-2 py-0.5 rounded text-[10px] font-bold text-primary tracking-tighter">USR-902</span>
-</div>
-<p class="text-sm text-on-surface-variant">DNI: 12.345.678</p>
-</div>
-</div>
-<div class="flex gap-6 text-xs text-outline font-medium">
-<span class="flex items-center gap-1">
-<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
-                                            Ingreso: 10 Oct 2023
-                                        </span>
-</div>
-</div>
-<div class="flex flex-row gap-2 justify-end"><button class="px-4 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-on-primary shadow-sm hover:scale-105 active:scale-95">Administrador</button>
-<button class="px-4 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-on-primary shadow-sm hover:scale-105 active:scale-95">Evaluador</button>
-<button class="px-4 py-2 rounded-lg text-xs font-bold transition-all border-2 border-outline-variant/50 text-outline-variant hover:bg-surface-container-low">Organizador Científico</button></div>
-</div>
-</div>
-<!-- User 2 Card -->
-<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-outline-variant/10 group hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-all">
-<div class="flex flex-col md:flex-row md:items-center gap-8">
-<div class="flex-1 space-y-4">
-<div class="flex items-center gap-4">
-<div>
-<div class="flex items-center gap-2">
-<h4 class="text-xl font-bold text-on-surface">Carlos Mendoza</h4>
-<span class="bg-surface-container px-2 py-0.5 rounded text-[10px] font-bold text-primary tracking-tighter">USR-115</span>
-</div>
-<p class="text-sm text-on-surface-variant">DNI: 87.654.321</p>
-</div>
-</div>
-<div class="flex gap-6 text-xs text-outline font-medium">
-<span class="flex items-center gap-1">
-<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
-                                            Ingreso: 15 Nov 2023
-                                        </span>
-</div>
-</div>
-<div class="flex flex-row gap-2 justify-end"><button class="px-4 py-2 rounded-lg text-xs font-bold transition-all border-2 border-outline-variant/50 text-outline-variant hover:bg-surface-container-low">Administrador</button>
-<button class="px-4 py-2 rounded-lg text-xs font-bold transition-all border-2 border-outline-variant/50 text-outline-variant hover:bg-surface-container-low">Evaluador</button>
-<button class="px-4 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-on-primary shadow-sm hover:scale-105 active:scale-95">Organizador Científico</button></div>
-</div>
-</div>
+<h3 class="text-xl font-bold text-primary flex items-center gap-2">Usuarios Backend </h3>
+<span>{{mensajeError}}</span>
+
+ @for (usuario of usuarios; track usuario.id) {
+
+     <app-control-card [user]="usuario"></app-control-card>
+ }
+ 
+<h3 class="text-xl font-bold text-primary flex items-center gap-2">Usuarios mockeados </h3>
+<!-- User Card  Mock-->
+
+ @for (usuario of usuariosMock; track usuario.id) {
+
+     <app-control-card [user]="usuario"></app-control-card>
+ }
+ 
 </div>
 </section>
 <!-- Section 3: System Log CTA -->

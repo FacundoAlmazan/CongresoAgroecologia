@@ -16,12 +16,12 @@ import { TrabajoService } from '../../service/trabajo.service';
 })
 export class FormularioPaper implements OnInit{
    
-
+visible: string = 'hidden';
 
 private esEdicion:boolean=false;
+
   
   paper!: Trabajo ;
-
 // Error local para mostrar mensajes de validación en la interfaz
   mensajeError: string = '';
 
@@ -79,8 +79,8 @@ ngOnInit(): void {
   };
   
   }
-
-
+abrirAutor(){this.visible=''}
+cerrarAutor(){this.visible='hidden'}
 
   //CRUD 
   enviarFormulario(): void {

@@ -3,7 +3,7 @@ import { InfoPaper } from "../info-paper/info-paper";
 
 @Component({
   selector: 'app-resultado-evaluacion',
-  imports: [InfoPaper],
+  imports: [],
   templateUrl: './resultado-evaluacion.html',
   styleUrl: './resultado-evaluacion.css',
 })

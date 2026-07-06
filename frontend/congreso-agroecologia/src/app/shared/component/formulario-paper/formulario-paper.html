@@ -24,7 +24,7 @@
 
     <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div class="lg:col-span-9">
-            <form action="#" class="space-y-12">
+            <form class="space-y-12" #paperForm="ngForm" >
                 <!-- Section 1: Información del Paper -->
                 <div class="bg-surface-container-lowest p-8 md:p-12 rounded-2xl shadow-[0_12px_48px_rgba(23,29,20,0.06)] border border-outline-variant/20">
                     <div class="flex items-center gap-3 mb-8 pb-4 border-b border-outline-variant/30">
@@ -35,13 +35,13 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="space-y-3 md:col-span-2">
                             <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="paper-title">Nombre del trabajo</label>
-                            <input [(ngModel)]="paper.titulo" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="paper-title" placeholder="Ej: Restauración de suelos mediante policultivos" type="text">
+                            <input [(ngModel)]="paper.titulo" name="titulo" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="paper-title" placeholder="Ej: Restauración de suelos mediante policultivos" type="text">
                         </div>
 
                         <div class="space-y-3">
                             <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="thematic-axis">Eje temático</label>
                             <div class="relative">
-                                <select [(ngModel)]="paper.ejesTematicos" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest cursor-pointer text-lg" id="thematic-axis">
+                                <select [(ngModel)]="paper.ejesTematicos" name="ejesTematicos" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest cursor-pointer text-lg" id="thematic-axis">
                                     <option disabled="" selected="" value="">Seleccione un eje temático</option>
                                     <option value="Sustentabilidad y Biodiversidad">Sustentabilidad y Biodiversidad</option>
                                     <option value="Soberanía Alimentaria">Soberanía Alimentaria</option>
@@ -54,7 +54,7 @@
                         <div class="space-y-3">
                             <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="category">Categoría del trabajo</label>
                             <div class="relative">
-                                <select [(ngModel)]="paper.tipo" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest cursor-pointer text-lg" id="category">
+                                <select [(ngModel)]="paper.tipo" name="tipo" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest cursor-pointer text-lg" id="category">
                                     <option disabled="" selected="" value="">Seleccione una categoría</option>
                                     <option value="TRABAJO CIENTIFICO">TRABAJO CIENTIFICO</option>
                                     <option value="RELATO DE EXPERIENCIA">RELATO DE EXPERIENCIA</option>
@@ -67,7 +67,7 @@
                         <!-- Example of Error State -->
                         <div class="space-y-3">
                             <label class="font-label text-xs uppercase tracking-widest text-error font-bold" for="contact-phone">Teléfono de contacto</label>
-                            <input  [(ngModel)]="paper.telefonoContacto" class="w-full bg-error-container/20 border border-error rounded-lg p-5 focus:ring-2 focus:ring-error/30 transition-all placeholder:text-outline text-lg" id="contact-phone" placeholder="Ej: +54 9 11 1234-5678" type="tel" value="">
+                            <input  [(ngModel)]="paper.telefonoContacto" name="telefonoContacto" class="w-full bg-error-container/20 border border-error rounded-lg p-5 focus:ring-2 focus:ring-error/30 transition-all placeholder:text-outline text-lg" id="contact-phone" placeholder="Ej: +54 9 11 1234-5678" type="tel" value="">
                             <p class="text-error text-xs font-medium flex items-center gap-1">
                                 <span class="material-symbols-outlined text-sm">error</span>
                                 Este campo es obligatorio para la coordinación.
@@ -79,14 +79,19 @@
                             <!-- File input wrapper with logic simulation -->
                             <div class="file-input-wrapper group relative">
                                 <!-- Dropzone State -->
-                                <div class="dropzone-ui flex flex-col items-center justify-center w-full min-h-[220px] border-2 border-dashed border-primary/30 rounded-2xl bg-primary-container/5 hover:bg-surface-container-lowest hover:border-primary transition-all cursor-pointer">
+                                 @if (paper.archivo!='') {
+
+                                        <div class="dropzone-ui flex flex-col items-center justify-center w-full min-h-[220px] border-2 border-dashed border-primary/30 rounded-2xl bg-primary-container/5 hover:bg-surface-container-lowest hover:border-primary transition-all cursor-pointer">
                                     <div class="p-5 rounded-full bg-primary-container/15 mb-4 group-hover:scale-110 transition-transform">
                                         <span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1;">upload_file</span>
                                     </div>
                                     <p class="text-on-surface font-bold text-xl mb-1">Arrastre su archivo aquí</p>
                                     <p class="text-on-surface-variant text-sm">PDF o DOCX hasta 10MB</p>
-                                    <input [(ngModel)]="paper.archivo" class="absolute inset-0 opacity-0 cursor-pointer" type="file">
+                                    <input [(ngModel)]="paper.archivo" name="archivo" class="absolute inset-0 opacity-0 cursor-pointer" type="file">
                                 </div>
+
+                                 }
+                                 @else {
 
                                 <!-- Selected State (Hidden by default, triggered by JS-->
                                 <div class="file-info-ui p-6 border-2 border-primary/40 rounded-2xl bg-primary-container/10 flex items-center justify-between">
@@ -103,12 +108,16 @@
                                         <span class="material-symbols-outlined">delete</span>
                                     </button>
                                 </div>
+
+                                 }
+                                
+
                             </div>
                         </div>
 
                         <div class="space-y-3 md:col-span-2">
-                            <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="comments">Resumen (abstract)</label>
-                            <textarea [(ngModel)]="paper.resumen" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="comments" placeholder="Ingrese aqui el abstract del paper..." rows="3"></textarea>
+                            <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="comments">Resumen del Trabajo</label>
+                            <textarea [(ngModel)]="paper.resumen" name="resumen" class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="comments" placeholder="Ej. El trabajo es sobre... " rows="3"></textarea>
                         </div>
                     </div>
                 </div>
@@ -120,7 +129,7 @@
                             <span class="material-symbols-outlined text-primary">groups</span>
                             <h2 class="font-headline text-2xl font-bold text-on-surface">2. Autores</h2>
                         </div>
-                        <button type="button" class="flex items-center gap-2 bg-secondary/10 text-secondary hover:bg-secondary/20 px-4 py-2 rounded-lg font-bold text-sm transition-colors" id="add-author-btn">
+                        <button (click)="abrirAutor()" type="button" class="flex items-center gap-2 bg-secondary/10 text-secondary hover:bg-secondary/20 px-4 py-2 rounded-lg font-bold text-sm transition-colors" id="add-author-btn">
                             <span class="material-symbols-outlined text-lg">person_add</span>
                             Agregar Autor
                         </button>
@@ -174,12 +183,12 @@
                 <!-- Submit Button Container -->
                 <div class="flex justify-end pt-4">
                     <button class="group bg-primary text-on-primary px-12 py-5 rounded-xl font-bold text-xl shadow-2xl shadow-primary/30 flex items-center justify-center gap-4 active:scale-95 transition-all hover:bg-primary-container" type="submit">
-                        <span class="">Enviar Trabajo</span>
-                        <span class="material-symbols-outlined text-2xl transition-transform group-hover:translate-x-1">send</span>
+                        <span class="">Guardar Trabajo</span>
                     </button>
                 </div>
             </form>
         </div>
+
 
         <!-- Sidebar -->
         <aside class="lg:col-span-3 space-y-6">
@@ -200,11 +209,16 @@
     </section>
 </main>
 
-<div id="author-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-on-surface/40 backdrop-blur-sm">
+
+
+
+<!-- Parte de formulario oculto de Autores-->
+
+<div id="author-modal"  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-surface/40 backdrop-blur-sm "  [ngClass]="visible" #autorFrom>
   <div class="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl border border-outline-variant/30 overflow-hidden">
     <div class="flex items-center justify-between p-6 border-b border-outline-variant/20">
       <h2 class="font-headline text-2xl font-bold text-on-surface">Datos del Autor</h2>
-      <button id="close-modal-btn" class="p-2 hover:bg-surface-container rounded-full transition-colors">
+      <button (click)="cerrarAutor()" id="close-modal-btn" class="p-2 hover:bg-surface-container rounded-full transition-colors">
         <span class="material-symbols-outlined">close</span>
       </button>
     </div>
@@ -242,58 +256,4 @@
       </div>
     </form>
   </div>
-</div><script>
-(function() {
-  const modal = document.getElementById('author-modal');
-  const form = document.getElementById('author-form');
-  const openBtn = document.getElementById('add-author-btn');
-  const closeBtns = [document.getElementById('close-modal-btn'), document.getElementById('cancel-modal-btn')];
-
-  const toggleModal = (show) => {
-    if (show) {
-      form.reset();
-      form.querySelectorAll('input').forEach(i => {
-        i.classList.remove('border', 'border-error');
-        i.nextElementSibling.classList.add('hidden');
-      });
-      modal.classList.remove('hidden');
-    } else {
-      modal.classList.add('hidden');
-    }
-  };
-
-  openBtn.addEventListener('click', () => toggleModal(true));
-  closeBtns.forEach(btn => btn.addEventListener('click', () => toggleModal(false)));
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let isValid = true;
-    const inputs = form.querySelectorAll('input');
-    
-    inputs.forEach(input => {
-      const error = input.nextElementSibling;
-      let fieldValid = true;
-      
-      if (!input.value.trim()) {
-        fieldValid = false;
-      } else if (input.type === 'email' && !/\S+@\S+\.\S+/.test(input.value)) {
-        fieldValid = false;
-      }
-
-      if (!fieldValid) {
-        input.classList.add('border', 'border-error');
-        error.classList.remove('hidden');
-        isValid = false;
-      } else {
-        input.classList.remove('border', 'border-error');
-        error.classList.add('hidden');
-      }
-    });
-
-    if (isValid) {
-      console.log('Author saved');
-      toggleModal(false);
-    }
-  });
-})();
-</script>
+</div>
