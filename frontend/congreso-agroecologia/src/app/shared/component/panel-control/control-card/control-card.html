@@ -22,6 +22,14 @@
 <div class="flex flex-row gap-2 justify-end">
 <button
   class="px-4 py-2 rounded-lg text-xs font-bold transition-all"
+  [ngClass]="permisos.esActivo ? estilos.activo : estilos.inactivo"
+  (click)="activar()">
+  ACTIVO
+</button>  
+</div>
+<div class="flex flex-row gap-2 justify-end">
+<button
+  class="px-4 py-2 rounded-lg text-xs font-bold transition-all"
   [ngClass]="permisos.esAdmin ? estilos.activo : estilos.inactivo"
   (click)="cambiarPermiso(TipoRol.ADMIN)">
   Administrador

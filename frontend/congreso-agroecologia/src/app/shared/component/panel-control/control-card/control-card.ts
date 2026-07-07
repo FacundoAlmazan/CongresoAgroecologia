@@ -19,7 +19,8 @@ export class ControlCard {
   permisos={
     esOrganizador:false,
     esAdmin:false,
-    esEvaluador:false
+    esEvaluador:false,
+    esActivo:false,
   }
   cambios=false;
   estilos={
@@ -35,6 +36,7 @@ iniciarPermiso(){
   this.permisos.esAdmin=false;
   this.permisos.esEvaluador=false;
   this.permisos.esOrganizador=false;
+  this.permisos.esActivo=this.user.activo;
   this.user.roles.forEach(rol=>{this.cambiarPermiso(rol.nombre)});
   this.cambios=false;
 }
@@ -55,9 +57,12 @@ iniciarPermiso(){
       this.permisos.esOrganizador = !this.permisos.esOrganizador;
       break;
   }
-
-
   }
+  activar(){
+    this.cambios=true;
+    this.permisos.esActivo=!this.permisos.esActivo;
+  }
+
   guardar() {
   if (!this.user.id) {
     return;
@@ -66,7 +71,11 @@ iniciarPermiso(){
   this.actualizarRol(TipoRol.ADMIN, this.permisos.esAdmin);
   this.actualizarRol(TipoRol.EVALUADOR, this.permisos.esEvaluador);
   this.actualizarRol(TipoRol.OC, this.permisos.esOrganizador);
-
+  if(this.permisos.esActivo!=this.user.activo){
+    this.permisos.esActivo
+    ? this.usuarioService.activar(this.user.id)
+    : this.usuarioService.desactivar(this.user.id);
+  }
   this.iniciarPermiso();
   
 }

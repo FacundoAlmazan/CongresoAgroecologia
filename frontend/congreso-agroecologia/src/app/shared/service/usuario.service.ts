@@ -37,4 +37,18 @@ export class UsuarioService {
       `${this.apiUrl}/${id}/roles/${rol}`
     );
   }
+
+  activar(id: number): Observable<Usuario> {
+  return this.http.put<Usuario>(
+    `${this.apiUrl}/${id}/activar`,
+    {}
+  );
+}
+
+desactivar(id: number): Observable<Usuario> {
+  return this.http.put<Usuario>(
+    `${this.apiUrl}/${id}/desactivar`,
+    {}
+  );
+}
 }
