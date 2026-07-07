@@ -12,10 +12,10 @@
 <div class="flex justify-between items-start mb-6">
 <div>
 <span class="bg-secondary-container text-on-secondary-container text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter mb-2 inline-block">
-                            AGRO-2026-001
+                            AGRO-2027-0{{trabajo?.id}}
                         </span>
 <h1 class="font-display text-3xl font-bold text-primary mt-2 leading-tight max-w-xl">
-                            Micelio fúngico como bioestimulante en suelos degradados
+                            {{trabajo?.titulo}}
                         </h1>
 </div>
 </div>
@@ -25,17 +25,17 @@
 <p class="text-xs text-tertiary font-bold uppercase tracking-widest mb-1">Status</p>
 <div class="flex items-center gap-2">
 <span class="w-2 h-2 rounded-full bg-tertiary"></span>
-<p class="text-on-surface font-semibold">En revisión</p>
+<p class="text-on-surface font-semibold">{{trabajo?.estado}}</p>
 </div>
 </div>
 <div>
 <p class="text-xs text-tertiary font-bold uppercase tracking-widest mb-1">Date</p>
-<p class="text-on-surface font-semibold">12 Oct, 2025</p>
+<p class="text-on-surface font-semibold">{{trabajo?.fechaEnvio}}</p>
 </div>
 <div>
 <p class="text-xs text-tertiary font-bold uppercase tracking-widest mb-1">Category</p>
 <span class="bg-surface-container-high text-primary text-xs font-bold px-2 py-0.5 rounded-lg border border-outline-variant/15">
-                            Poster
+                            {{trabajo?.tipo}}
                         </span>
 </div>
 <div>
@@ -49,7 +49,7 @@
 <!-- Abstract / Teaser -->
 <div class="mt-8">
 <p class="text-on-surface-variant leading-relaxed font-body">
-                        Este estudio investiga la eficacia de las redes miceliares fúngicas inoculadas artificialmente como agentes de restauración en suelos degradados por la agricultura intensiva. Los resultados preliminares sugieren una mejora del 40% en la retención de nitrógeno y una estabilización estructural significativa de los agregados del suelo.
+                        {{trabajo?.resumen}}
                     </p>
 </div>
 </div>

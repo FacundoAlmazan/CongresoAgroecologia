@@ -14,6 +14,8 @@ import { AsignacionTrabajo } from './shared/component/OC/asignacion-trabajo/asig
 import { Evaluaciones } from './shared/component/evaluaciones/evaluaciones';
 import { ResultadoEvaluacion } from './shared/component/resultado-evaluacion/resultado-evaluacion';
 import { FormularioEvaluacion } from './shared/component/formulario-evaluacion/formulario-evaluacion';
+import { VistaAsignacion } from './shared/component/panel-evaluaciones/vista-asignacion/vista-asignacion';
+import { FormularioAsignacion } from './shared/component/panel-evaluaciones/formulario-asignacion/formulario-asignacion';
 
 
 export const routes: Routes = [
@@ -35,5 +37,7 @@ export const routes: Routes = [
 { path: 'evaluaciones', component: Evaluaciones },
 { path: 'resultado_evaluacion', component: ResultadoEvaluacion },
 { path: 'formulario_evaluacion', component: FormularioEvaluacion },
+{ path: 'peticiones', component: VistaAsignacion },
+{ path: 'formulario_asignacion', component: FormularioAsignacion },
 //{path:'', component:  },
 ];
