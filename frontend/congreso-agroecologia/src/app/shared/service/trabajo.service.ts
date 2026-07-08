@@ -32,7 +32,7 @@ export class TrabajoService{
       eliminar(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
       }
-      enviar(id:number): Observable<Trabajo>{
-        return this.http.put<Trabajo>(`${this.apiUrl}/${id}/enviar`,'');
+      enviar(id: number): Observable<Trabajo> {
+        return this.http.put<Trabajo>(`${this.apiUrl}/${id}/enviar`, null);
       }
 }
