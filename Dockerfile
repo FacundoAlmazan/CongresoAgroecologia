@@ -2,10 +2,10 @@ FROM node:20 AS grupo7front
 
 WORKDIR /home/ejemplo/frontend
 
-COPY frontend/package*.json ./
+COPY frontend/congreso-agroecologia/package*.json ./
 RUN npm install
 
-COPY frontend/ ./
+COPY frontend/congreso-agroecologia/ ./
 RUN npm run build -- --configuration production
 
 
