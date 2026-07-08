@@ -18,7 +18,7 @@ RUN mvn verify --fail-never
 
 COPY backend/src src
 
-COPY --from=grupo7front /home/ejemplo/frontend/dist/browser/ src/main/webapp/
+COPY --from=grupo7front /home/ejemplo/frontend/dist/congreso-agroecologia/browser/ src/main/webapp/
 
 RUN mvn package
 
