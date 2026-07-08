@@ -1,5 +1,7 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
+import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
+
 import { Trabajo } from '../../../model/trabajo.model';
 import { EstadoTrabajo } from '../../../model/EstadoTrabajo.enum.model';
 import { TipoTrabajo } from '../../../model/TipoTrabajo.enum.model';
@@ -7,12 +9,13 @@ import { TrabajoService } from '../../../service/trabajo.service';
 
 @Component({
   selector: 'app-lie-card',
-  imports: [RouterLink],
+  imports: [RouterLink, NgClass],
   templateUrl: './lie-card.html',
   styleUrl: './lie-card.css',
 })
 export class LieCard {
   @Input() trabajo: Trabajo = {
+    id: -1,
     titulo: '',
     passwordTrabajo: '',
     tipo: TipoTrabajo.RELATO_EXPERIENCIA,
@@ -24,8 +27,10 @@ export class LieCard {
   };
 
   edit = false;
-  texto = '';
   enviar = false;
+  texto = '';
+
+  estilo = 'opacity-50 cursor-not-allowed';
 
   constructor(private trabajoService: TrabajoService) {}
 
@@ -36,11 +41,15 @@ export class LieCard {
   }
 
   enviarTrabajo(): void {
-    if (!this.trabajo.id) return;
+    if (!this.trabajo.id || this.trabajo.id <= 0) {
+      console.error('No se puede enviar un trabajo sin id válido.');
+      return;
+    }
 
     this.trabajoService.enviar(this.trabajo.id).subscribe({
       next: trabajoActualizado => {
         console.log('Trabajo enviado:', trabajoActualizado);
+
         this.trabajo = {
           ...trabajoActualizado,
           autores: trabajoActualizado.autores ?? [],
@@ -48,10 +57,11 @@ export class LieCard {
           asignaciones: trabajoActualizado.asignaciones ?? [],
           evaluaciones: trabajoActualizado.evaluaciones ?? [],
         };
+
         this.configEstado();
       },
       error: err => {
-        console.error('Error enviando trabajo:', err);
+        console.error('No se pudo enviar trabajo. Intentá más tarde.', err);
         alert('No se pudo enviar el trabajo.');
       }
     });
@@ -60,6 +70,7 @@ export class LieCard {
   configEstado(): void {
     this.edit = false;
     this.enviar = false;
+    this.estilo = 'opacity-50 cursor-not-allowed';
 
     switch (this.trabajo.estado) {
       case EstadoTrabajo.EN_EVALUACION:
@@ -70,12 +81,14 @@ export class LieCard {
         this.texto = 'Corregido';
         this.edit = true;
         this.enviar = true;
+        this.estilo = '';
         break;
 
       case EstadoTrabajo.BORRADOR:
         this.texto = 'Borrador';
         this.edit = true;
         this.enviar = true;
+        this.estilo = '';
         break;
 
       case EstadoTrabajo.ACEPTADO:
@@ -94,6 +107,7 @@ export class LieCard {
         this.texto = 'Borrador';
         this.edit = true;
         this.enviar = true;
+        this.estilo = '';
         break;
     }
   }

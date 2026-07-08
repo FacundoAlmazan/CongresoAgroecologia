@@ -17,16 +17,15 @@ import { TrabajoService } from '../../service/trabajo.service';
 export class FormularioPaper implements OnInit {
   TipoTrabajo = TipoTrabajo;
 
+  visible = 'hidden';
+  visibleCard = 'hidden';
+
   private esEdicion = false;
 
-  paper: Trabajo = {
-    titulo: '',
-    resumen: '',
-    passwordTrabajo: '',
-    tipo: TipoTrabajo.RELATO_EXPERIENCIA,
-    ejesTematicos: [],
-    autores: [],
-  };
+  paper: Trabajo = this.crearTrabajoVacio();
+  autor: AutorTrabajo = this.inicializarAutor();
+
+  ejeTematicoSeleccionado = '';
   mensajeError = '';
 
   constructor(
@@ -36,39 +35,42 @@ export class FormularioPaper implements OnInit {
   ) {}
 
   ngOnInit(): void {
-  const idParam = this.route.snapshot.paramMap.get('id');
+    const idParam = this.route.snapshot.paramMap.get('id');
 
-  if (idParam) {
-    this.esEdicion = true;
-    const id = Number(idParam);
+    if (idParam) {
+      this.esEdicion = true;
+      const id = Number(idParam);
 
-    this.trabajoService.get(id).subscribe({
-      next: data => {
-        console.log('Trabajo cargado para edición:', data);
+      this.trabajoService.get(id).subscribe({
+        next: data => {
+          console.log('Trabajo cargado para edición:', data);
 
-        this.paper = {
-          ...data,
-          titulo: data.titulo ?? '',
-          resumen: data.resumen ?? '',
-          passwordTrabajo: data.passwordTrabajo ?? '',
-          tipo: data.tipo ?? TipoTrabajo.RELATO_EXPERIENCIA,
-          ejesTematicos: data.ejesTematicos ?? [],
-          autores: data.autores ?? [],
-        };
-      },
-      error: err => {
-        console.error('Error al cargar el trabajo para edición:', err);
-        this.mensajeError = 'No se pudo cargar el trabajo para editar.';
-        this.inicializarObjetoVacio();
-      }
-    });
-  } else {
-    this.esEdicion = false;
-    this.inicializarObjetoVacio();
+          this.paper = {
+            ...data,
+            titulo: data.titulo ?? '',
+            resumen: data.resumen ?? '',
+            passwordTrabajo: data.passwordTrabajo ?? '',
+            tipo: data.tipo ?? TipoTrabajo.RELATO_EXPERIENCIA,
+            ejesTematicos: data.ejesTematicos ?? [],
+            autores: data.autores ?? [],
+          };
+
+          this.autor = this.inicializarAutor();
+        },
+        error: err => {
+          console.error('Error al cargar el trabajo', err);
+          this.mensajeError = 'No se pudo cargar el trabajo para editar.';
+          this.inicializarObjetoVacio();
+        }
+      });
+    } else {
+      this.esEdicion = false;
+      this.inicializarObjetoVacio();
+    }
   }
-}
-  private inicializarObjetoVacio(): void {
-    this.paper = {
+
+  private crearTrabajoVacio(): Trabajo {
+    return {
       titulo: '',
       resumen: '',
       passwordTrabajo: '',
@@ -78,60 +80,77 @@ export class FormularioPaper implements OnInit {
     };
   }
 
-  enviarFormulario(): void {
+  private inicializarObjetoVacio(): void {
+    this.paper = this.crearTrabajoVacio();
+    this.autor = this.inicializarAutor();
+  }
+
+  inicializarAutor(): AutorTrabajo {
+    return {
+      nombre: '',
+      apellido: '',
+      organizacion: '',
+      pais: '',
+      email: '',
+      ordenAutor: 0,
+      trabajo: {} as Trabajo
+    };
+  }
+
+  abrirAutor(): void {
+    this.autor = this.inicializarAutor();
+    this.visible = '';
+  }
+
+  cerrarAutor(): void {
+    this.visible = 'hidden';
+  }
+
+  crearAutor(): void {
     this.mensajeError = '';
 
-    if (!this.paper) {
-      this.mensajeError = 'El formulario todavía no está listo.';
+    if (!this.validarAutor(this.autor)) {
+      this.mensajeError = 'Completá correctamente nombre, apellido y email del autor.';
       return;
     }
 
-    if (!this.paper.titulo || this.paper.titulo.trim() === '') {
-      this.mensajeError = 'El título del trabajo es obligatorio.';
-      return;
-    }
+    const nuevoAutor: AutorTrabajo = {
+      ...this.autor,
+      ordenAutor: this.paper.autores.length + 1,
+      trabajo: {} as Trabajo
+    };
 
-    if (!this.paper.passwordTrabajo || this.paper.passwordTrabajo.trim() === '') {
-      this.mensajeError = 'La contraseña del trabajo es obligatoria.';
-      return;
-    }
-
-    console.log('Trabajo enviado:', this.paper);
-    console.log('Trabajo enviado JSON:', JSON.stringify(this.paper));
-
-    if (this.esEdicion && this.paper.id) {
-      this.modificar();
-    } else {
-      this.crear();
-    }
+    this.paper.autores.push(nuevoAutor);
+    this.autor = this.inicializarAutor();
+    this.cerrarAutor();
   }
 
-  private crear(): void {
-    this.trabajoService.crear(this.paper).subscribe({
-      next: trabajoCreado => {
-        console.log('Trabajo creado con éxito:', trabajoCreado);
-        this.router.navigate(['/panel_autor']).then(() => window.scrollTo(0, 0));
-      },
-      error: err => {
-        console.error('Error en el servicio al crear:', err);
-        this.mensajeError = err?.error?.message ?? 'Ocurrió un error al intentar registrar el trabajo técnico.';
-      }
+  eliminarAutor(index: number): void {
+    this.paper.autores.splice(index, 1);
+    this.paper.autores.forEach((autor, i) => {
+      autor.ordenAutor = i + 1;
     });
   }
 
-  private modificar(): void {
-    const id = this.paper.id!;
+  abrirCard(autor: AutorTrabajo): void {
+    this.autor = autor;
+    this.visibleCard = '';
+  }
 
-    this.trabajoService.modificar(id, this.paper).subscribe({
-      next: trabajoModificado => {
-        console.log('Trabajo actualizado con éxito:', trabajoModificado);
-        this.router.navigate(['/panel_autor']).then(() => window.scrollTo(0, 0));
-      },
-      error: err => {
-        console.error('Error en el servicio al modificar:', err);
-        this.mensajeError = err?.error?.message ?? 'Ocurrió un error al intentar guardar los cambios del trabajo.';
-      }
-    });
+  cerrarCard(): void {
+    this.visibleCard = 'hidden';
+    this.autor = this.inicializarAutor();
+  }
+
+  seleccionarArchivo(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const archivo = input.files?.[0];
+
+    this.paper.archivo = archivo?.name ?? '';
+  }
+
+  borrarArchivo(): void {
+    this.paper.archivo = '';
   }
 
   validarAutor(autor: AutorTrabajo): boolean {
@@ -143,5 +162,75 @@ export class FormularioPaper implements OnInit {
     const emailValido = tieneEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(autor.email);
 
     return tieneNombre && tieneApellido && emailValido;
+  }
+
+  enviarFormulario(): void {
+    this.mensajeError = '';
+
+    if (!this.paper.titulo?.trim()) {
+      this.mensajeError = 'El título del trabajo es obligatorio.';
+      return;
+    }
+
+    if (!this.paper.passwordTrabajo?.trim()) {
+      this.mensajeError = 'La contraseña del trabajo es obligatoria.';
+      return;
+    }
+
+    const trabajo = this.prepararTrabajoParaEnviar();
+
+    console.log('Trabajo enviado:', trabajo);
+    console.log('Trabajo enviado JSON:', JSON.stringify(trabajo));
+
+    if (this.esEdicion && trabajo.id) {
+      this.modificar(trabajo);
+    } else {
+      this.crear(trabajo);
+    }
+  }
+
+  private prepararTrabajoParaEnviar(): Trabajo {
+    return {
+      ...this.paper,
+      ejesTematicos: this.paper.ejesTematicos ?? [],
+      autores: (this.paper.autores ?? []).map((autor, index) => ({
+        id: autor.id,
+        nombre: autor.nombre,
+        apellido: autor.apellido,
+        organizacion: autor.organizacion,
+        pais: autor.pais,
+        email: autor.email,
+        ordenAutor: autor.ordenAutor || index + 1,
+        trabajo: {} as Trabajo
+      }))
+    };
+  }
+
+  private crear(trabajo: Trabajo): void {
+    this.trabajoService.crear(trabajo).subscribe({
+      next: trabajoCreado => {
+        console.log('Trabajo creado con éxito:', trabajoCreado);
+        this.router.navigate(['/panel_autor']).then(() => window.scrollTo(0, 0));
+      },
+      error: err => {
+        console.error('Error en el servicio al crear:', err);
+        this.mensajeError = err?.error?.message ?? 'Ocurrió un error al intentar registrar el trabajo técnico.';
+      }
+    });
+  }
+
+  private modificar(trabajo: Trabajo): void {
+    const id = trabajo.id!;
+
+    this.trabajoService.modificar(id, trabajo).subscribe({
+      next: trabajoModificado => {
+        console.log('Trabajo actualizado con éxito:', trabajoModificado);
+        this.router.navigate(['/panel_autor']).then(() => window.scrollTo(0, 0));
+      },
+      error: err => {
+        console.error('Error en el servicio al modificar:', err);
+        this.mensajeError = err?.error?.message ?? 'Ocurrió un error al intentar guardar los cambios del trabajo.';
+      }
+    });
   }
 }
