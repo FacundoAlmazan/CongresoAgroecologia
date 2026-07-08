@@ -9,6 +9,36 @@
 <!-- Asymmetric Hero Section -->
 <app-info-paper></app-info-paper>
 
+<section class="mt-16"><div class="flex items-center gap-4 mb-8">
+    <span class="material-symbols-outlined text-primary text-3xl">group</span>
+    <h2 class="font-display text-2xl font-bold text-primary">Asignados</h2>
+    <div class="h-px flex-grow bg-outline-variant/15"></div></div>
+    <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/15 shadow-sm">
+
+        @for (sig of asignados; track sig.id) {
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-surface-container-low/30 rounded-lg border border-outline-variant/10">
+            <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+                <div class="flex flex-col">
+                    <span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">ID</span>
+                    <span class="font-mono text-sm text-on-surface-variant">EV-{{sig.id}}</span></div>
+                    <div class="flex flex-col">
+                        <span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Nombre</span>
+                        <span class="font-bold text-on-surface">{{sig.nombre}} {{sig.apellido}}</span></div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+                                Aceptado</span>
+                                <span class="bg-error-container text-on-error-container text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+                                Rechazado</span>
+                                <span class="bg-surface-container-high text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+                                Notificado</span></div></div>
+                                <button class="px-6 py-2 border border-error text-error font-bold text-sm rounded-lg hover:bg-error/5 transition-colors">
+                                Quitar</button></div>
+                            
+                            }
+                            
+                            </div>
+    </section>
+
 
 <!-- Change Status Section (New) -->
 <section class="mt-16">
@@ -33,64 +63,44 @@
 </div>
 <!-- Evaluators Table -->
 <div class="flex flex-col gap-4">
+
+
+@for (eva of evaluadores; track eva.id) {
 <!-- Evaluator Card 1 -->
 <div class="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-surface-container-low/30 rounded-lg border border-outline-variant/10 hover:bg-surface-container-low transition-colors">
 <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 flex-grow">
 <div class="flex flex-col">
 <span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">ID</span>
-<span class="font-mono text-sm text-on-surface-variant">EV-102</span>
+<span class="font-mono text-sm text-on-surface-variant">EV-{{eva.id}}</span>
 </div>
 <div class="flex flex-col">
 <span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Nombre</span>
-<span class="font-bold text-on-surface">Dr. Julian Reed</span>
+<span class="font-bold text-on-surface">{{eva.nombre}} {{eva.apellido}}</span>
 </div>
+<!-- 
 <div class="flex flex-col">
 <span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Disponibilidad</span>
 <span class="inline-flex items-center gap-1.5 text-secondary font-semibold text-sm">
 <span class="w-2 h-2 rounded-full bg-secondary"></span>
                     Alta
                 </span>
-</div>
+</div>-->
 <div class="flex flex-col">
 <span class="text-[10px] font-bold text-tertiary uppercase tracking-widest mb-1">Ejes Temáticos</span>
-<div class="flex flex-wrap gap-2">
-<span class="bg-surface-container-high text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase">Agroforestería</span>
-<span class="bg-surface-container-high text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase">Suelos</span>
+<div class="flex flex-wrap gap-2"> proximamente
+    <!-- 
+    <span class="bg-surface-container-high text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase">Agroforestería</span>
+    -->
 </div>
 </div>
 </div>
 <button class="text-primary font-bold text-sm hover:underline px-4 py-2">Asignar</button>
 </div>
-<!-- Evaluator Card 2 -->
-<div class="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-surface-container-low/30 rounded-lg border border-outline-variant/10 hover:bg-surface-container-low transition-colors">
-<div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 flex-grow">
-<div class="flex flex-col">
-<span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">ID</span>
-<span class="font-mono text-sm text-on-surface-variant">EV-085</span>
-</div>
-<div class="flex flex-col">
-<span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Nombre</span>
-<span class="font-bold text-on-surface">Dra. Elena Méndez</span>
-</div>
-<div class="flex flex-col">
-<span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Disponibilidad</span>
-<span class="inline-flex items-center gap-1.5 text-tertiary font-semibold text-sm">
-<span class="w-2 h-2 rounded-full bg-tertiary"></span>
-                    Media
-                </span>
-</div>
-<div class="flex flex-col">
-<span class="text-[10px] font-bold text-tertiary uppercase tracking-widest mb-1">Ejes Temáticos</span>
-<div class="flex flex-wrap gap-2">
-<span class="bg-surface-container-high text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase">Micología</span>
-<span class="bg-surface-container-high text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase">Bioremediación</span>
+}
+
+
 </div>
 </div>
-</div>
-<button class="text-primary font-bold text-sm hover:underline px-4 py-2">Asignar</button>
-</div>
-</div>
-</div>
-</section><section class="mt-16"><div class="flex items-center gap-4 mb-8"><span class="material-symbols-outlined text-primary text-3xl">group</span><h2 class="font-display text-2xl font-bold text-primary">Asignados</h2><div class="h-px flex-grow bg-outline-variant/15"></div></div><div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/15 shadow-sm"><div class="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-surface-container-low/30 rounded-lg border border-outline-variant/10"><div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8"><div class="flex flex-col"><span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">ID</span><span class="font-mono text-sm text-on-surface-variant">EV-102</span></div><div class="flex flex-col"><span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Nombre</span><span class="font-bold text-on-surface">Dr. Julian Reed</span></div><div class="flex flex-wrap gap-2"><span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-0.5 rounded uppercase">Aceptado</span><span class="bg-error-container text-on-error-container text-[10px] font-bold px-2 py-0.5 rounded uppercase">Rechazado</span><span class="bg-surface-container-high text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase">Notificado</span></div></div><button class="px-6 py-2 border border-error text-error font-bold text-sm rounded-lg hover:bg-error/5 transition-colors">Quitar</button></div></div></section>
+</section>
 <!-- Anonymous Comments Section -->
 </main>
