@@ -3,3 +3,6 @@
         }
         body { font-family: 'Manrope', sans-serif; }
         h1, h2, h3 { font-family: 'Noto Serif', serif; }
+        main{
+            margin: 150px 0;
+        }

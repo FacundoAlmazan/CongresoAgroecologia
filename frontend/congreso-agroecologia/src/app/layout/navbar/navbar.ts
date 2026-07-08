@@ -12,7 +12,7 @@ import { Usuario } from '../../shared/model/usuario.model';
 export class Navbar {
   activo = false;
   menuUsuarioAbierto = false;
-
+  
   constructor(
     private authService: AuthService,
     private router: Router

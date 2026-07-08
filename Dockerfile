@@ -1,13 +1,15 @@
-#FROM una imagen NODE que tenga NPM instalado y la renombran con as grupo7front
+FROM node:20 AS grupo7front
 
-# WORKDIR /home/ejemplo
-# COPY frontend/package.json package.json
-# RUN npm install
+WORKDIR /home/ejemplo/frontend
 
-# COPY frontend/src src
-# COPY ng build --prod
+COPY frontend/package*.json ./
+RUN npm ci
 
-FROM maven as grupo7build
+COPY frontend/ ./
+RUN npm run build -- --configuration production
+
+
+FROM maven AS grupo7build
 
 WORKDIR /home/ejemplo
 
@@ -15,8 +17,11 @@ COPY backend/pom.xml pom.xml
 RUN mvn verify --fail-never
 
 COPY backend/src src
-# COPY --from=grupo7front /home/ejemplo/dist/browser/* src/main/webapp
+
+COPY --from=grupo7front /home/ejemplo/frontend/dist/browser/ src/main/webapp/
+
 RUN mvn package
+
 
 FROM tomcat
 

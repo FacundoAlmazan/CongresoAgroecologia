@@ -1,5 +1,5 @@
 export enum ModalidadPresentacion {
-    ORAL,
-    POSTER,
-    INDECISO
+    ORAL='ORAL',
+    POSTER='POSTER',
+    INDECISO='INDECISO'
 }

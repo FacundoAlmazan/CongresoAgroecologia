@@ -1,0 +1,70 @@
+
+<!-- User Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-outline-variant/10 group hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-all">
+<div class="flex flex-col md:flex-row md:items-center gap-8">
+<div class="flex-1 space-y-4">
+<div class="flex items-center gap-4">
+<div>
+<div class="flex items-center gap-2">
+<h4 class="text-xl font-bold text-on-surface">{{user.nombre}} {{user.apellido}}</h4>
+<span class="bg-surface-container px-2 py-0.5 rounded text-[10px] font-bold text-primary tracking-tighter">USR-{{user.id}}</span>
+</div>
+<p class="text-sm text-on-surface-variant">{{user.tipoIdentificacion}}: {{user.numeroIdentificacion}}</p>
+</div>
+</div>
+<div class="flex gap-6 text-xs text-outline font-medium">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+                                            Ingreso: (No hay campo fecha en :v)
+                                        </span>
+</div>
+</div>
+<div class="flex flex-row gap-2 justify-end">
+<button
+  class="px-4 py-2 rounded-lg text-xs font-bold transition-all"
+  [ngClass]="permisos.esActivo ? estilos.activo : estilos.inactivo"
+  (click)="activar()">
+  ACTIVO
+</button>  
+</div>
+<div class="flex flex-row gap-2 justify-end">
+<button
+  class="px-4 py-2 rounded-lg text-xs font-bold transition-all"
+  [ngClass]="permisos.esAdmin ? estilos.activo : estilos.inactivo"
+  (click)="cambiarPermiso(TipoRol.ADMIN)">
+  Administrador
+</button>
+
+<button
+  class="px-4 py-2 rounded-lg text-xs font-bold transition-all"
+  [ngClass]="permisos.esEvaluador ? estilos.activo : estilos.inactivo"
+  (click)="cambiarPermiso(TipoRol.EVALUADOR)">
+  Evaluador
+</button>
+
+<button
+  class="px-4 py-2 rounded-lg text-xs font-bold transition-all"
+  [ngClass]="permisos.esOrganizador ? estilos.activo : estilos.inactivo"
+  (click)="cambiarPermiso(TipoRol.OC)">
+  Organizador Científico
+</button></div>
+
+</div>
+<div class="flex flex-row gap-2 justify-end">
+@if (cambios) {
+    
+<button
+  class="px-4 py-2 rounded-lg text-xs font-bold transition-all" (click)="cancelar()">
+  Cancelar
+</button>
+<button
+  class="px-4 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-on-primary shadow-sm hover:scale-105 active:scale-95"
+  (click)="guardar()">
+  Guardar Cambios
+</button>
+}
+
+</div>
+<div class="flex flex-row gap-2 justify-center">
+    <span style="color: brown;">{{mensajeError}}</span>
+</div>

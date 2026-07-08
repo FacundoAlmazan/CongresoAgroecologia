@@ -1,160 +1,110 @@
-
-      
-   
 <main class="max-w-7xl mx-auto px-8 py-12 lg:py-20">
-<!-- Hero Section -->
-<div class="mb-20">
-<h1 class="font-serif text-5xl md:text-6xl font-bold tracking-tight text-on-surface mb-4" style="">Gestión de Trabajos</h1>
-<p class="text-on-surface-variant text-lg max-w-2xl font-medium" style="">Bienvenido al portal del expositor. Aquí podrá cargar nuevas investigaciones, revisar el estado de sus envíos y descargar las evaluaciones del comité científico.</p>
-</div>
-<!-- Section 1: Enviar un trabajo -->
-<section class="mb-24">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center bg-surface-container-low p-8 md:p-12 rounded-xl relative overflow-hidden">
-<!-- Background Decoration -->
-<div class="absolute top-0 right-0 opacity-10 pointer-events-none translate-x-1/4 -translate-y-1/4">
-<span class="material-symbols-outlined text-[240px]" style="">eco</span>
-</div>
-<div class="lg:col-span-7">
-<h2 class="font-serif text-3xl font-bold text-primary mb-6" style="">Enviar un trabajo</h2>
-<div class="space-y-4 text-on-surface-variant leading-relaxed">
-<p class="flex items-start gap-3" style="">
-<span class="material-symbols-outlined text-secondary pt-1" style="">task_alt</span>
-<span class="" style=""><strong>Formato:</strong> Documentos en formato PDF (máx. 10MB). Fuente Manrope o Arial 11pt.</span>
-</p>
-<p class="flex items-start gap-3" style="">
-<span class="material-symbols-outlined text-secondary pt-1" style="">task_alt</span>
-<span class="" style=""><strong>Extensión:</strong> Resúmenes de hasta 500 palabras y trabajos completos de hasta 15 páginas.</span>
-</p>
-<p class="flex items-start gap-3" style="">
-<span class="material-symbols-outlined text-secondary pt-1" style="">event_available</span>
-<span class="" style=""><strong>Plazo máximo:</strong> 15 de Octubre de 2024, 23:59 (GMT-5).</span>
-</p>
-</div>
-</div>
-<div class="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-4">
-<a [routerLink]="['/formulario_paper']">
-<button class="flex items-center justify-center gap-3 bg-primary text-on-primary px-8 py-4 rounded-lg font-bold text-lg hover:bg-primary-container transition-colors shadow-lg shadow-primary/10 group" style="">
-<span class="material-symbols-outlined" style="">upload_file</span>
-                        Subir trabajo
-                    </button></a>
-<button class="flex items-center justify-center gap-3 bg-surface-container-high text-primary px-8 py-4 rounded-lg font-bold text-lg hover:bg-surface-variant transition-colors group" style="">
-<span class="material-symbols-outlined" style="">description</span>
-                        Criterios de evaluación
-                    </button>
-</div>
-</div>
-</section>
-<!-- Section 2: Mis trabajos -->
-<section>
-<div class="flex items-center justify-between mb-8">
-<h2 class="font-serif text-3xl font-bold text-on-surface" style="">Mis trabajos</h2>
-<div class="bg-surface-container text-on-surface-variant px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2" style="">
-<span class="material-symbols-outlined text-sm" style="">inventory_2</span>
-                    4 TRABAJOS EN TOTAL
-                </div>
-</div>
-<div class="space-y-6">
-<!-- Card 1: En revisión -->
-<div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-[0_8px_32px_rgba(23,29,20,0.02)] flex flex-col md:flex-row md:items-center justify-between gap-8 group hover:shadow-lg transition-all duration-300">
-<div class="flex-1 space-y-2">
-<div class="flex items-center gap-3 mb-1">
-<span class="text-tertiary font-bold tracking-wider text-xs uppercase bg-tertiary-fixed/20 px-2 py-0.5 rounded" style="">AG-2026-001</span>
-<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold" style="">
-<span class="material-symbols-outlined text-sm" style="">visibility</span>
-                                En revisión
-                            </div>
-</div>
-<h3 class="text-xl font-bold text-on-surface group-hover:text-primary transition-colors" style="">Implementación de Sistemas Agroforestales en la Cuenca del Plata</h3>
-</div>
-<div class="flex flex-wrap items-center gap-3"><button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors font-bold"><span class="material-symbols-outlined text-sm">edit_note</span>Editar entrega</button>
-<button class="flex items-center gap-2 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors font-medium" style="">
-<span class="material-symbols-outlined" style="">download</span>
-                            Descargar documento
-                        </button>
-<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors font-bold" style="">
-<span class="material-symbols-outlined" style="">forum</span>
-                            Ver comentarios (0)
-                        </button>
-</div>
-</div>
-<!-- Card 2: Incompleto -->
-<div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-[0_8px_32px_rgba(23,29,20,0.02)] flex flex-col md:flex-row md:items-center justify-between gap-8 group hover:shadow-lg transition-all duration-300">
-<div class="flex-1 space-y-2">
-<div class="flex items-center gap-3 mb-1">
-<span class="text-tertiary font-bold tracking-wider text-xs uppercase bg-tertiary-fixed/20 px-2 py-0.5 rounded" style="">AG-2026-002</span>
-<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100 text-orange-800 text-xs font-bold" style="">
-<span class="material-symbols-outlined text-sm" style="">warning</span>
-                                Incompleto
-                            </div>
-</div>
-<h3 class="text-xl font-bold text-on-surface group-hover:text-primary transition-colors" style="">Soberanía Alimentaria: Perspectiva de las Mujeres Rurales en el Biobío</h3>
-</div>
-<div class="flex flex-wrap items-center gap-3"><button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors font-bold"><span class="material-symbols-outlined text-sm">edit_note</span>Editar entrega</button>
-<button class="flex items-center gap-2 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors font-medium" style="">
-<span class="material-symbols-outlined" style="">download</span>
-                            Descargar documento
-                        </button>
-<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors font-bold" style="">
-<span class="material-symbols-outlined" style="">forum</span>
-                            Ver comentarios (3)
-                        </button>
-</div>
-</div>
-<!-- Card 3: Aceptado -->
-<div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-[0_8px_32px_rgba(23,29,20,0.02)] border-l-4 border-secondary flex flex-col md:flex-row md:items-center justify-between gap-8 group hover:shadow-lg transition-all duration-300">
-<div class="flex-1 space-y-2">
-<div class="flex items-center gap-3 mb-1">
-<span class="text-tertiary font-bold tracking-wider text-xs uppercase bg-tertiary-fixed/20 px-2 py-0.5 rounded" style="">AG-2026-003</span>
-<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold" style="">
-<span class="material-symbols-outlined text-sm" style='font-variation-settings: "FILL" 1;'>check_circle</span>
-                                Aceptado
-                            </div>
-</div>
-<h3 class="text-xl font-bold text-on-surface group-hover:text-primary transition-colors" style="">Biorremediación de Suelos Mediante Microorganismos Nativos</h3>
-</div>
-<div class="flex flex-wrap items-center gap-3"><button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors font-bold"><span class="material-symbols-outlined text-sm">edit_note</span>Editar entrega</button>
-<button class="flex items-center gap-2 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors font-medium" style="">
-<span class="material-symbols-outlined" style="">download</span>
-                            Descargar documento
-                        </button>
-<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors font-bold" style="">
-<span class="material-symbols-outlined" style="">forum</span>
-                            Ver comentarios (5)
-                        </button>
-</div>
-</div>
-<!-- Card 4: Rechazado -->
-<div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-[0_8px_32px_rgba(23,29,20,0.02)] flex flex-col md:flex-row md:items-center justify-between gap-8 group hover:shadow-lg transition-all duration-300">
-<div class="flex-1 space-y-2">
-<div class="flex items-center gap-3 mb-1">
-<span class="text-tertiary font-bold tracking-wider text-xs uppercase bg-tertiary-fixed/20 px-2 py-0.5 rounded" style="">AG-2026-004</span>
-<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-error-container text-on-error-container text-xs font-bold" style="">
-<span class="material-symbols-outlined text-sm" style="">cancel</span>
-                                Rechazado
-                            </div>
-</div>
-<h3 class="text-xl font-bold text-on-surface group-hover:text-primary transition-colors" style="">Estudio Comparativo de Semillas Híbridas en Climas Tropicales</h3>
-</div>
-<div class="flex flex-wrap items-center gap-3"><button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors font-bold"><span class="material-symbols-outlined text-sm">edit_note</span>Editar entrega</button>
-<button class="flex items-center gap-2 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors font-medium opacity-50 cursor-not-allowed" style="">
-<span class="material-symbols-outlined" style="">download</span>
-                            Descargar documento
-                        </button>
-<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors font-bold" style="">
-<span class="material-symbols-outlined" style="">forum</span>
-                            Ver comentarios (2)
-                        </button>
-</div>
-</div>
-</div>
-</section>
-<!-- Asymmetric Botanical Plate Decoration -->
-<div class="mt-32 relative h-64 md:h-96 rounded-xl overflow-hidden shadow-xl">
-<img class="w-full h-full object-cover" data-alt="high quality editorial macro photography of detailed botanical leaves with intricate veins and dew drops in soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgW9JU-SQUxjRupFUPzJEZft0fIttmazhS0I9IL5U-b6Zddgsk38z0bbXXmBaIs7JN6uXLH4Eed0hnwUmAuoqWoxpCYehfAdm_eoWWRQwRuP_fu3XGFtAx-2N6W1SRe8I7vPeMe5WzNuzwVCTlTVzW-n1G1kezHbYG2XHZ6RMPVoSd5ElgVm15cinrZPVDSKyskqz30rx7XeLYWH6CXQ-kh7KR9qwv-LOBhhFO8foYnLoBxz6wVN26ZKhoRYli9GOjoM_fjO9EFoeH" style=""/>
-<div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent flex items-center p-12">
-<div class="max-w-md">
-<p class="font-serif italic text-2xl md:text-3xl text-on-primary" style="">"La agroecología no es solo técnica, es una visión transformadora del territorio."</p>
-</div>
-</div>
-</div>
+  <div class="mb-20">
+    <h1 class="font-serif text-5xl md:text-6xl font-bold tracking-tight text-on-surface mb-4">
+      Gestión de Trabajos
+    </h1>
+
+    <p class="text-on-surface-variant text-lg max-w-2xl font-medium">
+      Bienvenido al portal del expositor. Aquí podrá cargar nuevas investigaciones, revisar el estado de sus envíos y descargar las evaluaciones del comité científico.
+    </p>
+  </div>
+
+  <section class="mb-24">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center bg-surface-container-low p-8 md:p-12 rounded-xl relative overflow-hidden">
+      <div class="absolute top-0 right-0 opacity-10 pointer-events-none translate-x-1/4 -translate-y-1/4">
+        <span class="material-symbols-outlined text-[240px]">eco</span>
+      </div>
+
+      <div class="lg:col-span-7">
+        <h2 class="font-serif text-3xl font-bold text-primary mb-6">
+          Enviar un trabajo
+        </h2>
+
+        <div class="space-y-4 text-on-surface-variant leading-relaxed">
+          <p class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary pt-1">task_alt</span>
+            <span><strong>Formato:</strong> Documentos en formato PDF (máx. 10MB). Fuente Manrope o Arial 11pt.</span>
+          </p>
+
+          <p class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary pt-1">task_alt</span>
+            <span><strong>Extensión:</strong> Resúmenes de hasta 500 palabras y trabajos completos de hasta 15 páginas.</span>
+          </p>
+
+          <p class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary pt-1">event_available</span>
+            <span><strong>Plazo máximo:</strong> 15 de Octubre de 2024, 23:59 (GMT-5).</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-4">
+        <a [routerLink]="['/formulario_paper']">
+          <button class="flex w-full justify-center gap-3 bg-primary text-on-primary px-8 py-4 rounded-lg font-bold text-lg hover:bg-primary-container transition-colors shadow-lg shadow-primary/10 group">
+            <span class="material-symbols-outlined">upload_file</span>
+            Subir trabajo
+          </button>
+        </a>
+
+        <button class="flex items-center justify-center gap-3 bg-surface-container-high text-primary px-8 py-4 rounded-lg font-bold text-lg hover:bg-surface-variant transition-colors group">
+          <span class="material-symbols-outlined">description</span>
+          Criterios de evaluación
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="font-serif text-3xl font-bold text-on-surface">
+        Mis trabajos
+      </h2>
+
+      <div class="bg-surface-container text-on-surface-variant px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm">inventory_2</span>
+        {{ listadoTrabajos.length }} TRABAJOS EN TOTAL
+      </div>
+    </div>
+
+    @if (cargando) {
+      <p class="text-primary font-bold">
+        Cargando trabajos...
+      </p>
+    }
+
+    @if (mensajeError) {
+      <div class="mb-6 rounded-xl bg-red-50 px-6 py-4 text-red-700 font-semibold">
+        {{ mensajeError }}
+      </div>
+    }
+
+    @if (!cargando && listadoTrabajos.length === 0) {
+      <div class="rounded-xl bg-surface-container-low p-8 text-on-surface-variant font-semibold">
+        Todavía no hay trabajos cargados.
+      </div>
+    }
+
+    @if (!cargando && listadoTrabajos.length > 0) {
+      <div class="space-y-6">
+        @for (item of listadoTrabajos; track item.id) {
+          <app-lie-card [trabajo]="item"></app-lie-card>
+        }
+      </div>
+    }
+  </section>
+
+  <div class="mt-32 relative h-64 md:h-96 rounded-xl overflow-hidden shadow-xl">
+    <img
+      class="w-full h-full object-cover"
+      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgW9JU-SQUxjRupFUPzJEZft0fIttmazhS0I9IL5U-b6Zddgsk38z0bbXXmBaIs7JN6uXLH4Eed0hnwUmAuoqWoxpCYehfAdm_eoWWRQwRuP_fu3XGFtAx-2N6W1SRe8I7vPeMe5WzNuzwVCTlTVzW-n1G1kezHbYG2XHZ6RMPVoSd5ElgVm15cinrZPVDSKyskqz30rx7XeLYWH6CXQ-kh7KR9qwv-LOBhhFO8foYnLoBxz6wVN26ZKhoRYli9GOjoM_fjO9EFoeH"
+    />
+
+    <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent flex items-center p-12">
+      <div class="max-w-md">
+        <p class="font-serif italic text-2xl md:text-3xl text-on-primary">
+          "La agroecología no es solo técnica, es una visión transformadora del territorio."
+        </p>
+      </div>
+    </div>
+  </div>
 </main>

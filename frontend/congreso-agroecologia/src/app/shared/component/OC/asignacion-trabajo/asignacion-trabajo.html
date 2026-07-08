@@ -1,0 +1,106 @@
+
+<main class="pt-24 pb-32 max-w-6xl mx-auto px-6">
+<!-- Breadcrumb / Context -->
+<div class="mb-8 flex items-center gap-2 text-label-md text-tertiary">
+<span class="uppercase tracking-widest font-semibold">Lista de trabajos</span>
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+<span class="uppercase tracking-widest font-semibold">Detalles</span>
+</div>
+<!-- Asymmetric Hero Section -->
+<app-info-paper></app-info-paper>
+
+<section class="mt-16"><div class="flex items-center gap-4 mb-8">
+    <span class="material-symbols-outlined text-primary text-3xl">group</span>
+    <h2 class="font-display text-2xl font-bold text-primary">Asignados</h2>
+    <div class="h-px flex-grow bg-outline-variant/15"></div></div>
+    <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/15 shadow-sm">
+
+        @for (sig of asignados; track sig.id) {
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-surface-container-low/30 rounded-lg border border-outline-variant/10">
+            <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+                <div class="flex flex-col">
+                    <span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">ID</span>
+                    <span class="font-mono text-sm text-on-surface-variant">EV-{{sig.id}}</span></div>
+                    <div class="flex flex-col">
+                        <span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Nombre</span>
+                        <span class="font-bold text-on-surface">{{sig.nombre}} {{sig.apellido}}</span></div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+                                Aceptado</span>
+                                <span class="bg-error-container text-on-error-container text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+                                Rechazado</span>
+                                <span class="bg-surface-container-high text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+                                Notificado</span></div></div>
+                                <button class="px-6 py-2 border border-error text-error font-bold text-sm rounded-lg hover:bg-error/5 transition-colors">
+                                Quitar</button></div>
+                            
+                            }
+                            
+                            </div>
+    </section>
+
+
+<!-- Change Status Section (New) -->
+<section class="mt-16">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-primary text-3xl">person_add</span>
+<h2 class="font-display text-2xl font-bold text-primary">Asignar Evaluador</h2>
+<div class="h-px flex-grow bg-outline-variant/15"></div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/15 shadow-sm">
+<!-- Search and Filter Area -->
+<div class="flex flex-col md:flex-row gap-4 mb-8">
+<div class="flex-grow relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 pl-4 pr-12 text-on-surface placeholder:text-on-surface-variant/40 focus:ring-2 ring-primary/20" placeholder="Buscar evaluador por nombre o ID..." type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-primary hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+<button class="flex items-center justify-center gap-2 px-6 py-3 border border-outline-variant/50 rounded-lg font-bold text-primary hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                Filtrar
+            </button>
+</div>
+<!-- Evaluators Table -->
+<div class="flex flex-col gap-4">
+
+
+@for (eva of evaluadores; track eva.id) {
+<!-- Evaluator Card 1 -->
+<div class="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-surface-container-low/30 rounded-lg border border-outline-variant/10 hover:bg-surface-container-low transition-colors">
+<div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 flex-grow">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">ID</span>
+<span class="font-mono text-sm text-on-surface-variant">EV-{{eva.id}}</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Nombre</span>
+<span class="font-bold text-on-surface">{{eva.nombre}} {{eva.apellido}}</span>
+</div>
+<!-- 
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Disponibilidad</span>
+<span class="inline-flex items-center gap-1.5 text-secondary font-semibold text-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                    Alta
+                </span>
+</div>-->
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-widest mb-1">Ejes Temáticos</span>
+<div class="flex flex-wrap gap-2"> proximamente
+    <!-- 
+    <span class="bg-surface-container-high text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase">Agroforestería</span>
+    -->
+</div>
+</div>
+</div>
+<button class="text-primary font-bold text-sm hover:underline px-4 py-2">Asignar</button>
+</div>
+}
+
+
+</div>
+</div>
+</section>
+<!-- Anonymous Comments Section -->
+</main>

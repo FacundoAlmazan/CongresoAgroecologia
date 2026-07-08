@@ -1,6 +1,7 @@
 {
   "/api": {
-    "target": "http://localhost:8080/practica-jpa",
+    //"target": "http://localhost:8080/practica-jpa",
+    "target": "https://grupo7.jyaa-ci.linti.unlp.edu.ar",
     "secure": false,
     "changeOrigin": true
   }

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../model/usuario.model';
+import { TipoRol } from '../model/TipoRol.enum.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,4 +24,31 @@ export class UsuarioService {
   obtenerPorId(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
   }
+
+  asignarRol(id: number, rol: TipoRol): Observable<Usuario> {
+    return this.http.put<Usuario>(
+      `${this.apiUrl}/${id}/roles/${rol}`,
+      {} // cuerpo vacío
+    );
+  }
+
+  quitarRol(id: number, rol: TipoRol): Observable<Usuario> {
+    return this.http.delete<Usuario>(
+      `${this.apiUrl}/${id}/roles/${rol}`
+    );
+  }
+
+  activar(id: number): Observable<Usuario> {
+  return this.http.put<Usuario>(
+    `${this.apiUrl}/${id}/activar`,
+    {}
+  );
+}
+
+desactivar(id: number): Observable<Usuario> {
+  return this.http.put<Usuario>(
+    `${this.apiUrl}/${id}/desactivar`,
+    {}
+  );
+}
 }

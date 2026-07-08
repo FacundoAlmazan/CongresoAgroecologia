@@ -58,7 +58,7 @@
   </div>
 }
 
-<button (click)="activo=!activo" aria-label="Abrir menú" class="p-2 text-emerald-900 hover:bg-emerald-50 rounded-full transition-colors flex items-center justify-center" id="menu-toggle"><span class="material-symbols-outlined text-3xl">menu</span></button>
+<button (click)="activo=true" aria-label="Abrir menú" class="p-2 text-emerald-900 hover:bg-emerald-50 rounded-full transition-colors flex items-center justify-center" id="menu-toggle"><span class="material-symbols-outlined text-3xl">menu</span></button>
 
 
 </div>
@@ -75,7 +75,7 @@
 </button>
 </div>
 <nav  class="px-8 pb-12 flex flex-col gap-6 font-headline">
-<a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
+<a [routerLink]="['/panel_usuario']" class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
 <span class="material-symbols-outlined">home</span> Inicio
         </a>
 <a class="sidebar-link flex items-center gap-4 text-white/90 hover:text-white transition-colors text-lg" href="#">
@@ -116,36 +116,3 @@
         </a>
 </nav>
 </aside>
-
-
-<script>
-    (function() {
-        const menuToggle = document.getElementById('menu-toggle');
-        const closeSidebar = document.getElementById('close-sidebar');
-        const sidebar = document.getElementById('sidebar-drawer');
-        const overlay = document.getElementById('sidebar-overlay');
-        const links = document.querySelectorAll('.sidebar-link');
-
-        function openMenu() {
-            sidebar.classList.remove('translate-x-full');
-            overlay.classList.remove('opacity-0', 'pointer-events-none');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeMenu() {
-            sidebar.classList.add('translate-x-full');
-            overlay.classList.add('opacity-0', 'pointer-events-none');
-            document.body.style.overflow = '';
-        }
-
-        menuToggle.addEventListener('click', openMenu);
-        closeSidebar.addEventListener('click', closeMenu);
-        overlay.addEventListener('click', closeMenu);
-        
-        links.forEach(link => {
-            link.addEventListener('click', (e) => {
-                closeMenu();
-            });
-        });
-    })();
-</script>

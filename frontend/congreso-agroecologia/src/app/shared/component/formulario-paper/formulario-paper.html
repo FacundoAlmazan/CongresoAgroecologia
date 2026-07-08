@@ -1,117 +1,445 @@
-
-       
-   
 <main class="pt-24 pb-20 px-6 max-w-screen-2xl mx-auto">
-<!-- Hero Section: Reduced height and smaller illustration -->
-<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 items-center">
-<div class="lg:col-span-9">
-<h1 class="font-headline text-4xl md:text-5xl lg:text-6xl font-bold text-on-surface leading-tight tracking-tighter mb-4">
-                Envío de Resúmenes Técnicos
-            </h1>
-<div class="flex flex-col md:flex-row md:items-center gap-4 p-4 bg-surface-container-low rounded-xl border-l-4 border-primary max-w-4xl">
-<p class="text-on-surface-variant text-base">
-                    Antes de subir su trabajo, le recomendamos revisar las guías de formato vigentes para asegurar una correcta evaluación.
-                </p>
-<button class="whitespace-nowrap flex items-center gap-2 text-primary font-bold hover:underline decoration-2 underline-offset-4 transition-all">
-<span class="material-symbols-outlined">description</span>
-                    Ver Guía
-                </button>
-</div>
-</div>
-<div class="hidden lg:block lg:col-span-3">
-<div class="aspect-square w-48 ml-auto rounded-xl overflow-hidden shadow-xl rotate-3 transform hover:rotate-0 transition-transform duration-500">
-<img alt="Botanical illustration" class="w-full h-full object-cover" data-alt="Close-up of a scientific botanical illustration of a leaf with detailed veins on vintage textured paper, soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBddWA7gWR7DUOM3SumVLb2QYTYVj5RttSh97oKqnR0bP7-aa5E1jJEzjqkp9qAKdGbSPjmaTwRod73eAomtSbvp0VqCK2srNoN8pJb6ewafWNk2iBXcGs_Dh_iWWFgznEzg3WSnnGw8XvoIDIxMa1JUJJqiaTrMKPhGUUYQJJ6SyRyjHp0Pfj0bZZQYgjUJT48z8GwQt_nUPh8lv-dprKibktKvAhVk5CLelsD-YhVpRx_eVXBCfIQvswR4xacO7dS8bjh7QesX0v"/>
-</div>
-</div>
-</section>
-<!-- Main Content: Increased width for the form container -->
-<section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-<div class="lg:col-span-9">
-<div class="bg-surface-container-lowest p-8 md:p-14 rounded-2xl shadow-[0_12px_48px_rgba(23,29,20,0.06)] border border-outline-variant/20">
-<form action="#" class="space-y-10">
-<!-- Text Input -->
-<div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="author-name">Nombre del autor principal</label>
-<input class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="author-name" placeholder="Ej: Dr. Roberto García" type="text"/>
-</div><div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="author-title">Título/especialidad (opcional)</label>
-<input class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="author-title" placeholder="Ej: Especialista en Agroecología" type="text"/>
-</div><div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="other-authors">Otros autores (opcional)</label>
-<input class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="other-authors" placeholder="Ej: María López, Juan Pérez" type="text"/>
-</div><div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="thematic-axis">Eje temático</label>
-<div class="relative">
-<select class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest appearance-none cursor-pointer text-lg" id="thematic-axis">
-<option disabled="" selected="" value="">Seleccione un eje temático</option>
-<option value="axis1">Sustentabilidad y Biodiversidad</option>
-<option value="axis2">Soberanía Alimentaria</option>
-<option value="axis3">Políticas Públicas Agroecológicas</option>
-<option value="axis4">Innovación Campesina</option>
-</select>
-<span class="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-2xl">expand_more</span>
-</div>
-</div><div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="doc-name">Nombre del documento/trabajo</label>
-<input class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="doc-name" placeholder="Ej: Impacto de la rotación de cultivos en suelos áridos" type="text"/>
-</div>
-<!-- Dropdown -->
-<div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="category">Categoría del trabajo</label>
-<div class="relative">
-<select class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest appearance-none cursor-pointer text-lg" id="category">
-<option disabled="" selected="" value="">Seleccione una categoría</option>
-<option value="biotech">Biotecnología</option>
-<option value="agroforest">Agroforestería</option>
-<option value="rural">Circuitos Rurales</option>
-<option value="soil">Ciencia del Suelo</option>
-<option value="water">Gestión Hídrica</option>
-</select>
-<span class="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-2xl">expand_more</span>
-</div>
-</div>
-<!-- Dropzone (Main Central Focus) -->
-<div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Archivo del manuscrito</label>
-<div class="group relative flex flex-col items-center justify-center w-full min-h-[300px] border-2 border-dashed border-primary/30 rounded-2xl bg-primary-container/5 hover:bg-surface-container-lowest hover:border-primary transition-all cursor-pointer">
-<div class="p-8 rounded-full bg-primary-container/15 mb-6 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-primary text-6xl" style="font-variation-settings: 'FILL' 1;">upload_file</span>
-</div>
-<p class="text-on-surface font-bold text-2xl mb-2">Arrastre su archivo aquí</p>
-<p class="text-on-surface-variant text-base">O haga clic para buscar en su ordenador (PDF, DOCX hasta 10MB)</p>
-<input class="absolute inset-0 opacity-0 cursor-pointer" type="file"/>
-</div>
-</div>
-<!-- Textarea -->
-<div class="space-y-3">
-<label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="comments">Comentarios adicionales</label>
-<textarea class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg" id="comments" placeholder="Alguna nota relevante para los revisores..." rows="5"></textarea>
-</div>
-<!-- Submit Button (Central Focus) -->
-<div class="pt-8 flex justify-center">
-<button class="group w-full md:w-auto bg-gradient-to-r from-primary to-primary-container text-on-primary px-16 py-5 rounded-xl font-bold text-xl shadow-2xl shadow-primary/30 flex items-center justify-center gap-4 active:scale-95 transition-all" type="submit">
-<span>Enviar Trabajo</span>
-<span class="material-symbols-outlined text-2xl transition-transform group-hover:translate-x-1">send</span>
-</button>
-</div>
-</form>
-</div>
-</div>
-<!-- Sidebar Botanical Info -->
-<aside class="lg:col-span-3 space-y-6">
-<div class="bg-secondary-container/20 p-6 rounded-xl space-y-4 border border-secondary-container">
-<span class="material-symbols-outlined text-secondary text-4xl">verified_user</span>
-<h3 class="font-headline text-lg font-bold text-secondary">Proceso de Revisión</h3>
-<p class="text-on-secondary-container font-medium leading-relaxed text-sm">
-                    Su trabajo será evaluado de forma anónima por un comité de pares expertos. Los resultados se notificarán en un plazo de 15 días hábiles.
-                </p>
-</div>
-<div class="relative overflow-hidden rounded-xl bg-surface-container-high aspect-[3/4]">
-<img alt="Greenhouse seeds" class="w-full h-full object-cover" data-alt="Young green plant seedlings growing in a modern sustainable nursery with warm sunlight and soft bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAby-etfEzVjXCKCdn3nRzJYFop3WGPvqVtQHYYPCr0gvVVBtUD_ciw-g9rLAFt6T4WqM5n2Y6_uiHEezdBI1eyfEzzI4GkaRIh8lhbrHFxbrcf6ewFu8PxcAD5hFr7lj5oZtoqohfO1kTwXceiItLziLVxTu8xs2vyqgKhhr-RO9Wqx-XuD7U7fLohnYEpR6U2YxA9Haw6ir5C39n-EeB8yMlJYJSPR4Z_aoiH-UUUr_36eOAjaG2sjeic8-UQdmrwKIutVvMLvGNH"/>
-<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 to-transparent flex items-end p-5">
-<p class="text-surface-bright text-xs italic font-headline leading-relaxed">"Sembrar el conocimiento es la base de la soberanía alimentaria."</p>
-</div>
-</div>
-</aside>
-</section>
+  <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 items-center">
+    <div class="lg:col-span-9">
+      <h1 class="font-headline text-4xl md:text-5xl lg:text-6xl font-bold text-on-surface leading-tight tracking-tighter mb-4">
+        Envío de Resúmenes Técnicos
+      </h1>
+
+      <div class="flex flex-col md:flex-row md:items-center gap-4 p-4 bg-surface-container-low rounded-xl border-l-4 border-primary max-w-4xl">
+        <p class="text-on-surface-variant text-base">
+          Antes de subir su trabajo, le recomendamos revisar las guías de formato vigentes para asegurar una correcta evaluación.
+        </p>
+
+        <button type="button" class="whitespace-nowrap flex items-center gap-2 text-primary font-bold hover:underline decoration-2 underline-offset-4 transition-all">
+          <span class="material-symbols-outlined">description</span>
+          Ver Guía
+        </button>
+      </div>
+    </div>
+
+    <div class="hidden lg:block lg:col-span-3">
+      <div class="aspect-square w-48 ml-auto rounded-xl overflow-hidden shadow-xl rotate-3 transform hover:rotate-0 transition-transform duration-500">
+        <img
+          alt="Botanical illustration"
+          class="w-full h-full object-cover"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBddWA7gWR7DUOM3SumVLb2QYTYVj5RttSh97oKqnR0bP7-aa5E1jJEzjqkp9qAKdGbSPjmaTwRod73eAomtSbvp0VqCK2srNoN8pJb6ewafWNk2iBXcGs_Dh_iWWFgznEzg3WSnnGw8XvoIDIxMa1JUJJqiaTrMKPhGUUYQJJ6SyRyjHp0Pfj0bZZQYgjUJT48z8GwQt_nUPh8lv-dprKibktKvAhVk5CLelsD-YhVpRx_eVXBCfIQvswR4xacO7dS8bjh7QesX0v"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="lg:col-span-9">
+      <form class="space-y-12" #paperForm="ngForm" (ngSubmit)="enviarFormulario()">
+
+        <div class="bg-surface-container-lowest p-8 md:p-12 rounded-2xl shadow-[0_12px_48px_rgba(23,29,20,0.06)] border border-outline-variant/20">
+          <div class="flex items-center gap-3 mb-8 pb-4 border-b border-outline-variant/30">
+            <span class="material-symbols-outlined text-primary">description</span>
+            <h2 class="font-headline text-2xl font-bold text-on-surface">
+              1. Información del Paper
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-3 md:col-span-2">
+              <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="paper-title">
+                Nombre del trabajo
+              </label>
+
+              <input
+                [(ngModel)]="paper.titulo"
+                #tituloCtrl="ngModel"
+                required
+                name="titulo"
+                class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg"
+                id="paper-title"
+                placeholder="Ej: Restauración de suelos mediante policultivos"
+                type="text"
+              />
+
+              @if (tituloCtrl.touched && tituloCtrl.invalid) {
+                <span class="text-red-600 font-semibold">El título es obligatorio.</span>
+              }
+            </div>
+
+            <div class="space-y-3">
+              <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="passwordTrabajo">
+                Contraseña del trabajo
+              </label>
+
+              <input
+                [(ngModel)]="paper.passwordTrabajo"
+                #passwordCtrl="ngModel"
+                name="passwordTrabajo"
+                required
+                type="password"
+                id="passwordTrabajo"
+                placeholder="Contraseña para editar o consultar el trabajo"
+                class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg"
+              />
+
+              @if (passwordCtrl.touched && passwordCtrl.invalid) {
+                <span class="text-red-600 font-semibold">La contraseña es obligatoria.</span>
+              }
+            </div>
+
+            <div class="space-y-3">
+              <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="contact-phone">
+                Teléfono de contacto
+              </label>
+
+              <input
+                [(ngModel)]="paper.telefonoContacto"
+                name="telefonoContacto"
+                class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg"
+                id="contact-phone"
+                placeholder="Ej: +54 9 11 1234-5678"
+                type="tel"
+              />
+            </div>
+
+            <div class="space-y-3">
+              <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="thematic-axis">
+                Eje temático
+              </label>
+
+              <div class="relative">
+                <select
+                  [(ngModel)]="ejeTematicoSeleccionado"
+                  name="ejeTematicoSeleccionado"
+                  class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest cursor-pointer text-lg"
+                  id="thematic-axis"
+                >
+                  <option value="">Seleccione un eje temático</option>
+                  <option value="Sustentabilidad y Biodiversidad">Sustentabilidad y Biodiversidad</option>
+                  <option value="Soberanía Alimentaria">Soberanía Alimentaria</option>
+                  <option value="Políticas Públicas">Políticas Públicas</option>
+                </select>
+
+                <span class="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-2xl">
+                  expand_more
+                </span>
+              </div>
+
+              <p class="text-xs text-on-surface-variant">
+                Nota: por ahora este selector es visual. Los ejes reales deben mapearse con IDs del backend.
+              </p>
+            </div>
+
+            <div class="space-y-3">
+              <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="category">
+                Categoría del trabajo
+              </label>
+
+              <div class="relative">
+                <select
+                  [(ngModel)]="paper.tipo"
+                  name="tipo"
+                  required
+                  class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest cursor-pointer text-lg"
+                  id="category"
+                >
+                  <option [ngValue]="TipoTrabajo.TRABAJO_CIENTIFICO">
+                    Trabajo científico
+                  </option>
+
+                  <option [ngValue]="TipoTrabajo.RELATO_EXPERIENCIA">
+                    Relato de experiencia
+                  </option>
+
+                  <option [ngValue]="TipoTrabajo.PROPUESTA_TALLER">
+                    Propuesta de taller
+                  </option>
+                </select>
+
+                <span class="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-2xl">
+                  expand_more
+                </span>
+              </div>
+            </div>
+
+            <div class="md:col-span-2 pt-4">
+              <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold block mb-3">
+                Archivo del manuscrito
+              </label>
+
+              <div class="file-input-wrapper group relative">
+                @if (!paper.archivo) {
+                  <div class="dropzone-ui flex flex-col items-center justify-center w-full min-h-[220px] border-2 border-dashed border-primary/30 rounded-2xl bg-primary-container/5 hover:bg-surface-container-lowest hover:border-primary transition-all cursor-pointer">
+                    <div class="p-5 rounded-full bg-primary-container/15 mb-4 group-hover:scale-110 transition-transform">
+                      <span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1;">upload_file</span>
+                    </div>
+
+                    <p class="text-on-surface font-bold text-xl mb-1">
+                      Arrastre su archivo aquí
+                    </p>
+
+                    <p class="text-on-surface-variant text-sm">
+                      PDF o DOCX hasta 10MB
+                    </p>
+
+                    <input
+                      name="archivoInput"
+                      class="absolute inset-0 opacity-0 cursor-pointer"
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                      (change)="seleccionarArchivo($event)"
+                    />
+                  </div>
+                } @else {
+                  <div class="file-info-ui p-6 border-2 border-primary/40 rounded-2xl bg-primary-container/10 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                      <div class="p-3 bg-primary rounded-lg text-on-primary">
+                        <span class="material-symbols-outlined">description</span>
+                      </div>
+
+                      <div>
+                        <p class="font-bold text-on-surface">{{ paper.archivo }}</p>
+                        <p class="text-xs text-on-surface-variant">Archivo seleccionado</p>
+                      </div>
+                    </div>
+
+                    <button type="button" (click)="borrarArchivo()" class="text-error hover:bg-error-container/30 p-2 rounded-full transition-colors">
+                      <span class="material-symbols-outlined">delete</span>
+                    </button>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <div class="space-y-3 md:col-span-2">
+              <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold" for="comments">
+                Resumen del Trabajo
+              </label>
+
+              <textarea
+                [(ngModel)]="paper.resumen"
+                name="resumen"
+                class="w-full bg-surface-container-low border-none rounded-lg p-5 focus:ring-2 focus:ring-primary/30 focus:bg-surface-container-lowest transition-all placeholder:text-outline text-lg"
+                id="comments"
+                placeholder="Ej. El trabajo es sobre..."
+                rows="3"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-surface-container-lowest p-8 md:p-12 rounded-2xl shadow-[0_12px_48px_rgba(23,29,20,0.06)] border border-outline-variant/20">
+          <div class="flex items-center justify-between gap-3 mb-8 pb-4 border-b border-outline-variant/30">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">groups</span>
+              <h2 class="font-headline text-2xl font-bold text-on-surface">
+                2. Autores
+              </h2>
+            </div>
+
+            <button
+              (click)="abrirAutor()"
+              type="button"
+              class="flex items-center gap-2 bg-secondary/10 text-secondary hover:bg-secondary/20 px-4 py-2 rounded-lg font-bold text-sm transition-colors"
+              id="add-author-btn"
+            >
+              <span class="material-symbols-outlined text-lg">person_add</span>
+              Agregar Autor
+            </button>
+          </div>
+
+          @if (paper.autores.length === 0) {
+            <div class="rounded-xl bg-surface-container-low p-5 text-on-surface-variant font-semibold">
+              Todavía no agregaste autores.
+            </div>
+          }
+
+          @if (paper.autores.length > 0) {
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              @for (auth of paper.autores; track $index) {
+                <div class="flex items-center justify-between p-4 bg-surface-container rounded-xl border border-outline-variant/40">
+                  <a class="text-primary hover:underline cursor-pointer">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
+                        {{ auth.ordenAutor }}
+                      </div>
+
+                      <div (click)="abrirCard(auth)">
+                        <p class="font-bold text-on-surface">{{ auth.nombre }} {{ auth.apellido }}</p>
+                        <p class="text-xs text-on-surface-variant">{{ auth.email }}</p>
+                      </div>
+                    </div>
+                  </a>
+
+                  <div class="flex gap-1">
+                    <button type="button" (click)="abrirCard(auth)" class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors">
+                      <span class="material-symbols-outlined text-xl">visibility</span>
+                    </button>
+
+                    <button type="button" (click)="eliminarAutor($index)" class="p-2 text-error hover:bg-error-container/30 rounded-lg transition-colors">
+                      <span class="material-symbols-outlined text-xl">delete</span>
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        @if (mensajeError) {
+          <div class="rounded-xl bg-red-50 px-6 py-4 text-red-700 font-semibold">
+            {{ mensajeError }}
+          </div>
+        }
+
+        <div class="flex justify-end pt-4">
+          <button
+            class="group bg-primary text-on-primary px-12 py-5 rounded-xl font-bold text-xl shadow-2xl shadow-primary/30 flex items-center justify-center gap-4 active:scale-95 transition-all hover:bg-primary-container disabled:opacity-50 disabled:cursor-not-allowed"
+            type="submit"
+            [disabled]="paperForm.invalid"
+          >
+            <span>Guardar Trabajo</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <aside class="lg:col-span-3 space-y-6">
+      <div class="bg-secondary-container/20 p-6 rounded-xl space-y-4 border border-secondary-container">
+        <span class="material-symbols-outlined text-secondary text-4xl">verified_user</span>
+
+        <h3 class="font-headline text-lg font-bold text-secondary">
+          Proceso de Revisión
+        </h3>
+
+        <p class="text-on-secondary-container font-medium leading-relaxed text-sm">
+          Su trabajo será evaluado de forma anónima por un comité de pares expertos. Los resultados se notificarán en un plazo de 15 días hábiles.
+        </p>
+      </div>
+
+      <div class="relative overflow-hidden rounded-xl bg-surface-container-high aspect-[3/4]">
+        <img
+          alt="Greenhouse seeds"
+          class="w-full h-full object-cover"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAby-etfEzVjXCKCdn3nRzJYFop3WGPvqVtQHYYPCr0gvVVBtUD_ciw-g9rLAFt6T4WqM5n2Y6_uiHEezdBI1eyfEzzI4GkaRIh8lhbrHFxbrcf6ewFu8PxcAD5hFr7lj5oZtoqohfO1kTwXceiItLziLVxTu8xs2vyqgKhhr-RO9Wqx-XuD7U7fLohnYEpR6U2YxA9Haw6ir5C39n-EeB8yMlJYJSPR4Z_aoiH-UUUr_36eOAjaG2sjeic8-UQdmrwKIutVvMLvGNH"
+        />
+
+        <div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 to-transparent flex items-end p-5">
+          <p class="text-surface-bright text-xs italic font-headline leading-relaxed">
+            "Sembrar el conocimiento es la base de la soberanía alimentaria."
+          </p>
+        </div>
+      </div>
+    </aside>
+  </section>
 </main>
+
+<div
+  id="author-modal"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-surface/40 backdrop-blur-sm"
+  [ngClass]="visible"
+>
+  <div class="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl border border-outline-variant/30 overflow-hidden">
+    <div class="flex items-center justify-between p-6 border-b border-outline-variant/20">
+      <h2 class="font-headline text-2xl font-bold text-on-surface">
+        Datos del Autor
+      </h2>
+
+      <button type="button" (click)="cerrarAutor()" class="p-2 hover:bg-surface-container rounded-full transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <form id="author-form" #formAutor="ngForm" class="p-6 space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-1">
+          <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Nombre</label>
+          <input [(ngModel)]="autor.nombre" type="text" name="nombre" required class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Ej: Juan" />
+        </div>
+
+        <div class="space-y-1">
+          <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Apellido</label>
+          <input [(ngModel)]="autor.apellido" type="text" name="apellido" required class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Ej: Pérez" />
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Organización</label>
+        <input [(ngModel)]="autor.organizacion" type="text" name="organizacion" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Ej: Universidad Nacional" />
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">País</label>
+        <input [(ngModel)]="autor.pais" type="text" name="pais" class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Ej: Argentina" />
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Email</label>
+        <input [(ngModel)]="autor.email" type="email" name="email" required class="w-full bg-surface-container-low border-none rounded-lg p-3 focus:ring-2 focus:ring-primary/30 transition-all" placeholder="ejemplo@correo.com" />
+      </div>
+
+      <div class="flex justify-end gap-3 pt-4">
+        <button type="button" (click)="autor = inicializarAutor(); cerrarAutor()" class="px-6 py-2 rounded-lg font-bold text-stone-600 hover:bg-surface-container transition-colors">
+          Cancelar
+        </button>
+
+        <button type="button" (click)="crearAutor()" class="bg-primary text-on-primary px-8 py-2 rounded-lg font-bold hover:bg-primary-container transition-colors">
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-surface/40 backdrop-blur-sm"
+  [ngClass]="visibleCard"
+>
+  <div class="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl border border-outline-variant/30 overflow-hidden">
+    <div class="flex items-center justify-between p-6 border-b border-outline-variant/20">
+      <h2 class="font-headline text-2xl font-bold text-on-surface">
+        Datos del Autor
+      </h2>
+
+      <button type="button" (click)="cerrarCard()" class="p-2 hover:bg-surface-container rounded-full transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <div class="p-6 space-y-5">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-1">
+          <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Nombre</label>
+          <div class="w-full bg-surface-container-low rounded-lg p-3 text-on-surface">{{ autor.nombre }}</div>
+        </div>
+
+        <div class="space-y-1">
+          <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Apellido</label>
+          <div class="w-full bg-surface-container-low rounded-lg p-3 text-on-surface">{{ autor.apellido }}</div>
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Organización</label>
+        <div class="w-full bg-surface-container-low rounded-lg p-3 text-on-surface">{{ autor.organizacion || '-' }}</div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">País</label>
+        <div class="w-full bg-surface-container-low rounded-lg p-3 text-on-surface">{{ autor.pais || '-' }}</div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Email</label>
+        <div class="w-full bg-surface-container-low rounded-lg p-3 text-on-surface break-all">{{ autor.email }}</div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label text-xs uppercase tracking-widest text-tertiary font-bold">Orden de Autor</label>
+        <div class="w-full bg-surface-container-low rounded-lg p-3 text-on-surface">{{ autor.ordenAutor }}</div>
+      </div>
+
+      <div class="flex justify-end pt-4">
+        <button (click)="cerrarCard()" class="bg-primary text-on-primary px-8 py-2 rounded-lg font-bold hover:bg-primary-container transition-colors">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
