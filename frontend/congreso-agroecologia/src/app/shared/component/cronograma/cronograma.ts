@@ -214,7 +214,7 @@ export class Cronograma implements OnInit {
       fecha: this.fechaComoInput(actividad.fecha),
       horaInicio: this.horaComoString(actividad.horaInicio),
       horaFin: this.horaComoString(actividad.horaFin),
-      cronograma: actividad.cronograma ?? { id: 3 }
+      cronograma: actividad.cronograma ?? { id: 4 } // cuando se pueda crear el cronograma, reemplazar este valor por el real
     };
   }
 }
