@@ -1,4 +1,4 @@
-FROM node:20 AS grupo7front
+FROM node:26 AS grupo7front
 
 WORKDIR /home/ejemplo/frontend
 
