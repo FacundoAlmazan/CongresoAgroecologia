@@ -9,7 +9,7 @@
 <!-- Section 1: Custom Content Space (Editorial Herbarium Style) -->
 <section class="mb-12 relative">
 <div class="bg-surface-container-lowest p-10 md:p-14 rounded-xl shadow-sm border border-outline-variant/10 min-h-[250px] flex flex-col justify-center items-center text-center group">
-<app-info-paper></app-info-paper>
+<app-info-paper [trabajo]="asignacion.trabajo"></app-info-paper>
 </div>
 </section>
 <!-- Section 2: Management Form (The "Botanical Plate" Card) -->
@@ -47,7 +47,7 @@
     }@else {<span class="italic text-on-surface-variant/40 text-label-md">Pendiente de selección</span>}
     
     
-</div>
+</div><span>{{mensaje}}</span>
 </div>
 
 

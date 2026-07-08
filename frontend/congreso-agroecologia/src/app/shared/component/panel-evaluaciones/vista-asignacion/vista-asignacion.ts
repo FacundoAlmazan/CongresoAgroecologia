@@ -2,7 +2,13 @@ import { Component } from '@angular/core';
 import { Trabajo } from '../../../model/trabajo.model';
 import { EstadoTrabajo } from '../../../model/EstadoTrabajo.enum.model';
 import { TipoTrabajo } from '../../../model/TipoTrabajo.enum.model';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { AsignacionEvaluacion } from '../../../model/asignacionEvaluacion.model';
+import { TipoRol } from '../../../model/TipoRol.enum.model';
+import { Usuario } from '../../../model/usuario.model';
+import { EstadoAsignacion } from '../../../model/EstadoAsignacion.enum.model';
+import { AsignacionService } from '../../../service/asignacion.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vista-asignacion',
@@ -12,21 +18,48 @@ import { RouterLink } from '@angular/router';
 })
 export class VistaAsignacion {
 
+  idEvaluador?:number;
+  asignaciones: AsignacionEvaluacion[]=MOCK_ASIGNACIONES;
+
 
   
-  trabajos:Trabajo[]=MOCK_PAPERS;
-  
+  filtrarAsignaciones(idEvaluador: number): void {
+  this.asignaciones = this.asignaciones.filter(
+    asignacion => asignacion.evaluador.id === idEvaluador
+  );
+}
+
+constructor(
+  private asignacionService:AsignacionService,
+private route: ActivatedRoute,
+private router: Router
+){
+
+}
+ngOnInit(): void {
+
+  // Simular usuario autenticado
+  this.idEvaluador = 1;
+
+  this.filtrarAsignaciones(this.idEvaluador);
+
+}
+
+dirigir(asignacion:AsignacionEvaluacion){
+  this.router.navigate(
+  ['/formulario_asignacion', asignacion.id],
+  {
+    state: {
+      asignacion: asignacion
+    }
   }
+);
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
+}
+
+
+
+  }
   
   
   
@@ -145,3 +178,51 @@ export class VistaAsignacion {
     }
   ];
   
+  export const EVALUADOR_1: Usuario = {
+  id: 1,
+  nombre: 'Ana',
+  apellido: 'Martínez',
+  email: 'ana@congreso.org',
+  activo: true,
+  roles: [{ nombre: TipoRol.EVALUADOR }]
+};
+
+export const EVALUADOR_2: Usuario = {
+  id: 2,
+  nombre: 'Bruno',
+  apellido: 'López',
+  email: 'bruno@congreso.org',
+  activo: true,
+  roles: [{ nombre: TipoRol.EVALUADOR }]
+};
+
+  export const MOCK_ASIGNACIONES: AsignacionEvaluacion[] = [
+  {
+    id: 1,
+    trabajo: MOCK_PAPERS[0],
+    evaluador: EVALUADOR_1,
+    asignadoPor: {} as Usuario,
+    estado: EstadoAsignacion.PENDIENTE
+  },
+  {
+    id: 2,
+    trabajo: MOCK_PAPERS[1],
+    evaluador: EVALUADOR_2,
+    asignadoPor: {} as Usuario,
+    estado: EstadoAsignacion.PENDIENTE
+  },
+  {
+    id: 3,
+    trabajo: MOCK_PAPERS[2],
+    evaluador: EVALUADOR_1,
+    asignadoPor: {} as Usuario,
+    estado: EstadoAsignacion.PENDIENTE
+  },
+  {
+    id: 4,
+    trabajo: MOCK_PAPERS[3],
+    evaluador: EVALUADOR_2,
+    asignadoPor: {} as Usuario,
+    estado: EstadoAsignacion.PENDIENTE
+  }
+];

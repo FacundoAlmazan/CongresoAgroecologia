@@ -37,29 +37,30 @@
 
     
     <!-- Item 1 -->
-     @for (tr of trabajos; track tr.id) {
-<div class="group card-hover bg-surface-container-lowest p-8 border-b-2 border-primary/20 transition-all duration-300 cursor-pointer">
-<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-<a [routerLink]="['/formulario_asignacion']">
-    <div class="flex-grow space-y-3 text-left">
-<span class="inline-block px-3 py-1 bg-primary/10 text-primary font-mono text-xs font-bold rounded tracking-wider uppercase">AGRO-2027-{{tr.id}}</span>
-<h3 class="text-2xl font-bold text-[#064e3b] font-serif group-hover:text-primary transition-colors leading-snug">{{tr.titulo}}</h3>
-<div class="flex items-center gap-4 text-outline">
-<div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-sm">calendar_today</span>
-<span class="text-sm font-medium italic">{{tr.fechaEnvio}}</span>
-</div>
-<div class="h-1 w-1 rounded-full bg-outline/40"></div>
-<span class="text-sm">Enviado para revisión técnica</span>
-</div>
-</div></a>
-<div class="flex items-center gap-6 shrink-0">
+     @for (asg of asignaciones; track asg.id) {
+            <div class="group card-hover bg-surface-container-lowest p-8 border-b-2 border-primary/20 transition-all duration-300 cursor-pointer">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <a (click)="dirigir(asg)">
+                <div class="flex-grow space-y-3 text-left">
+            <span class="inline-block px-3 py-1 bg-primary/10 text-primary font-mono text-xs font-bold rounded tracking-wider uppercase">AGRO-2027-{{asg.trabajo.id}}</span>
+            <h3 class="text-2xl font-bold text-[#064e3b] font-serif group-hover:text-primary transition-colors leading-snug">{{asg.trabajo.titulo}}</h3>
+            <div class="flex items-center gap-4 text-outline">
+            <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm">calendar_today</span>
+            <span class="text-sm font-medium italic">{{asg.trabajo.fechaEnvio}}</span>
+            </div>
+            <div class="h-1 w-1 rounded-full bg-outline/40"></div>
+            <span class="text-sm">Petición de asignación</span>
+            </div>
+            </div></a>
+            <div class="flex items-center gap-6 shrink-0">
 
-    <div class="inline-flex items-center px-5 py-2 rounded-full bg-surface-container-high border border-primary/20 text-primary gap-2.5 shadow-sm"><span class="text-sm font-extrabold uppercase tracking-tight">Asignación Pendiente</span></div>
-<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
-</div>
-</div>
-</div>}
+                <div class="inline-flex items-center px-5 py-2 rounded-full bg-surface-container-high border border-primary/20 text-primary gap-2.5 shadow-sm"><span class="text-sm font-extrabold uppercase tracking-tight">Asignación Pendiente</span></div>
+            <span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </div>
+            </div>
+            </div>
+        }
 
 </div>
 <!-- Professional Footer Plate -->

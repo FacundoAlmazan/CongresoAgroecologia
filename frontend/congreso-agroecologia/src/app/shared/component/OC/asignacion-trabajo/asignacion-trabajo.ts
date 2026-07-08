@@ -9,6 +9,8 @@ import { AsignacionEvaluacion } from '../../../model/asignacionEvaluacion.model'
 import { TipoRol } from '../../../model/TipoRol.enum.model';
 import { EstadoAsignacion } from '../../../model/EstadoAsignacion.enum.model';
 import { Trabajo } from '../../../model/trabajo.model';
+import { TipoTrabajo } from '../../../model/TipoTrabajo.enum.model';
+import { EstadoTrabajo } from '../../../model/EstadoTrabajo.enum.model';
 
 @Component({
   selector: 'app-asignacion-trabajo',
@@ -23,7 +25,9 @@ export class AsignacionTrabajo implements OnInit {
     evaluador: 0,
     trabajo: 1
   };
+  
 
+  
   mensajeError = '';
   usarMock = true;
   asignaciones: AsignacionEvaluacion[] = [];
@@ -37,7 +41,7 @@ export class AsignacionTrabajo implements OnInit {
     private userService: UsuarioService,
     private asignaService: AsignacionService,
   ) {
-
+    
     const usuario = this.authService.getUsuarioActual();
 
     if (usuario?.id != null) {
@@ -50,10 +54,12 @@ export class AsignacionTrabajo implements OnInit {
   }
 
   ngOnInit(): void {
+
+  
     if (this.usarMock) {
     this.usuariosTodos = USUARIOS_MOCK;
     this.asignaciones = ASIGNACIONES_MOCK;
-
+        
     this.inicializarAsignados();
     this.inicializarEvaluadores();
     return;

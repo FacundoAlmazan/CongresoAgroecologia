@@ -38,6 +38,6 @@ export const routes: Routes = [
 { path: 'resultado_evaluacion', component: ResultadoEvaluacion },
 { path: 'formulario_evaluacion', component: FormularioEvaluacion },
 { path: 'peticiones', component: VistaAsignacion },
-{ path: 'formulario_asignacion', component: FormularioAsignacion },
+{ path: 'formulario_asignacion/:id', component: FormularioAsignacion },
 //{path:'', component:  },
 ];
