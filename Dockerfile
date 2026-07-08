@@ -3,7 +3,7 @@ FROM node:20 AS grupo7front
 WORKDIR /home/ejemplo/frontend
 
 COPY frontend/package*.json ./
-RUN npm ci
+RUN npm install
 
 COPY frontend/ ./
 RUN npm run build -- --configuration production
