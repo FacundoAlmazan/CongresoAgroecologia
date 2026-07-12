@@ -8,7 +8,7 @@
 </div>
 <!-- Asymmetric Hero Section -->
 
-    <app-info-paper></app-info-paper>
+    <app-info-paper [trabajo]="trabajo"></app-info-paper>
 
 
 
@@ -97,7 +97,7 @@
 </div>
 </div>
 </div>
-<button class="text-primary font-bold text-sm hover:underline px-4 py-2">Asignar</button>
+<button (click)="asignar(eva.id)" class="text-primary font-bold text-sm hover:underline px-4 py-2">Asignar</button>
 </div>
 }
 

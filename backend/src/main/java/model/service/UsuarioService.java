@@ -78,7 +78,7 @@ public class UsuarioService {
             throw new NotFoundException("Rol no encontrado: " + tipoRolTexto);
         }
         usuario.quitarRol(rol);
-        return usuarioDAO.modificar(usuario);
+        return usuarioDAO.modifyUsuario(usuario);
     }
 
     public Usuario promoverAEvaluador(Long id) {

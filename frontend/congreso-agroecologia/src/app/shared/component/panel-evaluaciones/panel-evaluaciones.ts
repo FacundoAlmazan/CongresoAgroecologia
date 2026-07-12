@@ -14,6 +14,7 @@ export class PanelEvaluaciones {
 
 trabajos:Trabajo[]=MOCK_PAPERS;
 
+
 }
 
 

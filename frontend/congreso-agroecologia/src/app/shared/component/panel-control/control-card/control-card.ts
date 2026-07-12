@@ -101,7 +101,6 @@ private actualizarRol(tipoRol: TipoRol, debeTener: boolean): void {
       }
     });
   } else {
-
     this.usuarioService.quitarRol(this.user.id!, tipoRol).subscribe({
       next: () => {
         this.user.roles = this.user.roles.filter(r => r.nombre !== tipoRol);

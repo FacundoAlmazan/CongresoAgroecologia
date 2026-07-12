@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { InfoPaper } from "../../info-paper/info-paper";
 import { AuthService } from '../../../service/auth.service';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +11,7 @@ import { EstadoAsignacion } from '../../../model/EstadoAsignacion.enum.model';
 import { Trabajo } from '../../../model/trabajo.model';
 import { TipoTrabajo } from '../../../model/TipoTrabajo.enum.model';
 import { EstadoTrabajo } from '../../../model/EstadoTrabajo.enum.model';
+import { TrabajoService } from '../../../service/trabajo.service';
 
 @Component({
   selector: 'app-asignacion-trabajo',
@@ -21,17 +22,19 @@ import { EstadoTrabajo } from '../../../model/EstadoTrabajo.enum.model';
 export class AsignacionTrabajo implements OnInit {
 
   id = {
-    organizador: 0,
+    organizador: 1,
     evaluador: 0,
-    trabajo: 1
+    trabajo: 0
   };
   
 
-  
+  trabajo!:Trabajo;
   mensajeError = '';
-  usarMock = true;
-  asignaciones: AsignacionEvaluacion[] = [];
-  usuariosTodos: Usuario[] = [];
+  
+
+asignaciones: AsignacionEvaluacion[] = [];
+usuariosTodos: Usuario[] = [];
+
   asignados: Usuario[] = [];
   evaluadores: Usuario[] = [];
 
@@ -40,6 +43,8 @@ export class AsignacionTrabajo implements OnInit {
     private route: ActivatedRoute,
     private userService: UsuarioService,
     private asignaService: AsignacionService,
+    private trabajoService: TrabajoService,
+      private cdr: ChangeDetectorRef
   ) {
     
     const usuario = this.authService.getUsuarioActual();
@@ -50,20 +55,23 @@ export class AsignacionTrabajo implements OnInit {
       this.mensajeError = 'No se pudo obtener el usuario autenticado.';
     }
 
-   // this.id.trabajo = Number(this.route.snapshot.paramMap.get('id'));
+   this.id.trabajo = Number(this.route.snapshot.paramMap.get('id'));
   }
 
   ngOnInit(): void {
 
-  
-    if (this.usarMock) {
-    this.usuariosTodos = USUARIOS_MOCK;
-    this.asignaciones = ASIGNACIONES_MOCK;
-        
-    this.inicializarAsignados();
-    this.inicializarEvaluadores();
-    return;
-}
+    this.trabajoService.get(this.id.trabajo).subscribe({
+    next: (trabajo) => {
+      this.trabajo = trabajo;
+      this.cdr.detectChanges();
+    },
+    error: (err) => {
+      console.error('Error al obtener los trabajos', err);
+      // Si tenés una variable para mostrar el error en la vista:
+      // this.mensajeError = 'No se pudieron cargar los trabajos.';
+    }
+  });
+    
     this.inicializarUsuarios();
   }
 
@@ -79,17 +87,17 @@ export class AsignacionTrabajo implements OnInit {
         this.mensajeError = 'No se pudieron obtener los usuarios.';
       }
     });
-
   }
+
 
   inicializarAsignaciones(): void {
 
     this.asignaService.listar().subscribe({
       next: asignaciones => {
-        this.asignaciones = asignaciones;
-
+        this.asignaciones = asignaciones;   
         this.inicializarAsignados();
         this.inicializarEvaluadores();
+        this.cdr.detectChanges();
       },
       error: err => {
         console.error(err);
@@ -101,12 +109,15 @@ export class AsignacionTrabajo implements OnInit {
 
   inicializarAsignados(): void {
 
+    
     this.asignados = this.usuariosTodos.filter(usuario =>
       this.asignaciones.some(asignacion =>
-        asignacion.trabajo.id === this.id.trabajo &&
-        asignacion.evaluador.id === usuario.id
+        asignacion.trabajo.id == this.id.trabajo &&
+        asignacion.evaluador.id == usuario.id
       )
     );
+    
+    
 
   }
 
@@ -126,116 +137,40 @@ export class AsignacionTrabajo implements OnInit {
       return esEvaluador && !yaAsignado;
 
     });
+    
 
   }
+
+  asignar(idE?: number): void {
+  if (idE == null) {
+    console.error('No se recibió un ID válido.');
+    return;
+  }
+
+  const asignacion: AsignacionEvaluacion = {
+    evaluador:{id:idE} as Usuario,
+    trabajo: this.trabajo,
+    asignadoPor:{id:this.id.organizador} as Usuario,
+    estado:EstadoAsignacion.PENDIENTE
+  };
+
+  this.asignaService.crear(asignacion).subscribe({
+    next: (nuevaAsignacion) => {
+      console.log('Asignación creada correctamente.', nuevaAsignacion);
+
+      this.asignaciones.push(nuevaAsignacion);
+
+      //this.inicializarEvaluadores();
+
+       this.cdr.detectChanges();
+    },
+    error: (err) => {
+      console.error('Error al crear la asignación.', err);
+      // Si tenés una variable para mensajes:
+      // this.mensajeError = 'No se pudo crear la asignación.';
+    }
+  });
+}
 
 }
 
-
-export const USUARIOS_MOCK: Usuario[] = [
-  {
-    id: 1,
-    nombre: 'Ana',
-    apellido: 'Martínez',
-    email: 'ana.martinez@congreso.org',
-    numeroIdentificacion: '30111222',
-    nacionalidad: 'Argentina',
-    institucion: 'UNLP',
-    activo: true,
-    roles: [{ nombre: TipoRol.EVALUADOR }]
-  },
-  {
-    id: 2,
-    nombre: 'Bruno',
-    apellido: 'López',
-    email: 'bruno.lopez@congreso.org',
-    numeroIdentificacion: '28999888',
-    nacionalidad: 'Argentina',
-    institucion: 'UBA',
-    activo: true,
-    roles: [{ nombre: TipoRol.EVALUADOR }]
-  },
-  {
-    id: 3,
-    nombre: 'Carla',
-    apellido: 'Fernández',
-    email: 'carla.fernandez@congreso.org',
-    numeroIdentificacion: '33444555',
-    nacionalidad: 'Argentina',
-    institucion: 'UNMdP',
-    activo: true,
-    roles: [{ nombre: TipoRol.EVALUADOR }]
-  },
-  {
-    id: 4,
-    nombre: 'Diego',
-    apellido: 'Romero',
-    email: 'diego.romero@congreso.org',
-    numeroIdentificacion: '27888999',
-    nacionalidad: 'Argentina',
-    institucion: 'UNS',
-    activo: true,
-    roles: [{ nombre: TipoRol.EVALUADOR }]
-  },
-  {
-    id: 5,
-    nombre: 'Elena',
-    apellido: 'Suárez',
-    email: 'elena.suarez@congreso.org',
-    numeroIdentificacion: '32123456',
-    nacionalidad: 'Uruguay',
-    institucion: 'UDELAR',
-    activo: true,
-    roles: [{ nombre: TipoRol.EVALUADOR }]
-  },
-  {
-    id: 6,
-    nombre: 'Federico',
-    apellido: 'Gómez',
-    email: 'federico.gomez@congreso.org',
-    numeroIdentificacion: '25666777',
-    nacionalidad: 'Argentina',
-    institucion: 'UNLP',
-    activo: true,
-    roles: [{ nombre: TipoRol.OC }]
-  }
-];
-
-export const ASIGNACIONES_MOCK: AsignacionEvaluacion[] = [
-  {
-    id: 1,
-    trabajo: {
-      id: 1
-    } as Trabajo,
-    evaluador: USUARIOS_MOCK[0], // Ana
-    asignadoPor: {
-      id: 100
-    } as Usuario,
-    fechaAsignacion: '2026-07-07',
-    estado: EstadoAsignacion.PENDIENTE
-  },
-  {
-    id: 2,
-    trabajo: {
-      id: 1
-    } as Trabajo,
-    evaluador: USUARIOS_MOCK[2], // Carla
-    asignadoPor: {
-      id: 100
-    } as Usuario,
-    fechaAsignacion: '2026-07-07',
-    estado: EstadoAsignacion.ACEPTADA
-  },
-  {
-    id: 3,
-    trabajo: {
-      id: 1
-    } as Trabajo,
-    evaluador: USUARIOS_MOCK[4], // Elena
-    asignadoPor: {
-      id: 100
-    } as Usuario,
-    fechaAsignacion: '2026-07-07',
-    estado: EstadoAsignacion.RECHAZADA
-  }
-];
