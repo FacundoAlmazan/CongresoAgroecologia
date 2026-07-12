@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Usuario } from '../../../model/usuario.model';
 import { TipoRol } from '../../../model/TipoRol.enum.model';
 import { CommonModule } from '@angular/common';
@@ -28,7 +28,7 @@ export class ControlCard {
     inactivo:'border-2 border-outline-variant/50 text-outline-variant hover:bg-surface-container-low'
   }
   
-    constructor(private usuarioService: UsuarioService) {}
+    constructor(private usuarioService: UsuarioService,private cdr: ChangeDetectorRef) {}
 ngOnInit() {
   this.iniciarPermiso();
 }
@@ -38,6 +38,7 @@ iniciarPermiso(){
   this.permisos.esOrganizador=false;
   this.permisos.esActivo=this.user.activo;
   this.user.roles.forEach(rol=>{this.cambiarPermiso(rol.nombre)});
+  
   this.cambios=false;
 }
 
@@ -78,6 +79,7 @@ iniciarPermiso(){
   }
   this.iniciarPermiso();
   
+  
 }
 
 private actualizarRol(tipoRol: TipoRol, debeTener: boolean): void {
@@ -95,18 +97,20 @@ private actualizarRol(tipoRol: TipoRol, debeTener: boolean): void {
       },
       error: (err) => {
         console.error(`Error al asignar el rol ${tipoRol}`, err);
-        //this.mensajeError="No se pudo cambiar los permisos";
+        this.mensajeError="No se pudo cambiar los permisos";
       }
     });
   } else {
+
     this.usuarioService.quitarRol(this.user.id!, tipoRol).subscribe({
       next: () => {
         this.user.roles = this.user.roles.filter(r => r.nombre !== tipoRol);
+        console.log('Supuestamente elimina con exito, ya que entró en el -next-');
       },
       error: (err) => {
         console.error(`Error al quitar el rol ${tipoRol}`, err);
-        //this.mensajeError="No se pudo cambiar los permisos";
-        
+        this.mensajeError="No se pudo cambiar los permisos";
+          
       }
     });
   }

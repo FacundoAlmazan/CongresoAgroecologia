@@ -1,27 +1,32 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Usuario } from '../../model/usuario.model';
 import { TipoRol } from '../../model/TipoRol.enum.model';
 import { ControlCard } from "./control-card/control-card";
 import { TipoIdentificacion } from '../../model/TipoIdentificacion.enum.model';
 import { UsuarioService } from '../../service/usuario.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-panel-control',
-  imports: [ControlCard],
+  imports: [ControlCard, CommonModule],
   templateUrl: './panel-control.html',
   styleUrl: './panel-control.css',
 })
 export class PanelControl {
  usuarios:Usuario[]=[];
-usuariosMock: Usuario[]=USUARIOS_MOCK;
+//usuariosMock: Usuario[]=USUARIOS_MOCK;
 
 cargando=false;
 mensajeError='';
 
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
+  ngOnChanges(){this.cargarUsuarios();}
   ngOnInit(): void {
+    
     this.cargarUsuarios();
   }
 
@@ -30,8 +35,11 @@ mensajeError='';
     this.mensajeError = '';
 
     this.usuarioService.listar().subscribe({
-      next: (usuarios) => {
-        this.usuarios = usuarios;
+      next: (usuariose) => {
+        this.usuarios = usuariose;
+        console.log(this.usuarios);
+          this.cdr.detectChanges();
+
         this.cargando = false;
       },
       error: (err) => {
