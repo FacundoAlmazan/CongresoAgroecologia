@@ -6,8 +6,6 @@ bin/
 .idea/
 *.iml
 
-backend/src/main/resources/META-INF/persistence.xml
-**/persistence.xml
 # Eclipse
 .settings/
 .project
