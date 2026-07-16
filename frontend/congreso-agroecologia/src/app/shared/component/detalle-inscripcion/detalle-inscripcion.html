@@ -1,0 +1,63 @@
+
+<main class="flex-grow flex flex-col items-center justify-center p-6 sm:p-12 bg-surface-container-low">
+<!-- BEGIN: EnrollmentDetailCard -->
+<div class="relative bg-surface-container-lowest w-full max-w-3xl rounded-3xl shadow-xl p-10 mb-12 overflow-hidden" data-purpose="enrollment-card">
+<!-- Card Leaf Decoration -->
+<div class="leaf-icon-bg">
+<svg class="text-outline-variant" fill="currentColor" viewBox="0 0 24 24">
+<path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8.17,20C14.17,20 19,15.17 19,9.17C19,8.77 18.97,8.37 18.92,8H17M12,2C10,2 7,3.5 7,7C7,8 8,11 12,11C16,11 17,8 17,7C17,3.5 14,2 12,2Z"></path>
+</svg>
+</div>
+<!-- Card Header -->
+<div class="mb-10">
+<span class="text-agro-pending text-[11px] tracking-[0.2em] font-extrabold uppercase block mb-2 font-label">Inscripción Pendiente</span>
+<h2 class="font-headline text-4xl font-bold text-primary">Detalle de la inscripción</h2>
+</div>
+<hr class="border-outline-variant/30 mb-10">
+<!-- User Information Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-12 mb-12" data-purpose="user-details">
+<div class="col-span-1 md:col-span-2">
+<label class="text-[11px] tracking-widest text-on-surface-variant/70 font-extrabold uppercase block mb-2 font-label">Full Name</label>
+<div class="text-2xl font-bold text-primary">Elena Rivas Mendoza</div>
+</div>
+<div>
+<label class="text-[11px] tracking-widest text-on-surface-variant/70 font-extrabold uppercase block mb-2 font-label">DNI / National ID</label>
+<div class="text-xl font-semibold text-on-surface">42.042.560</div>
+</div>
+<div>
+<label class="text-[11px] tracking-widest text-on-surface-variant/70 font-extrabold uppercase block mb-2 font-label">Declared Category</label>
+<div class="text-xl font-semibold text-on-surface">Academic Researcher</div>
+</div>
+<div class="col-span-1 md:col-span-2">
+<label class="text-[11px] tracking-widest text-on-surface-variant/70 font-extrabold uppercase block mb-2 font-label">Email Address</label>
+<div class="text-xl font-semibold text-on-surface">elena@herbarium-inst.org</div>
+</div>
+<div class="col-span-1 md:col-span-2"><label class="text-[11px] tracking-widest text-on-surface-variant/70 font-extrabold uppercase block mb-2 font-label">Monto a cobrar</label><div class="inline-flex items-center px-4 py-2 bg-primary/10 rounded-xl border border-primary/20"><span class="text-2xl font-extrabold text-primary">$ 50.00</span></div></div></div>
+<!-- BEGIN: SupportingDocumentation -->
+<div class="space-y-4" data-purpose="documents-section"><label class="text-[11px] tracking-widest text-on-surface-variant/70 font-extrabold uppercase block mb-4 font-label">Supporting Documentation</label><div class="flex items-center justify-between bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer group p-5 rounded-2xl border border-outline-variant/20"><div class="flex items-center space-x-4"><div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">description</span></div><div><div class="text-sm font-bold text-on-surface">documento_identidad.pdf</div><div class="text-[10px] text-on-surface-variant/70 uppercase tracking-wider">Identity Document</div></div></div><span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">download</span></div><div class="flex items-center justify-between bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer group p-5 rounded-2xl border border-outline-variant/20"><div class="flex items-center space-x-4"><div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">receipt_long</span></div><div><div class="text-sm font-bold text-on-surface">comprobante_pago.jpg</div><div class="text-[10px] text-on-surface-variant/70 uppercase tracking-wider">Payment Receipt</div></div></div><span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">download</span></div></div><div class="mt-10 pt-10 border-t border-outline-variant/30">
+  <label class="text-[11px] tracking-widest text-on-surface-variant/70 font-extrabold uppercase block mb-4 font-label">Comentarios de revisión</label>
+  <textarea placeholder="Ingrese observaciones sobre la documentación o el registro..." rows="4" class="w-full p-5 bg-surface-container-low border border-outline-variant/30 rounded-2xl text-on-surface text-sm focus:outline-none focus:border-primary transition-colors resize-none font-body"></textarea>
+</div><div class="mt-10 pt-10 border-t border-outline-variant/30 grid grid-cols-1 md:grid-cols-2 gap-6"><div class="col-span-1"><label class="text-[11px] tracking-widest text-on-surface-variant/70 font-extrabold uppercase block mb-2 font-label">Dinero enviado</label><div class="relative group"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-bold">$</span><input type="number" placeholder="0.00" class="w-full pl-10 pr-4 py-4 bg-surface-container-low border border-outline-variant/30 rounded-2xl text-2xl font-extrabold text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"></div></div><div class="col-span-1"><label class="text-[11px] tracking-widest text-on-surface-variant/70 font-extrabold uppercase block mb-2 font-label">Diferencia</label><div class="flex items-center h-[68px] px-6 bg-error-container/30 rounded-2xl border border-error/20"><span class="text-2xl font-extrabold text-error">$ 0.00</span></div></div></div>
+<!-- END: SupportingDocumentation -->
+</div>
+<!-- END: EnrollmentDetailCard -->
+<!-- BEGIN: ActionButtons -->
+<p class="text-sm text-on-surface-variant mb-4 text-center w-full max-w-3xl font-body">Instrucciones de gestión: Seleccione una de las siguientes acciones para procesar esta inscripción.</p><div class="grid grid-cols-3 gap-6 w-full max-w-3xl" data-purpose="decision-actions">
+<!-- Reject -->
+<button class="flex flex-col items-center justify-center py-6 px-4 bg-error-container rounded-xl shadow-lg border-b-4 border-error/20 active:translate-y-1 active:border-b-0 transition-all hover:brightness-95 group">
+<span class="material-symbols-outlined text-error mb-2">block</span>
+<span class="text-[11px] font-extrabold tracking-[0.15em] text-on-error-container font-label">RECHAZAR</span>
+</button>
+<!-- Observe -->
+<button class="flex flex-col items-center justify-center py-6 px-4 bg-tertiary-fixed rounded-xl shadow-lg border-b-4 border-on-tertiary-container/20 active:translate-y-1 active:border-b-0 transition-all hover:brightness-95 group">
+<span class="material-symbols-outlined text-tertiary mb-2">flag</span>
+<span class="text-[11px] font-extrabold tracking-[0.15em] text-on-tertiary-fixed font-label">OBSERVAR</span>
+</button>
+<!-- Approve -->
+<button class="flex flex-col items-center justify-center py-6 px-4 bg-primary rounded-xl shadow-lg border-b-4 border-black/20 active:translate-y-1 active:border-b-0 transition-all hover:brightness-110 group">
+<span class="material-symbols-outlined text-on-primary mb-2">check_circle</span>
+<span class="text-[11px] font-extrabold tracking-[0.15em] text-on-primary font-label">APROBAR</span>
+</button>
+</div>
+<!-- END: ActionButtons -->
+</main>

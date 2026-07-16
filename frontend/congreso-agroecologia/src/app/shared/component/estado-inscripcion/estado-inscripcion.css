@@ -1,0 +1,44 @@
+body {
+      background-color: #fcfdf9;
+      color: #1a1c18;
+    }
+    .check-pattern {
+      background-image: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+    }
+    .leaf-watermark {
+      opacity: 0.1;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      pointer-events: none;
+    }
+
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      
+    }
+    .serif-font {
+      font-family: 'Noto Serif', serif;
+    }
+    /* Pattern overlay for the rejection banner mimicking the image */
+    .bg-pattern {
+      background-image: radial-gradient(circle at top right, rgba(153, 27, 27, 0.05) 0%, transparent 70%);
+      position: relative;
+      overflow: hidden;
+    }
+    .bg-pattern::after {
+      content: '!';
+      position: absolute;
+      top: -20px;
+      right: 10px;
+      font-size: 180px;
+      font-weight: 900;
+      color: rgba(153, 27, 27, 0.05);
+      font-family: 'Inter', sans-serif;
+      line-height: 1;
+      pointer-events: none;
+    }
+    main{
+      margin-top: 100px;
+    }

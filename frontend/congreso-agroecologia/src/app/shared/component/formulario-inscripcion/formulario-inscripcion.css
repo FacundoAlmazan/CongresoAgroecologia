@@ -1,0 +1,22 @@
+ body {
+      background-color: #f5fced;
+      font-family: 'Manrope', sans-serif;
+      color: #1a1c19;
+    }
+    h1, h2, h3, .font-serif {
+      font-family: 'Noto Serif', serif;
+    }
+    .custom-shadow {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    .file-drop-zone {
+      border: 2px dashed #c1c9be;
+      transition: all 0.3s ease;
+    }
+    .file-drop-zone:hover {
+      border-color: #006156;
+      background-color: #eff6e7;
+    }main{
+margin-top: 100px;
+
+    }

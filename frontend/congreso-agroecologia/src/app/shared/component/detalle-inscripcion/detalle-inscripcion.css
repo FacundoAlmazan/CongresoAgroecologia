@@ -1,0 +1,20 @@
+body {
+      background-color: #a9d17b;
+      font-family: 'Manrope', sans-serif;
+    }
+    .serif-heading {
+      font-family: 'Noto Serif', serif;
+    }
+    /* Subtle leaf decoration in the card */
+    .leaf-icon-bg {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      opacity: 0.1;
+      width: 64px;
+      height: 64px;
+    }
+    main{
+      margin-top: 100px;
+      margin-bottom: 100px;
+    }

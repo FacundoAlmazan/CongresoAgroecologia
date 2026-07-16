@@ -19,7 +19,7 @@
 <!-- Dashboard Grid (Vertical List of Cards) -->
 <div class="space-y-6">
 <!-- Row 1: Inscripciones -->
- <a [routerLink]="['']"></a>
+ <a [routerLink]="['/formulario_inscripcion']" class="block">
 <div class="group relative flex items-center gap-8 bg-surface-container-lowest p-8 rounded-xl shadow-sm hover:shadow-lg hover:shadow-emerald-900/5 transition-all duration-300 border-l-4 border-emerald-700">
 <div class="flex-shrink-0 w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-700 group-hover:scale-110 transition-transform duration-300">
 <span class="material-symbols-outlined text-3xl" data-icon="event_available">event_available</span>
@@ -31,9 +31,9 @@
 <div class="flex-shrink-0">
 <span class="material-symbols-outlined text-[#059669] text-3xl opacity-90 transition-transform group-hover:translate-x-1" data-icon="chevron_right">chevron_right</span>
 </div>
-</div>
+</div></a>
 <!-- Row 2: Estado -->
- <a [routerLink]="['']"></a>
+ <a [routerLink]="['/lista_mis_inscripciones']" class="block">
 <div class="group flex items-center gap-8 bg-surface-container-lowest p-8 rounded-xl shadow-sm hover:shadow-lg hover:shadow-emerald-900/5 transition-all duration-300">
 <div class="flex-shrink-0 w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-700 group-hover:scale-110 transition-transform duration-300">
 <span class="material-symbols-outlined text-3xl" data-icon="fact_check">fact_check</span>
@@ -45,9 +45,25 @@
 <div class="flex-shrink-0">
 <span class="material-symbols-outlined text-[#059669] text-3xl opacity-90 transition-transform group-hover:translate-x-1" data-icon="chevron_right">chevron_right</span>
 </div>
+</div></a>
+
+<!-- Row 1: Agenda -->
+ <a [routerLink]="['/agenda']" class="block">
+<div class="group relative flex items-center gap-8 bg-surface-container-lowest p-8 rounded-xl shadow-sm hover:shadow-lg hover:shadow-emerald-900/5 transition-all duration-300 border-l-4 border-emerald-700">
+<div class="flex-shrink-0 w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-700 group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-3xl" data-icon="event_available">event_available</span>
 </div>
+<div class="flex-grow">
+<h3 class="font-serif text-2xl text-emerald-900 font-bold mb-1">Agenda Personal</h3>
+<p class="text-on-surface-variant font-medium text-sm leading-relaxed">Vea y organice sus actividades en los dias del congreso</p>
+</div>
+<div class="flex-shrink-0">
+<span class="material-symbols-outlined text-[#059669] text-3xl opacity-90 transition-transform group-hover:translate-x-1" data-icon="chevron_right">chevron_right</span>
+</div>
+</div></a>
+
 <!-- Row 3: QR -->
- <a [routerLink]="['']"></a>
+ <a [routerLink]="['']" class="block"></a>
 <div class="group flex items-center gap-8 bg-surface-container-lowest p-8 rounded-xl shadow-sm hover:shadow-lg hover:shadow-emerald-900/5 transition-all duration-300">
 <div class="flex-shrink-0 w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-700 group-hover:scale-110 transition-transform duration-300">
 <span class="material-symbols-outlined text-3xl" data-icon="qr_code_2">qr_code_2</span>
@@ -107,7 +123,7 @@
 
 
 <!-- Row 5: Admin Inscripciones -->
- <a [routerLink]="['']"></a>
+ <a [routerLink]="['/lista_inscripciones']" class="block">
 <div class="group flex items-center gap-8 bg-emerald-900/5 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
 <div class="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center text-emerald-900 group-hover:scale-110 transition-transform duration-300">
 <span class="material-symbols-outlined text-3xl" data-icon="manage_accounts">manage_accounts</span>
@@ -119,7 +135,7 @@
 <div class="flex-shrink-0">
 <span class="material-symbols-outlined text-[#059669] text-3xl opacity-90 transition-transform group-hover:translate-x-1" data-icon="chevron_right">chevron_right</span>
 </div>
-</div>
+</div></a>
 <!-- Row 6: Evaluar -->
  <a [routerLink]="['/panel_evaluaciones']" class="block">
 <div class="group flex items-center gap-8 bg-emerald-900/5 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
@@ -135,7 +151,7 @@
 </div>
 </div></a>
 <!-- Row 7: Publicaciones -->
- <a [routerLink]="['']"></a>
+ <a [routerLink]="['/panel_circulares']" class="block">
 <div class="group flex items-center gap-8 bg-emerald-900/5 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
 <div class="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center text-emerald-900 group-hover:scale-110 transition-transform duration-300">
 <span class="material-symbols-outlined text-3xl" data-icon="auto_stories">auto_stories</span>
@@ -147,7 +163,7 @@
 <div class="flex-shrink-0">
 <span class="material-symbols-outlined text-[#059669] text-3xl opacity-90 transition-transform group-hover:translate-x-1" data-icon="chevron_right">chevron_right</span>
 </div>
-</div>
+</div></a>
 <!-- Row 8: Permisos -->
  <a [routerLink]="['/panel_control']" class="block">
 <div class="group flex items-center gap-8 bg-emerald-900/5 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
@@ -174,8 +190,34 @@
 <span class="material-symbols-outlined text-[#059669] text-3xl opacity-90 transition-transform group-hover:translate-x-1">chevron_right</span>
 </div>
 </div>
+
+<a [routerLink]="['/configuracion-congreso']" class="block">
+<div class="group flex items-center gap-8 bg-emerald-900/5 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"><div class="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center text-emerald-900 group-hover:scale-110 transition-transform duration-300"><span class="material-symbols-outlined text-3xl">settings</span></div><div class="flex-grow"><h3 class="font-serif text-2xl text-emerald-900 font-bold mb-1">Configurar Congreso</h3><p class="text-on-surface-variant font-medium text-sm leading-relaxed">Ajustes generales del evento, fechas y parámetros globales del sistema.</p></div><div class="flex-shrink-0"><span class="material-symbols-outlined text-[#059669] text-3xl opacity-90 transition-transform group-hover:translate-x-1">chevron_right</span></div></div>
+</a>
+
+
+<a [routerLink]="['/envio-emails']" class="block">
+<div class="group flex items-center gap-8 bg-emerald-900/5 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+<div class="flex-shrink-0 w-16 h-16 bg-white rounded-full flex items-center justify-center text-emerald-900 group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-3xl">mail</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-serif text-2xl text-emerald-900 font-bold mb-1">Envío de Mails</h3>
+<p class="text-on-surface-variant font-medium text-sm leading-relaxed">Gestione comunicaciones masivas y notificaciones automáticas para los participantes y expositores.</p>
+</div>
+<div class="flex-shrink-0">
+<span class="material-symbols-outlined text-[#059669] text-3xl opacity-90 transition-transform group-hover:translate-x-1">chevron_right</span>
+</div>
+</div></a>
+
+
+
 </div>
 </div>
+
+
+
+
 
 
 

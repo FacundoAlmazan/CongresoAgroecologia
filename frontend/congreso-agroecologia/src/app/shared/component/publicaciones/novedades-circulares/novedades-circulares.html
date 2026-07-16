@@ -1,0 +1,138 @@
+
+
+<main class="max-w-7xl mx-auto px-6 py-12 my-20">
+<!-- Page Intro -->
+<header class="mb-12">
+<h1 class="text-4xl md:text-5xl font-bold text-primary mb-4 leading-tight">Archivo Editorial</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl leading-relaxed">
+            Gestione el flujo del congreso a través de comunicados de prensa curados y actualizaciones circulares oficiales para todos los delegados.
+        </p>
+</header>
+<!-- Main Content Layout: 2/3 Novedades, 1/3 Circulares -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- NOVEDADES SECTION (2/3) -->
+<section aria-label="Novedades" class="lg:col-span-8 space-y-8">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">newspaper</span>
+<h2 class="text-2xl font-bold text-primary font-display">Novedades</h2>
+</div>
+<a class="text-primary font-bold text-sm hover:underline flex items-center gap-1" href="#">
+                    Ver todo el archivo
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="space-y-6">
+<!-- @for (news of newsList) -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant/15 editorial-card-shadow flex flex-col md:flex-row group transition-all hover:translate-y-[-2px]">
+<div class="md:w-1/3 h-48 md:h-auto overflow-hidden bg-surface-container-highest">
+<img alt="Sustainable Crop Rotation" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZioY_CJ10Ob4tpjDcyxPYuw5T54GJIS_7XNFv1saRgsOkyA-Iq-T4P6DbtOulUbeVYfUbkRswC0faD8dTJtOu_uhzNF1bWq-fBDmdem3tk7ysPQSbmup-0bCJCULbnKKyF1UV7YR4QsL2HJ_tJcbz2TVaRkoRCNPEBNKHkbDoHJVxeZ14z_06M2H4iyl_WkkjPfcPcLvpiayd4sMtZp1eAeBJusi10AmQobWiyayeklpEYNBSxlARSK_gxPOddnHBTAMf75Bh-46a"/>
+</div>
+<div class="md:w-2/3 p-6 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-3">
+<div class="flex flex-col">
+<time class="text-[11px] font-bold text-on-surface-variant/60 uppercase tracking-widest">24 DE OCTUBRE, 2024</time>
+<span class="inline-block mt-1 text-[10px] font-bold text-tertiary uppercase tracking-wider px-2 py-0.5 bg-surface-container-low rounded">ACTUALIZACIÓN</span>
+</div>
+<button class="text-on-surface-variant/40 hover:text-error transition-colors p-1" title="Eliminar">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+<h3 class="text-xl font-bold text-primary mb-3 leading-tight font-display">Rotación de Cultivos Sostenible: Nuevos Hallazgos en Córdoba</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed line-clamp-3">
+                                Estudios longitudinales recientes realizados por la Comisión Nacional de Agroecología revelan que las estrategias integradas han incrementado el secuestro de carbono...
+                            </p>
+</div>
+</div>
+</article>
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant/15 editorial-card-shadow flex flex-col md:flex-row group transition-all hover:translate-y-[-2px]">
+<div class="md:w-1/3 h-48 md:h-auto overflow-hidden bg-surface-container-highest">
+<img alt="Smart Irrigation" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_T5yA7wRAEwGUyXaaEbgl96V2KQS09EsdTTWJaB5hD1S5JdXCF4gVaJsTh70ZUMFu0qqEjt8-sZBYnVIeLaEqFprbDc8HG5avCFsXq8lwDfxNPGbgLgVlxEQuUlEB2FS4bCdwokiseKVErYOzsiwCx6uvRVJYCYOFws8n3nZxb__byI9TffZ5OgpuHd1-qkJ1CH4cXJim8eEycRuo4a0xKZ26zZDM6gip8U_0zKWcPJYJ8DrqIZpfSJdUzCxpNP4ahdljTFVxWQqx"/>
+</div>
+<div class="md:w-2/3 p-6 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-3">
+<div class="flex flex-col">
+<time class="text-[11px] font-bold text-on-surface-variant/60 uppercase tracking-widest">20 DE OCTUBRE, 2024</time>
+<span class="inline-block mt-1 text-[10px] font-bold text-tertiary uppercase tracking-wider px-2 py-0.5 bg-surface-container-low rounded">TECNOLOGÍA</span>
+</div>
+<button class="text-on-surface-variant/40 hover:text-error transition-colors p-1" title="Eliminar">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+<h3 class="text-xl font-bold text-primary mb-3 leading-tight font-display">Sistemas de Riego Inteligentes: Lanzamiento del Programa Piloto</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed line-clamp-3">
+                                El próximo programa piloto para el riego automatizado basado en sensores en zonas áridas comenzará el próximo mes en la región de Mendoza.
+                            </p>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- CIRCULARES SECTION (1/3) -->
+<section aria-label="Circulares" class="lg:col-span-4 space-y-8">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-primary text-3xl">description</span>
+<h2 class="text-2xl font-bold text-primary font-display">Circulares</h2>
+</div>
+<div class="space-y-6">
+<!-- @for (circular of circulars) -->
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/15 relative group">
+<div class="flex justify-between items-start mb-3">
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-widest px-2 py-1 bg-surface-container-lowest rounded border border-outline-variant/10">OFICIAL #042</span>
+<button class="text-on-surface-variant/40 hover:text-error transition-colors p-1" title="Eliminar">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+<h4 class="text-lg font-bold text-primary mb-2 font-display">Prórroga del Plazo de Inscripción</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6 italic">
+                        Sobre la extensión del descuento por reserva anticipada y la accesibilidad al portal de envío de abstracts finales.
+                    </p>
+<div class="flex items-center justify-between mt-auto">
+<time class="text-[10px] font-bold text-on-surface-variant/50 uppercase">Publicado: 22 Oct</time>
+<button class="text-primary font-bold text-sm flex items-center gap-2 hover:translate-x-1 transition-transform">
+                            Descargar PDF
+                            <span class="material-symbols-outlined text-sm">download</span>
+</button>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/15 relative group">
+<div class="flex justify-between items-start mb-3">
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-widest px-2 py-1 bg-surface-container-lowest rounded border border-outline-variant/10">LOGÍSTICA #039</span>
+<button class="text-on-surface-variant/40 hover:text-error transition-colors p-1" title="Eliminar">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+<h4 class="text-lg font-bold text-primary mb-2 font-display">Logística de Hoteles y Transporte</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                        Resumen de tarifas preferenciales de hoteles y horarios de lanzaderas desde el aeropuerto principal hasta el centro de congresos.
+                    </p>
+<div class="flex items-center justify-between mt-auto">
+<time class="text-[10px] font-bold text-on-surface-variant/50 uppercase">Publicado: 18 Oct</time>
+<button class="text-primary font-bold text-sm flex items-center gap-2 hover:translate-x-1 transition-transform">
+                            Ver Resumen
+                            <span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+<!-- Call to Action Card following Editorial Guide style from SCREEN_6 -->
+<section class="bg-primary text-on-primary rounded-xl p-8 relative overflow-hidden shadow-xl mt-12">
+<div class="relative z-10">
+<h3 class="text-xl font-bold mb-4 font-display border-b border-on-primary/20 pb-4">Guías Editoriales</h3>
+<p class="text-sm text-on-primary/80 mb-6 leading-relaxed">
+                            Asegúrese de que sus envíos cumplan con los estándares de calidad de Verdant Archive antes de la fase de revisión final.
+                        </p>
+<button class="w-full bg-secondary-container text-on-secondary-container py-3 rounded-lg font-bold text-xs uppercase tracking-widest hover:brightness-105 transition-all active:scale-95">
+                            Portal de Envíos
+                        </button>
+</div>
+<!-- Decorative eco icon -->
+<div class="absolute -bottom-10 -right-10 opacity-10 transform rotate-12">
+<span class="material-symbols-outlined text-[160px]">eco</span>
+</div>
+</section>
+</div>
+</section>
+</div>
+</main>

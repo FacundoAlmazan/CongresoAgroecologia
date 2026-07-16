@@ -16,6 +16,16 @@ import { ResultadoEvaluacion } from './shared/component/resultado-evaluacion/res
 import { FormularioEvaluacion } from './shared/component/formulario-evaluacion/formulario-evaluacion';
 import { VistaAsignacion } from './shared/component/panel-evaluaciones/vista-asignacion/vista-asignacion';
 import { FormularioAsignacion } from './shared/component/panel-evaluaciones/formulario-asignacion/formulario-asignacion';
+import { Congreso } from './shared/component/publicaciones/congreso/congreso';
+import { Email } from './shared/component/publicaciones/email/email';
+import { NovedadesCirculares } from './shared/component/publicaciones/novedades-circulares/novedades-circulares';
+import { PanelCirculares } from './shared/component/publicaciones/panel-circulares/panel-circulares';
+import { ListaInscripciones } from './shared/component/lista-inscripciones/lista-inscripciones';
+import { EstadoInscripcion } from './shared/component/estado-inscripcion/estado-inscripcion';
+import { FormularioInscripcion } from './shared/component/formulario-inscripcion/formulario-inscripcion';
+import { DetalleInscripcion } from './shared/component/detalle-inscripcion/detalle-inscripcion';
+import { Agenda } from './shared/component/agenda/agenda';
+import { AdministradorInscripciones } from './shared/component/administrador-inscripciones/administrador-inscripciones';
 
 
 export const routes: Routes = [
@@ -39,5 +49,15 @@ export const routes: Routes = [
 { path: 'formulario_evaluacion', component: FormularioEvaluacion },
 { path: 'peticiones', component: VistaAsignacion },
 { path: 'formulario_asignacion/:id', component: FormularioAsignacion },
+{ path: 'formulario_inscripcion', component: FormularioInscripcion },
+{ path: 'lista_mis_inscripciones', component: ListaInscripciones },
+{ path: 'estado_inscripcion', component: EstadoInscripcion },
+{ path: 'lista_inscripciones', component: AdministradorInscripciones },
+{ path: 'agenda', component: Agenda },
+{ path: 'detalle_inscripcion', component: DetalleInscripcion },
+{ path: 'configuracion-congreso', component: Congreso },
+{ path: 'envio-emails', component: Email },
+{ path: 'panel_circulares', component: PanelCirculares },
+{ path: 'novedades_circulares', component: NovedadesCirculares },
 //{path:'', component:  },
 ];

@@ -1,0 +1,188 @@
+
+<main class="flex-grow pt-32 pb-20 px-6 lg:px-20 max-w-[1200px] mx-auto w-full">
+<!-- BEGIN: HeroHeader -->
+<header class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+<div class="max-w-2xl">
+<h1 class="text-5xl md:text-7xl font-bold text-primary leading-tight">
+          Formulario de<br>inscripción
+        </h1>
+</div>
+<div class="md:max-w-xs border-l-2 border-primary/20 pl-6 pb-2">
+<p class="text-on-surface-variant text-lg">
+          Unite al congreso nacional de agroecología en una jornada de saberes compartidos.
+        </p>
+</div>
+</header>
+<!-- END: HeroHeader -->
+<!-- BEGIN: Step01Section -->
+<section class="mb-16">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2 mb-8">
+<span class="text-sm font-bold text-primary uppercase tracking-wider">01. Instancia y Rol de Participación</span>
+</div>
+<!-- Participation Type Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+<!-- Pre-congreso -->
+<label class="relative group cursor-pointer">
+<input class="peer sr-only" name="instancia" type="radio">
+<div class="h-full p-6 bg-white border border-transparent rounded-custom custom-shadow transition-all peer-checked:border-primary peer-checked:ring-1 peer-checked:ring-primary">
+<div class="flex justify-between items-start mb-4">
+<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant peer-checked:bg-primary"></div>
+</div>
+<h3 class="font-bold text-lg mb-1">Pre-congreso</h3>
+<p class="text-sm text-on-surface-variant">Talleres técnicos y visitas de campo.</p>
+</div>
+</label>
+<!-- Congreso (Selected by default in image) -->
+<label class="relative group cursor-pointer">
+<input checked="" class="peer sr-only" name="instancia" type="radio">
+<div class="h-full p-6 bg-white border border-primary ring-1 ring-primary rounded-custom custom-shadow transition-all">
+<div class="flex justify-between items-start mb-4">
+<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+<svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
+</div>
+</div>
+<h3 class="font-bold text-lg mb-1">Congreso</h3>
+<p class="text-sm text-on-surface-variant">Ponencias magistrales y mesas de debate.</p>
+</div>
+</label>
+<!-- Post-congreso -->
+<label class="relative group cursor-pointer">
+<input class="peer sr-only" name="instancia" type="radio">
+<div class="h-full p-6 bg-white border border-transparent rounded-custom custom-shadow transition-all peer-checked:border-primary peer-checked:ring-1 peer-checked:ring-primary">
+<div class="flex justify-between items-start mb-4">
+<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
+</div>
+<h3 class="font-bold text-lg mb-1">Post-congreso</h3>
+<p class="text-sm text-on-surface-variant">Redacción de actas y alianzas estratégicas.</p>
+</div>
+</label>
+</div>
+<!-- Pricing Tier Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Price Cards Column -->
+<div class="md:col-span-2 flex flex-col gap-8">
+<div class="bg-white p-8 rounded-custom custom-shadow border-l-2 border-primary">
+<h4 class="text-sm font-bold text-primary uppercase tracking-wider mb-4">Categoría Seleccionada</h4>
+<div class="flex flex-col gap-4">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="categoria" type="radio">
+<span class="text-lg font-medium text-on-surface-variant group-hover:text-primary transition-colors">Estudiante de grado</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="categoria" type="radio">
+<span class="text-lg font-medium text-on-surface-variant group-hover:text-primary transition-colors">Socio SAAE</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="categoria" type="radio">
+<span class="text-lg font-medium text-on-surface-variant group-hover:text-primary transition-colors">Productor</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="categoria" type="radio">
+<span class="text-lg font-medium text-primary transition-colors">No socio</span>
+</label>
+</div>
+</div>
+<div class="bg-[#eef7f0] p-10 rounded-custom border border-primary/20 flex flex-col items-center justify-center text-center">
+<span class="text-sm font-bold text-primary uppercase tracking-widest mb-2">Arancel de Inscripción</span>
+<div class="text-5xl md:text-6xl font-serif font-bold text-primary">$150.000</div>
+<p class="text-on-surface-variant text-sm mt-4">Monto total a abonar según la categoría seleccionada.</p>
+</div>
+</div>
+<!-- Guía de Tarifas Banner -->
+<div class="relative group overflow-hidden rounded-custom bg-primary text-white p-8 flex flex-col justify-between min-h-[340px]">
+<!-- Decorative Background Image Placeholder -->
+<div class="absolute inset-0 opacity-10 bg-[url('https://placehold.co/400x600?text=Leaves')] bg-cover mix-blend-overlay"></div>
+<div class="relative z-10">
+<h3 class="text-3xl font-serif font-bold mb-4">Guía de Tarifas</h3>
+<p class="text-white/80 leading-relaxed">
+              ¿No estás seguro de qué rol te corresponde? Consulta los requerimientos detallados para cada categoría.
+            </p>
+</div>
+<div class="relative z-10">
+<a class="inline-flex items-center justify-between w-full bg-white text-primary px-6 py-3 rounded-custom font-bold hover:bg-surface transition-colors" href="#">
+              Más información
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Step01Section -->
+<!-- BEGIN: DocumentsAndPayment -->
+<div class="flex flex-col gap-16">
+<!-- Step 03: Documentación -->
+<section>
+<div class="flex items-center justify-between border-b border-outline-variant pb-2 mb-8">
+<span class="text-sm font-bold text-primary uppercase tracking-wider">03. Documentación de rol</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="file-drop-zone rounded-custom bg-white p-12 flex flex-col items-center justify-center text-center cursor-pointer">
+<div class="w-16 h-16 bg-[#ccdfd1] rounded-2xl flex items-center justify-center text-primary mb-4">
+<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h4 class="font-bold text-lg mb-1">Subir Documentación de Rol</h4>
+<p class="text-sm text-on-surface-variant">Arrastre PDF o JPG aquí (máx 5MB)</p>
+</div>
+<div class="bg-surface-container-low p-8 rounded-custom">
+<h4 class="font-serif font-bold text-xl text-primary mb-4">Información de la documentación</h4>
+<ul class="flex flex-col gap-2 text-on-surface-variant text-sm">
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Formato PDF o JPG</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Tamaño máximo 5MB</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Datos de identidad visibles</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Certificado vigente</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- NEW SECTION: Generación de QR -->
+<section>
+<div class="flex items-center justify-between border-b border-outline-variant pb-2 mb-8">
+<span class="text-sm font-bold text-primary uppercase tracking-wider">Generación de QR</span>
+</div>
+<div class="bg-white rounded-custom custom-shadow p-8 flex flex-col items-center gap-8">
+<button class="bg-primary text-white px-8 py-3 rounded-custom font-bold hover:bg-[#004d44] transition-all active:scale-95">
+        Generar QR de pago
+      </button>
+<div class="max-w-xs w-full border border-outline-variant p-4 rounded-lg">
+<img alt="QR de pago" class="w-full h-auto rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-LVvncyZaAe0qMAEvD_ErCUY9YD5OcHSy8Zm1rZdelV3C-cBXSRZ6zopQ_obsDwbD2p4VeeETf7hC8r1fn1JJOPDQOdwSgK3ieHOzRxO71Olg1Yb0hTil1gRonhFT587EYFdjH5kYISWNKNkmKOInOie-EIi43mOWVUyckt8sVasL99MZ7QFQj02dqpi3iG97RTKXfBx5Kw9NHYpgWDOg19Iccfv3y7_BtwUPKgTNO53jlbmsfj5Hu00Z28YRFrSv7_y4D6mOVXI">
+</div>
+</div>
+</section>
+<!-- Step 04: Pago -->
+<section>
+<div class="flex items-center justify-between border-b border-outline-variant pb-2 mb-8">
+<span class="text-sm font-bold text-primary uppercase tracking-wider">04. Pago</span>
+</div>
+<div class="bg-white rounded-custom custom-shadow p-8">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-10 h-10 text-primary mt-1">
+<svg fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"></path></svg>
+</div>
+<div>
+<h3 class="font-bold text-xl">Comprobante de Pago</h3>
+<p class="text-xs font-bold text-on-surface-variant/60 uppercase tracking-widest">Transacción Requerida</p>
+</div>
+</div>
+<div class="file-drop-zone rounded-lg bg-surface-container-low p-8 flex flex-col items-center justify-center text-center cursor-pointer border-dashed border-2">
+<p class="text-on-surface-variant font-medium">Soltar archivo aquí</p>
+<p class="text-xs text-on-surface-variant/60 mt-1">o haz clic para explorar</p>
+</div>
+</div>
+</section>
+</div>
+<!-- END: DocumentsAndPayment -->
+<!-- BEGIN: FooterAction -->
+<div class="mt-24 flex flex-col md:flex-row items-center justify-between gap-8 pt-8 border-t border-outline-variant">
+<p class="text-sm text-on-surface-variant max-w-md text-center md:text-left">
+        Al finalizar, confirmas que has leído los términos y condiciones de participación y el código de ética del Congreso Verdant Archive.
+      </p>
+<button class="bg-primary text-white px-10 py-4 rounded-custom font-bold text-lg flex items-center gap-4 hover:bg-[#004d44] transition-all transform hover:-translate-y-1 shadow-lg active:scale-95">
+        Finalizar Inscripción
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+<!-- END: FooterAction -->
+</main>
