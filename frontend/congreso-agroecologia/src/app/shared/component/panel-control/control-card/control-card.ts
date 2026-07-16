@@ -1,7 +1,9 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { concat, finalize, Observable, toArray } from 'rxjs';
+
 import { Usuario } from '../../../model/usuario.model';
 import { TipoRol } from '../../../model/TipoRol.enum.model';
-import { CommonModule } from '@angular/common';
 import { UsuarioService } from '../../../service/usuario.service';
 
 @Component({
@@ -10,115 +12,151 @@ import { UsuarioService } from '../../../service/usuario.service';
   templateUrl: './control-card.html',
   styleUrl: './control-card.css',
 })
-export class ControlCard {
+export class ControlCard implements OnInit {
+  @Input({ required: true }) user!: Usuario;
 
+  readonly TipoRol = TipoRol;
 
-  mensajeError='';
-  TipoRol=TipoRol;
-  @Input() user!:Usuario;
-  permisos={
-    esOrganizador:false,
-    esAdmin:false,
-    esEvaluador:false,
-    esActivo:false,
-  }
-  cambios=false;
-  estilos={
-    activo:'bg-primary text-on-primary shadow-sm active:scale-95',
-    inactivo:'border-2 border-outline-variant/50 text-outline-variant hover:bg-surface-container-low'
-  }
-  
-    constructor(private usuarioService: UsuarioService,private cdr: ChangeDetectorRef) {}
-ngOnInit() {
-  this.iniciarPermiso();
-}
-iniciarPermiso(){
-  this.permisos.esAdmin=false;
-  this.permisos.esEvaluador=false;
-  this.permisos.esOrganizador=false;
-  this.permisos.esActivo=this.user.activo;
-  this.user.roles.forEach(rol=>{this.cambiarPermiso(rol.nombre)});
-  
-  this.cambios=false;
-}
+  mensajeError = '';
+  guardando = false;
+  cambios = false;
 
-  cambiarPermiso(rol :TipoRol ){
-    this.cambios=true;
+  permisos = {
+    esOrganizador: false,
+    esAdmin: false,
+    esEvaluador: false,
+    esActivo: false,
+  };
 
-  switch (rol) {
-    case TipoRol.ADMIN:
-      this.permisos.esAdmin = !this.permisos.esAdmin;
-      break;
+  estilos = {
+    activo: 'bg-primary text-on-primary shadow-sm active:scale-95',
+    inactivo:
+      'border-2 border-outline-variant/50 text-outline-variant hover:bg-surface-container-low',
+  };
 
-    case TipoRol.EVALUADOR:
-      this.permisos.esEvaluador = !this.permisos.esEvaluador;
-      break;
+  constructor(
+    private readonly usuarioService: UsuarioService,
+    private readonly cdr: ChangeDetectorRef
+  ) {}
 
-    case TipoRol.OC:
-      this.permisos.esOrganizador = !this.permisos.esOrganizador;
-      break;
-  }
-  }
-  activar(){
-    this.cambios=true;
-    this.permisos.esActivo=!this.permisos.esActivo;
+  ngOnInit(): void {
+    this.sincronizarFormularioConUsuario();
   }
 
-  guardar() {
-  if (!this.user.id) {
-    return;
+  cambiarPermiso(rol: TipoRol): void {
+    this.mensajeError = '';
+    this.cambios = true;
+
+    switch (rol) {
+      case TipoRol.ADMIN:
+        this.permisos.esAdmin = !this.permisos.esAdmin;
+        break;
+      case TipoRol.EVALUADOR:
+        this.permisos.esEvaluador = !this.permisos.esEvaluador;
+        break;
+      case TipoRol.OC:
+        this.permisos.esOrganizador = !this.permisos.esOrganizador;
+        break;
+    }
   }
 
-  this.actualizarRol(TipoRol.ADMIN, this.permisos.esAdmin);
-  this.actualizarRol(TipoRol.EVALUADOR, this.permisos.esEvaluador);
-  this.actualizarRol(TipoRol.OC, this.permisos.esOrganizador);
-  if(this.permisos.esActivo!=this.user.activo){
-    this.permisos.esActivo
-    ? this.usuarioService.activar(this.user.id)
-    : this.usuarioService.desactivar(this.user.id);
-  }
-  this.iniciarPermiso();
-  
-  
-}
-
-private actualizarRol(tipoRol: TipoRol, debeTener: boolean): void {
-  const tieneRol = this.user.roles.some(r => r.nombre === tipoRol);
-
-  // No hubo cambios
-  if (tieneRol === debeTener) {
-    return;
+  cambiarActivo(): void {
+    this.mensajeError = '';
+    this.cambios = true;
+    this.permisos.esActivo = !this.permisos.esActivo;
   }
 
-  if (debeTener) {
-    this.usuarioService.asignarRol(this.user.id!, tipoRol).subscribe({
-      next: () => {
-        this.user.roles.push({ nombre: tipoRol });
-      },
-      error: (err) => {
-        console.error(`Error al asignar el rol ${tipoRol}`, err);
-        this.mensajeError="No se pudo cambiar los permisos";
-      }
-    });
-  } else {
-    this.usuarioService.quitarRol(this.user.id!, tipoRol).subscribe({
-      next: () => {
-        this.user.roles = this.user.roles.filter(r => r.nombre !== tipoRol);
-        console.log('Supuestamente elimina con exito, ya que entró en el -next-');
-      },
-      error: (err) => {
-        console.error(`Error al quitar el rol ${tipoRol}`, err);
-        this.mensajeError="No se pudo cambiar los permisos";
-          
-      }
-    });
-  }
-  
-}
+  guardar(): void {
+    if (this.user.id == null || this.guardando) {
+      return;
+    }
 
-  cancelar(){
-    this.iniciarPermiso();
-    this.cambios=false;
+    const operaciones: Observable<Usuario>[] = [];
+
+    this.agregarOperacionRol(operaciones, TipoRol.ADMIN, this.permisos.esAdmin);
+    this.agregarOperacionRol(operaciones, TipoRol.EVALUADOR, this.permisos.esEvaluador);
+    this.agregarOperacionRol(operaciones, TipoRol.OC, this.permisos.esOrganizador);
+
+    if (this.permisos.esActivo !== this.user.activo) {
+      operaciones.push(
+        this.permisos.esActivo
+          ? this.usuarioService.activar(this.user.id)
+          : this.usuarioService.desactivar(this.user.id)
+      );
+    }
+
+    if (operaciones.length === 0) {
+      this.sincronizarFormularioConUsuario();
+      return;
+    }
+
+    this.guardando = true;
+    this.mensajeError = '';
+
+    concat(...operaciones)
+      .pipe(
+        toArray(),
+        finalize(() => {
+          this.guardando = false;
+          this.cdr.detectChanges();
+        })
+      )
+      .subscribe({
+        next: (respuestas) => {
+          const usuarioActualizado = respuestas.at(-1);
+
+          if (usuarioActualizado) {
+            this.user = {
+              ...usuarioActualizado,
+              roles: usuarioActualizado.roles ?? [],
+            };
+          }
+
+          this.sincronizarFormularioConUsuario();
+          this.cdr.detectChanges();
+        },
+        error: (error) => {
+          console.error('Error al guardar el usuario', error);
+          this.mensajeError = 'No se pudieron guardar todos los cambios del usuario.';
+          this.cambios = true;
+          this.cdr.detectChanges();
+        },
+      });
   }
 
+  cancelar(): void {
+    this.mensajeError = '';
+    this.sincronizarFormularioConUsuario();
+  }
+
+  private agregarOperacionRol(
+    operaciones: Observable<Usuario>[],
+    rol: TipoRol,
+    debeTenerlo: boolean
+  ): void {
+    const tieneRol = (this.user.roles ?? []).some(
+      (rolActual) => rolActual.nombre === rol
+    );
+
+    if (tieneRol === debeTenerlo || this.user.id == null) {
+      return;
+    }
+
+    operaciones.push(
+      debeTenerlo
+        ? this.usuarioService.asignarRol(this.user.id, rol)
+        : this.usuarioService.quitarRol(this.user.id, rol)
+    );
+  }
+
+  private sincronizarFormularioConUsuario(): void {
+    const roles = this.user.roles ?? [];
+
+    this.permisos.esAdmin = roles.some((rol) => rol.nombre === TipoRol.ADMIN);
+    this.permisos.esEvaluador = roles.some((rol) => rol.nombre === TipoRol.EVALUADOR);
+    this.permisos.esOrganizador = roles.some((rol) => rol.nombre === TipoRol.OC);
+    this.permisos.esActivo = this.user.activo;
+
+    this.cambios = false;
+  }
 }

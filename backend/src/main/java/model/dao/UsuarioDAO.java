@@ -8,7 +8,6 @@ import jakarta.persistence.NoResultException;
 import model.Usuario;
 import model.interfaceDao.IUsuarioDAO;
 import model.Rol;
-import model.enums.TipoRol;
 
 @RequestScoped
 public class UsuarioDAO extends GenericDAO<Usuario> implements IUsuarioDAO {
@@ -19,19 +18,13 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements IUsuarioDAO {
     }
 
     @Override
-    public List<Usuario> getUsuarios() {
-        return listarTodos();
-    }
+    public List<Usuario> getUsuarios() { return listarTodos(); }
 
     @Override
-    public void saveUsuario(Usuario entidad) {
-        guardar(entidad);
-    }
+    public void saveUsuario(Usuario entidad) { guardar(entidad); }
 
     @Override
-    public Usuario modifyUsuario(Usuario entidad) {
-        return modificar(entidad);
-    }
+    public Usuario modifyUsuario(Usuario entidad) { return modificar(entidad); }
 
     @Override
     public List<Usuario> getUsuariosByRol(Rol r) {
@@ -68,6 +61,20 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements IUsuarioDAO {
                     "SELECT DISTINCT u FROM Usuario u LEFT JOIN FETCH u.roles WHERE u.id = :id",
                     Usuario.class)
                     .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Usuario getByNumeroIdentificacionConRoles(String numeroIdentificacion) {
+        try {
+            return em.createQuery(
+                    "SELECT DISTINCT u FROM Usuario u LEFT JOIN FETCH u.roles " +
+                    "WHERE u.numeroIdentificacion = :numeroIdentificacion",
+                    Usuario.class)
+                    .setParameter("numeroIdentificacion", numeroIdentificacion)
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;

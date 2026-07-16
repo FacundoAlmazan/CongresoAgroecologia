@@ -2,50 +2,40 @@ package model.config;
 
 import jakarta.persistence.EntityManager;
 import jakarta.ws.rs.ApplicationPath;
-
 import java.util.function.Supplier;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import jakarta.ws.rs.ext.ContextResolver;
-
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
-
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import model.dao.*;
 import model.interfaceDao.*;
+import model.security.JwtAuthenticationFilter;
 import model.service.*;
 
 @ApplicationPath("/api")
 public class ApiConfig extends ResourceConfig {
+    public ApiConfig() {
+        packages("model.resource");
+        register(JacksonFeature.class);
+        register(JwtAuthenticationFilter.class);
+        register(RolesAllowedDynamicFeature.class);
 
-	
-	public ApiConfig() {
-	    packages("model.resource");
+        register(new ContextResolver<ObjectMapper>() {
+            private final ObjectMapper mapper = new ObjectMapper()
+                    .registerModule(new JavaTimeModule())
+                    .configure(com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
-	    register(JacksonFeature.class);
+            @Override
+            public ObjectMapper getContext(Class<?> type) { return mapper; }
+        });
 
-	    register(new ContextResolver<ObjectMapper>() {
-	        private final ObjectMapper mapper = new ObjectMapper()
-	                .registerModule(new JavaTimeModule())
-	                .configure(com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-
-	        @Override
-	        public ObjectMapper getContext(Class<?> type) {
-	            return mapper;
-	        }
-	    });
-
-	    register(new AbstractBinder() {
-	        @Override
-	        protected void configure() {
-	            bindFactory(new Supplier<EntityManager>() {
-	                @Override
-	                public EntityManager get() {
-	                    return FactoryEM.getEntityManager();
-	                }
-	            }).to(EntityManager.class);
+        register(new AbstractBinder() {
+            @Override
+            protected void configure() {
+                bindFactory((Supplier<EntityManager>) FactoryEM::getEntityManager).to(EntityManager.class);
 
                 bind(ActividadDAO.class).to(IActividadDAO.class);
                 bind(AgendaDAO.class).to(IAgendaDAO.class);
@@ -76,7 +66,10 @@ public class ApiConfig extends ResourceConfig {
                 bindAsContract(TrabajoService.class);
                 bindAsContract(AsignacionEvaluacionService.class);
                 bindAsContract(PagoService.class);
-	        }
-	    });
-	}
+                bindAsContract(AuthService.class);
+                bindAsContract(JwtService.class);
+                bindAsContract(PasswordService.class);
+            }
+        });
+    }
 }

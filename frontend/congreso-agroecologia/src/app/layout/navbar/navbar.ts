@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/service/auth.service';
-import { Usuario } from '../../shared/model/usuario.model';
+import { UsuarioAutenticado } from '../../shared/model/auth.model';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +18,7 @@ export class Navbar {
     private router: Router
   ) {}
 
-  get usuarioActual(): Usuario | null {
+  get usuarioActual(): UsuarioAutenticado | null {
     return this.authService.getUsuarioActual();
   }
 

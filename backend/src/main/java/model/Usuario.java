@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "usuarios")
@@ -28,7 +29,8 @@ public class Usuario {
     private String email;
 
     @Column(nullable = false)
-    @Schema(example = "1234")
+    @Schema(example = "1234", accessMode = Schema.AccessMode.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Schema(example = "+5492211234567")

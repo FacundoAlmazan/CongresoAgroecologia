@@ -10,18 +10,11 @@ import { AuthService } from '../../service/auth.service';
   styleUrl: './login.css'
 })
 export class Login {
-  credenciales = {
-    numeroIdentificacion: '',
-    password: ''
-  };
-
+  credenciales = { numeroIdentificacion: '', password: '' };
   error = '';
   cargando = false;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   login(): void {
     this.error = '';
@@ -33,14 +26,12 @@ export class Login {
     ).subscribe({
       next: () => {
         this.cargando = false;
-        this.router.navigate(['/home']).then(() => {
-          window.location.reload();
-        });
+        this.router.navigate(['/home']);
       },
       error: err => {
         console.error(err);
         this.cargando = false;
-        this.error = err.message ?? 'No se pudo iniciar sesión.';
+        this.error = err?.error?.message ?? 'DNI o contraseña incorrectos.';
       }
     });
   }

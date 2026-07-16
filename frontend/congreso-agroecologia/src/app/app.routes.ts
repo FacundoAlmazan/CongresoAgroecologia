@@ -16,28 +16,31 @@ import { ResultadoEvaluacion } from './shared/component/resultado-evaluacion/res
 import { FormularioEvaluacion } from './shared/component/formulario-evaluacion/formulario-evaluacion';
 import { VistaAsignacion } from './shared/component/panel-evaluaciones/vista-asignacion/vista-asignacion';
 import { FormularioAsignacion } from './shared/component/panel-evaluaciones/formulario-asignacion/formulario-asignacion';
-
+import { authGuard } from './shared/guard/auth.guard';
+import { adminGuard } from './shared/guard/admin.guard';
 
 export const routes: Routes = [
-{ path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: Home },
+  { path: 'login', component: Login },
+  { path: 'registro', component: Registro },
+  { path: 'cronograma', component: Cronograma },
 
- { path: 'formulario_paper_edicion/:id', component: FormularioPaper },
-{ path: 'home', component:Home},
-{ path: 'panel_usuario', component: PanelUsuario },
-{ path: 'formulario_paper', component: FormularioPaper },
-{ path: 'panel_control', component: PanelControl },
-{ path: 'panel_evaluaciones', component: PanelEvaluaciones },
-{ path: 'panel_autor', component: PanelAutor },
-{ path: 'cronograma', component: Cronograma },
-{ path: 'login', component: Login },
-{ path: 'registro', component: Registro },
-{ path: 'inscripcion-congreso', component: InscripcionCongreso },
-{ path: 'asignar_evaluadores', component: AsignarEvaluadores },
-{ path: 'asignacion_trabajo/:id', component: AsignacionTrabajo },
-{ path: 'evaluaciones', component: Evaluaciones },
-{ path: 'resultado_evaluacion', component: ResultadoEvaluacion },
-{ path: 'formulario_evaluacion', component: FormularioEvaluacion },
-{ path: 'peticiones', component: VistaAsignacion },
-{ path: 'formulario_asignacion/:id', component: FormularioAsignacion },
-//{path:'', component:  },
+  { path: 'panel_usuario', component: PanelUsuario, canActivate: [authGuard] },
+  { path: 'formulario_paper', component: FormularioPaper, canActivate: [authGuard] },
+  { path: 'formulario_paper_edicion/:id', component: FormularioPaper, canActivate: [authGuard] },
+  { path: 'panel_autor', component: PanelAutor, canActivate: [authGuard] },
+  { path: 'inscripcion-congreso', component: InscripcionCongreso, canActivate: [authGuard] },
+  { path: 'panel_evaluaciones', component: PanelEvaluaciones, canActivate: [authGuard] },
+  { path: 'evaluaciones', component: Evaluaciones, canActivate: [authGuard] },
+  { path: 'resultado_evaluacion', component: ResultadoEvaluacion, canActivate: [authGuard] },
+  { path: 'formulario_evaluacion', component: FormularioEvaluacion, canActivate: [authGuard] },
+  { path: 'peticiones', component: VistaAsignacion, canActivate: [authGuard] },
+  { path: 'formulario_asignacion/:id', component: FormularioAsignacion, canActivate: [authGuard] },
+
+  { path: 'panel_control', component: PanelControl, canActivate: [adminGuard] },
+  { path: 'asignar_evaluadores', component: AsignarEvaluadores, canActivate: [adminGuard] },
+  { path: 'asignacion_trabajo/:id', component: AsignacionTrabajo, canActivate: [adminGuard] },
+
+  { path: '**', redirectTo: 'home' }
 ];

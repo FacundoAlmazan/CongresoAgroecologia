@@ -1,58 +1,131 @@
-import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
-import { Usuario } from '../model/usuario.model';
-import { UsuarioService } from './usuario.service';
+import { Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+import { LoginResponse, UsuarioAutenticado } from '../model/auth.model';
 import { TipoRol } from '../model/TipoRol.enum.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly storageKey = 'usuarioActual';
+  private readonly apiUrl = '/api/auth';
+  private readonly tokenKey = 'token';
+  private readonly usuarioKey = 'usuarioActual';
 
-  constructor(private usuarioService: UsuarioService) {}
+  private readonly usuarioActualSignal =
+    signal<UsuarioAutenticado | null>(null);
 
-  login(numeroIdentificacion: string, password: string): Observable<Usuario> {
-    return this.usuarioService.listar().pipe(
-      map(usuarios => {
-        const usuario = usuarios.find(u =>
-          u.numeroIdentificacion === numeroIdentificacion &&
-          u.password === password
+  readonly usuarioActual = this.usuarioActualSignal.asReadonly();
+
+  constructor(private http: HttpClient) {
+    this.restaurarSesion();
+  }
+
+  login(
+    numeroIdentificacion: string,
+    password: string
+  ): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, {
+      numeroIdentificacion,
+      password
+    }).pipe(
+      tap(respuesta => {
+        localStorage.setItem(this.tokenKey, respuesta.token);
+        localStorage.setItem(
+          this.usuarioKey,
+          JSON.stringify(respuesta.usuario)
         );
 
-        if (!usuario) {
-          throw new Error('DNI o contraseña incorrectos');
-        }
-
-        return usuario;
-      }),
-      tap(usuario => {
-        localStorage.setItem(this.storageKey, JSON.stringify(usuario));
+        this.usuarioActualSignal.set(respuesta.usuario);
       })
     );
   }
 
   logout(): void {
-    localStorage.removeItem(this.storageKey);
+    this.limpiarSesion();
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
   }
 
   estaLogueado(): boolean {
-    return this.getUsuarioActual() !== null;
+    const token = this.getToken();
+
+    // Solo consulta el estado. No modifica señales ni localStorage.
+    return token !== null && !this.tokenVencido(token);
   }
 
-  getUsuarioActual(): Usuario | null {
-    const usuarioJson = localStorage.getItem(this.storageKey);
-    return usuarioJson ? JSON.parse(usuarioJson) as Usuario : null;
+  getUsuarioActual(): UsuarioAutenticado | null {
+    return this.usuarioActualSignal();
   }
 
-    tieneRol(nombreRol: TipoRol): boolean {
-    const usuario = this.getUsuarioActual();
+  tieneRol(rol: TipoRol | string): boolean {
+    return this.usuarioActualSignal()?.roles?.includes(String(rol)) ?? false;
+  }
 
-    if (!usuario?.roles) {
-        return false;
+  private restaurarSesion(): void {
+    const token = this.getToken();
+
+    if (!token || this.tokenVencido(token)) {
+      this.limpiarSesion();
+      return;
     }
 
-    return usuario.roles.some(rol => rol.nombre === nombreRol);
+    const usuario = this.leerUsuarioGuardado();
+
+    if (!usuario) {
+      this.limpiarSesion();
+      return;
     }
-    
+
+    this.usuarioActualSignal.set(usuario);
+  }
+
+  private leerUsuarioGuardado(): UsuarioAutenticado | null {
+    const usuarioJson = localStorage.getItem(this.usuarioKey);
+
+    if (!usuarioJson) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(usuarioJson) as UsuarioAutenticado;
+    } catch {
+      return null;
+    }
+  }
+
+  private tokenVencido(token: string): boolean {
+    try {
+      const partes = token.split('.');
+
+      if (partes.length != 3) {
+        return true;
+      }
+
+      const payloadBase64 = partes[1]
+        .replace(/-/g, '+')
+        .replace(/_/g, '/');
+
+      const payloadConRelleno = payloadBase64.padEnd(
+        payloadBase64.length + (4 - payloadBase64.length % 4) % 4,
+        '='
+      );
+
+      const payload = JSON.parse(atob(payloadConRelleno));
+
+      return typeof payload.exp !== 'number'
+        || payload.exp * 1000 <= Date.now();
+    } catch {
+      return true;
+    }
+  }
+
+  private limpiarSesion(): void {
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.usuarioKey);
+    localStorage.removeItem('inscripcionActual');
+    this.usuarioActualSignal.set(null);
+  }
 }

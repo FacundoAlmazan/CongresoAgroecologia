@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
+import { UsuarioAutenticado } from '../../model/auth.model';
 
 @Component({
   selector: 'app-home',
@@ -8,40 +10,25 @@ import { RouterLink } from '@angular/router';
   styleUrl: './home.css'
 })
 export class Home implements OnInit {
-  usuarioActual: any = null;
+  usuarioActual: UsuarioAutenticado | null = null;
   inscripcionActual: any = null;
 
+  constructor(private authService: AuthService) {}
+
   ngOnInit(): void {
-    const usuarioJson = localStorage.getItem('usuarioActual');
-    this.usuarioActual = usuarioJson ? JSON.parse(usuarioJson) : null;
+    this.usuarioActual = this.authService.getUsuarioActual();
 
     const inscripcionJson = localStorage.getItem('inscripcionActual');
     const inscripcionGuardada = inscripcionJson ? JSON.parse(inscripcionJson) : null;
 
-    if (
-      this.usuarioActual &&
-      inscripcionGuardada &&
-      inscripcionGuardada.usuario?.id === this.usuarioActual.id
-    ) {
-      this.inscripcionActual = inscripcionGuardada;
-    } else {
-      this.inscripcionActual = null;
-    }
+    this.inscripcionActual = this.usuarioActual &&
+      inscripcionGuardada?.usuario?.id === this.usuarioActual.id
+        ? inscripcionGuardada
+        : null;
   }
 
-  get estaLogueado(): boolean {
-    return this.usuarioActual !== null;
-  }
-
-  get tieneInscripcion(): boolean {
-    return this.estaLogueado && this.inscripcionActual !== null;
-  }
-
-  get inscripcionPendiente(): boolean {
-    return this.tieneInscripcion && this.inscripcionActual?.estado === 'PENDIENTE';
-  }
-
-  get inscripcionAprobada(): boolean {
-    return this.tieneInscripcion && this.inscripcionActual?.estado === 'APROBADO';
-  }
+  get estaLogueado(): boolean { return this.authService.estaLogueado(); }
+  get tieneInscripcion(): boolean { return this.estaLogueado && this.inscripcionActual !== null; }
+  get inscripcionPendiente(): boolean { return this.tieneInscripcion && this.inscripcionActual?.estado === 'PENDIENTE'; }
+  get inscripcionAprobada(): boolean { return this.tieneInscripcion && this.inscripcionActual?.estado === 'APROBADO'; }
 }

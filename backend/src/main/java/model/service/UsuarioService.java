@@ -20,12 +20,13 @@ public class UsuarioService {
     @Inject
     private IRolDAO rolDAO;
 
-    public List<Usuario> listar() {
-        return usuarioDAO.listarTodos();
-    }
+    @Inject
+    private PasswordService passwordService;
+
+    public List<Usuario> listar() { return usuarioDAO.listarTodos(); }
 
     public Usuario obtener(Long id) {
-        Usuario usuario = usuarioDAO.getByID(id);
+        Usuario usuario = usuarioDAO.getByIDConRoles(id);
         if (usuario == null) {
             throw new NotFoundException("Usuario no encontrado con id " + id);
         }
@@ -36,13 +37,31 @@ public class UsuarioService {
         if (usuario == null) {
             throw new BadRequestException("Debe enviar un usuario");
         }
+        if (usuario.getPassword() == null || usuario.getPassword().isBlank()) {
+            throw new BadRequestException("La contraseña es obligatoria");
+        }
+        if (usuarioDAO.getByEmail(usuario.getEmail()) != null) {
+            throw new BadRequestException("Ya existe un usuario con ese email");
+        }
+        if (usuarioDAO.getByNumeroIdentificacionConRoles(usuario.getNumeroIdentificacion()) != null) {
+            throw new BadRequestException("Ya existe un usuario con ese DNI");
+        }
+
+        usuario.setPassword(passwordService.hashear(usuario.getPassword()));
         usuarioDAO.guardar(usuario);
         return usuario;
     }
 
     public Usuario modificar(Long id, Usuario usuario) {
-        obtener(id);
+        Usuario existente = obtener(id);
         usuario.setId(id);
+
+        if (usuario.getPassword() == null || usuario.getPassword().isBlank()) {
+            usuario.setPassword(existente.getPassword());
+        } else if (!passwordService.estaHasheado(usuario.getPassword())) {
+            usuario.setPassword(passwordService.hashear(usuario.getPassword()));
+        }
+
         return usuarioDAO.modificar(usuario);
     }
 
@@ -65,27 +84,23 @@ public class UsuarioService {
     }
 
     public Usuario asignarRol(Long id, String tipoRolTexto) {
+        TipoRol tipoRol = parseTipoRol(tipoRolTexto);
         Usuario usuario = obtener(id);
-        Rol rol = obtenerOCrearRol(parseTipoRol(tipoRolTexto));
+        if (usuario.tieneRol(tipoRol)) return usuario;
+        Rol rol = obtenerOCrearRol(tipoRol);
         usuario.agregarRol(rol);
         return usuarioDAO.modificar(usuario);
     }
 
     public Usuario quitarRol(Long id, String tipoRolTexto) {
+        TipoRol tipoRol = parseTipoRol(tipoRolTexto);
         Usuario usuario = obtener(id);
-        Rol rol = rolDAO.getByNombre(parseTipoRol(tipoRolTexto));
-        if (rol == null) {
-            throw new NotFoundException("Rol no encontrado: " + tipoRolTexto);
-        }
-        usuario.quitarRol(rol);
-        return usuarioDAO.modifyUsuario(usuario);
+        boolean eliminado = usuario.getRoles().removeIf(rol -> rol.getNombre() == tipoRol);
+        return eliminado ? usuarioDAO.modificar(usuario) : usuario;
     }
 
     public Usuario promoverAEvaluador(Long id) {
-        Usuario usuario = obtener(id);
-        Rol rolEvaluador = obtenerOCrearRol(TipoRol.EVALUADOR);
-        usuario.agregarRol(rolEvaluador);
-        return usuarioDAO.modificar(usuario);
+        return asignarRol(id, TipoRol.EVALUADOR.name());
     }
 
     private Rol obtenerOCrearRol(TipoRol tipoRol) {
@@ -97,11 +112,12 @@ public class UsuarioService {
         return rol;
     }
 
-    private TipoRol parseTipoRol(String tipoRolTexto) {
+    private TipoRol parseTipoRol(String texto) {
+        if (texto == null || texto.isBlank()) throw new BadRequestException("Debe indicar un rol");
         try {
-            return TipoRol.valueOf(tipoRolTexto.toUpperCase());
+            return TipoRol.valueOf(texto.trim().toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new BadRequestException("Rol inválido: " + tipoRolTexto);
+            throw new BadRequestException("Rol inválido: " + texto);
         }
     }
 }

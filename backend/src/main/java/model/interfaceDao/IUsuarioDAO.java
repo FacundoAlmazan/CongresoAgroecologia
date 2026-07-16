@@ -12,4 +12,5 @@ public interface IUsuarioDAO extends IGenericDAO<Usuario> {
     List<Usuario> getUsuariosByName(String name, String ap);
     Usuario getByEmail(String email);
     Usuario getByIDConRoles(Long id);
+    Usuario getByNumeroIdentificacionConRoles(String numeroIdentificacion);
 }
