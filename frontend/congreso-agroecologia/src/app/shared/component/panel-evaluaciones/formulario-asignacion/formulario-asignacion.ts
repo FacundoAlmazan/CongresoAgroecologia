@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { InfoPaper } from "../../info-paper/info-paper";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,7 @@ import { TrabajoService } from '../../../service/trabajo.service';
   styleUrl: './formulario-asignacion.css',
 })
 export class FormularioAsignacion implements OnInit {
-  //extraer id del Trabajo
+  
   
   asignacion:AsignacionEvaluacion=history.state.asignacion;
   seleccion=false;
@@ -29,7 +29,7 @@ export class FormularioAsignacion implements OnInit {
     private asignacionService:AsignacionService,
      private router: Router,
       private trabajoService:TrabajoService,
-
+    private cdr:ChangeDetectorRef
   ){}
     
 
@@ -55,6 +55,7 @@ if(this.asignacion.trabajo.id)
 
   if (!this.seleccion) {
     this.mensaje = 'Debe seleccionar una opción.';
+    this.cdr.detectChanges();
     return;
   }
 
@@ -71,10 +72,10 @@ if(this.asignacion.trabajo.id)
       this.mensaje = this.aceptado
         ? 'La asignación fue aceptada correctamente.'
         : 'La asignación fue rechazada correctamente.';
-
+      this.cdr.detectChanges();
       setTimeout(() => {
-        this.router.navigate(['/peticiones']); 
-      }, 2000);
+        this.router.navigate(['/trabajos_asignados']); 
+      }, 1500);
 
     },
     error: (err) => {
@@ -83,6 +84,7 @@ if(this.asignacion.trabajo.id)
 
       
       this.mensaje = 'No se pudo registrar la respuesta. Intente nuevamente.';
+      this.cdr.detectChanges();
 
     }
   });

@@ -47,7 +47,10 @@
     }@else {<span class="italic text-on-surface-variant/40 text-label-md">Pendiente de selección</span>}
     
     
-</div><span>{{mensaje}}</span>
+</div>
+@if (mensaje!=='') {
+<span class="flex px-10 py-2 bg-surface-container-highest text-on-surface-variant/80">{{mensaje}}</span>
+}
 </div>
 
 

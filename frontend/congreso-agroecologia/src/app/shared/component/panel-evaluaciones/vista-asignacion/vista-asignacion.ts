@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Trabajo } from '../../../model/trabajo.model';
 import { EstadoTrabajo } from '../../../model/EstadoTrabajo.enum.model';
 import { TipoTrabajo } from '../../../model/TipoTrabajo.enum.model';
@@ -9,40 +9,61 @@ import { Usuario } from '../../../model/usuario.model';
 import { EstadoAsignacion } from '../../../model/EstadoAsignacion.enum.model';
 import { AsignacionService } from '../../../service/asignacion.service';
 import { Router } from '@angular/router';
+import { TrabajoService } from '../../../service/trabajo.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-vista-asignacion',
-  imports: [RouterLink],
+  imports: [RouterLink,CommonModule],
   templateUrl: './vista-asignacion.html',
   styleUrl: './vista-asignacion.css',
 })
 export class VistaAsignacion {
 
   idEvaluador?:number;
-  asignaciones: AsignacionEvaluacion[]=MOCK_ASIGNACIONES;
+  asignaciones: AsignacionEvaluacion[]=[];
+  asignacionesAceptadas: AsignacionEvaluacion[]=[];
+  misAsignaciones: AsignacionEvaluacion[]=[];
 
+  btnStyle='';
+  asignados=true;
+ 
+ 
+ 
+ 
+ cambiarPestania(){
+  this.asignados=!this.asignados;
 
-  
+ }
+ 
   filtrarAsignaciones(idEvaluador: number): void {
-  this.asignaciones = this.asignaciones.filter(
-    asignacion => asignacion.evaluador.id === idEvaluador
+    
+  this.asignaciones = this.misAsignaciones.filter(
+    asignacion => (asignacion.evaluador.id === idEvaluador && asignacion.estado==EstadoAsignacion.PENDIENTE)
   );
 }
 
+  filtrarAceptadas(idEvaluador: number): void {
+    
+  this.asignacionesAceptadas = this.misAsignaciones.filter(
+    asignacion => (asignacion.evaluador.id === idEvaluador && asignacion.estado==EstadoAsignacion.ACEPTADA)
+  );
+}
 constructor(
   private asignacionService:AsignacionService,
 private route: ActivatedRoute,
-private router: Router
-){
+private trabajoService:TrabajoService,
+private router: Router,
+private cdr: ChangeDetectorRef
+){}
 
-}
+
 ngOnInit(): void {
 
   // Simular usuario autenticado
   this.idEvaluador = 1;
-
-  this.filtrarAsignaciones(this.idEvaluador);
-
+  this.cargarAsignaciones();
+  
 }
 
 dirigir(asignacion:AsignacionEvaluacion){
@@ -54,7 +75,27 @@ dirigir(asignacion:AsignacionEvaluacion){
     }
   }
 );
-  
+}
+
+
+cargarAsignaciones(): void {
+
+  this.asignacionService.listar().subscribe({
+    next: (asignaciones) => {
+      this.misAsignaciones = asignaciones;
+      if(this.idEvaluador){
+      this.filtrarAsignaciones(this.idEvaluador);
+    this.filtrarAceptadas(this.idEvaluador);}
+    this.cdr.detectChanges();
+      //this.cargando = false;
+    },
+    error: (err) => {
+      console.error('Error al obtener las asignaciones', err);
+      //this.mensajeError = 'No se pudieron cargar las asignaciones.';
+      //this.cargando = false;
+    }
+  });
+
 }
 
 
@@ -62,167 +103,3 @@ dirigir(asignacion:AsignacionEvaluacion){
   }
   
   
-  
-  const MOCK_PAPERS: Trabajo[] = [
-    {
-      id: 1,
-      titulo: 'Implementación de Sistemas Agroforestales en la Cuenca del Plata',
-      resumen: 'Este estudio analiza la viabilidad técnica y económica de la integración de especies arbóreas nativas con cultivos agrícolas tradicionales en las regiones ribereñas.',
-      archivo: 'documento_ag_2026_001.pdf',
-      passwordTrabajo: 'securePass123',
-      telefonoContacto: '+56912345678',
-      fechaEnvio:'2026 - 10 - 02',
-      tipo: TipoTrabajo.RELATO_EXPERIENCIA, // Asumiendo valores de tus Enums
-      estado: EstadoTrabajo.EN_EVALUACION,     // Mapea a 'En revisión'
-      autores: [
-        {
-          id: 101,
-          nombre: 'Carlos',
-          apellido: 'Mendoza',
-          organizacion: 'Universidad Nacional',
-          pais: 'Argentina',
-          email: 'carlos.mendoza@edu.ar',
-          ordenAutor: 1,
-          trabajo: {} as Trabajo // Evita referencia circular en el mock
-        }
-      ],
-      ejesTematicos: [],
-      asignaciones: [],
-      evaluaciones: [] // Arreglo vacío representa 0 comentarios
-    },
-    {
-      id: 2,
-      titulo: 'Soberanía Alimentaria: Perspectiva de las Mujeres Rurales en el Biobío',
-      resumen: 'Investigación de campo enfocada en el rol de las comunidades de mujeres en la preservación de semillas tradicionales y la gestión de huertos comunitarios.',
-      archivo: 'documento_ag_2026_002.pdf',
-      passwordTrabajo: 'biobio2026',
-      fechaEnvio:'2026 - 02 - 01',
-      telefonoContacto: '+56987654321',
-      tipo: TipoTrabajo.RELATO_EXPERIENCIA,
-      
-      estado: EstadoTrabajo.ACEPTADO_CON_CORRECCION,   // Mapea a 'Incompleto'
-      autores: [
-        {
-          id: 102,
-          nombre: 'Elena',
-          apellido: 'Rojas',
-          organizacion: 'Instituto de Agroecología',
-          pais: 'Chile',
-          email: 'elena.rojas@instituto.cl',
-          ordenAutor: 1,
-          trabajo: {} as Trabajo
-        }
-      ],
-      ejesTematicos: [],
-      asignaciones: [],
-      evaluaciones: [] // 3 elementos representan 3 comentarios
-    },
-    {
-      id: 3,
-      titulo: 'Biorremediación de Suelos Mediante Microorganismos Nativos',
-      resumen: 'Evaluación del uso de bacterias del género Pseudomonas aisladas de zonas industriales para la degradación de hidrocarburos en suelos agrícolas contaminados.',
-      archivo: 'documento_ag_2026_003.pdf',
-      passwordTrabajo: 'microbio456',
-      fechaEnvio:'2026 - 08 - 21',
-      tipo: TipoTrabajo.PROPUESTA_TALLER,
-      estado: EstadoTrabajo.ACEPTADO,     // Mapea a 'Aceptado'
-      autores: [
-        {
-          id: 103,
-          nombre: 'Martín',
-          apellido: 'Silva',
-          organizacion: 'Centro de Biotecnología',
-          pais: 'Uruguay',
-          email: 'msilva@biotech.org.uy',
-          ordenAutor: 1,
-          trabajo: {} as Trabajo
-        },
-        {
-          id: 104,
-          nombre: 'Laura',
-          apellido: 'Gómez',
-          organizacion: 'Universidad de la República',
-          pais: 'Uruguay',
-          email: 'lgomez@udelar.edu.uy',
-          ordenAutor: 2,
-          trabajo: {} as Trabajo
-        }
-      ],
-      ejesTematicos: [],
-      asignaciones: [],
-      evaluaciones: [] // 5 comentarios
-    },
-    {
-      id: 4,
-      titulo: 'Estudio Comparativo de Semillas Híbridas en Climas Tropicales',
-      resumen: 'Análisis del rendimiento de diferentes variedades de maíz híbrido frente a condiciones de estrés hídrico prolongado en zonas de cultivo de baja altitud.',
-      archivo: 'documento_ag_2026_004.pdf',
-      passwordTrabajo: 'hybridX99',
-      tipo: TipoTrabajo.PROPUESTA_TALLER,
-      estado: EstadoTrabajo.RECHAZADO,     // Mapea a 'Rechazado'
-      autores: [
-        {
-          id: 105,
-          nombre: 'Jorge',
-          apellido: 'Prendes',
-          organizacion: 'Corporación Agrícola',
-          pais: 'Brasil',
-          email: 'j.prendes@agrocrop.br',
-          ordenAutor: 1,
-          trabajo: {} as Trabajo
-        }
-      ],
-      ejesTematicos: [],
-      asignaciones: [],
-      evaluaciones: [] // 2 comentarios
-    }
-  ];
-  
-  export const EVALUADOR_1: Usuario = {
-  id: 1,
-  nombre: 'Ana',
-  apellido: 'Martínez',
-  email: 'ana@congreso.org',
-  activo: true,
-  roles: [{ nombre: TipoRol.EVALUADOR }]
-};
-
-export const EVALUADOR_2: Usuario = {
-  id: 2,
-  nombre: 'Bruno',
-  apellido: 'López',
-  email: 'bruno@congreso.org',
-  activo: true,
-  roles: [{ nombre: TipoRol.EVALUADOR }]
-};
-
-  export const MOCK_ASIGNACIONES: AsignacionEvaluacion[] = [
-  {
-    id: 1,
-    trabajo: MOCK_PAPERS[0],
-    evaluador: EVALUADOR_1,
-    asignadoPor: {} as Usuario,
-    estado: EstadoAsignacion.PENDIENTE
-  },
-  {
-    id: 2,
-    trabajo: MOCK_PAPERS[1],
-    evaluador: EVALUADOR_2,
-    asignadoPor: {} as Usuario,
-    estado: EstadoAsignacion.PENDIENTE
-  },
-  {
-    id: 3,
-    trabajo: MOCK_PAPERS[2],
-    evaluador: EVALUADOR_1,
-    asignadoPor: {} as Usuario,
-    estado: EstadoAsignacion.PENDIENTE
-  },
-  {
-    id: 4,
-    trabajo: MOCK_PAPERS[3],
-    evaluador: EVALUADOR_2,
-    asignadoPor: {} as Usuario,
-    estado: EstadoAsignacion.PENDIENTE
-  }
-];
