@@ -46,6 +46,7 @@ export const routes: Routes = [
 { path: 'evaluaciones', component: Evaluaciones },
 { path: 'resultado_evaluacion', component: ResultadoEvaluacion },
 { path: 'formulario_evaluacion', component: FormularioEvaluacion },
+{ path: 'formulario_evaluacion/:id', component: FormularioEvaluacion },
 { path: 'trabajos_asignados', component: VistaAsignacion },
 { path: 'formulario_asignacion/:id', component: FormularioAsignacion },
 { path: 'formulario_inscripcion', component: FormularioInscripcion },

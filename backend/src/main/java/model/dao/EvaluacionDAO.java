@@ -22,6 +22,36 @@ public class EvaluacionDAO extends GenericDAO<Evaluacion> implements IEvaluacion
     }
 
     @Override
+    public List<Evaluacion> getEvaluacionesPorTrabajo(Long trabajoId) {
+        return em.createQuery(
+                """
+                SELECT e
+                FROM Evaluacion e
+                WHERE e.trabajo.id = :trabajoId
+                ORDER BY e.id
+                """,
+                Evaluacion.class)
+            .setParameter("trabajoId", trabajoId)
+            .getResultList();
+    }
+    
+    
+
+    @Override
+    public List<Evaluacion> getEvaluacionesPorEvaluador(Long evaluadorId) {
+        return em.createQuery(
+                """
+                SELECT e
+                FROM Evaluacion e
+                WHERE e.evaluador.id = :evaluadorId
+                """,
+                Evaluacion.class)
+            .setParameter("evaluadorId", evaluadorId)
+            .getResultList();
+    }
+    
+    
+    @Override
     public void saveEvaluacion(Evaluacion entidad) {
         guardar(entidad);
     }

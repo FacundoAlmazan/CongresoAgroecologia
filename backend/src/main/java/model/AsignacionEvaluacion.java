@@ -13,6 +13,14 @@ public class AsignacionEvaluacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "1")
     private Long id;
+    
+    public boolean isFinalizado() {
+		return finalizado;
+	}
+	public void setFinalizado(boolean finalizado) {
+		this.finalizado = finalizado;
+	}
+	private boolean finalizado=false;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "trabajo_id")

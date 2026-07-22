@@ -6,6 +6,7 @@ import { Usuario } from './usuario.model';
 export interface AsignacionEvaluacion {
   id?: number;
   trabajo: Trabajo;
+  finalizado?: boolean;
   evaluador: Usuario;
   asignadoPor: Usuario;
   fechaAsignacion?: string;
