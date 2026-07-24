@@ -564,13 +564,14 @@ Marcar como Incompleto
 <section class="mt-16 pt-8 border-t border-outline-variant/15">
 <div class="flex flex-col md:flex-row items-center justify-end gap-4">
 
-<button class="w-full md:w-auto px-8 py-3 rounded-lg border border-outline text-outline font-bold hover:bg-surface-container-high transition-all active:scale-[0.98]">
+<button (click)="cancelar()" class="w-full md:w-auto px-8 py-3 rounded-lg border border-outline text-outline font-bold hover:bg-surface-container-high transition-all active:scale-[0.98]">
 Cancelar
 </button>
 
-<button class="w-full md:w-auto flex items-center justify-center gap-3 bg-primary text-on-primary py-3 px-12 rounded-lg font-bold shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-[0.98]">
+<button  [disabled]="enviando"
+  (click)="enviar()" class="w-full md:w-auto flex items-center justify-center gap-3 bg-primary text-on-primary py-3 px-12 rounded-lg font-bold shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-[0.98]">
 <span class="material-symbols-outlined">save</span>
-Guardar corrección
+Enviar corrección
 </button>
 
 </div>

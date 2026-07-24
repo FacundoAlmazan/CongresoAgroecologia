@@ -69,6 +69,7 @@ public class Evaluacion {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "evaluador_id")
+    @JsonIgnoreProperties({"roles", "perfilEvaluador"})
     private Usuario evaluador;
 
     @OneToOne

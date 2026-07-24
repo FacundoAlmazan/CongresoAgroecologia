@@ -25,6 +25,14 @@ public class AsignacionEvaluacionService {
         }
         return asignacion;
     }
+    
+    public AsignacionEvaluacion obtenerPorTrabajoyEvaluador(Long idTrabajo,Long idEva) {
+        AsignacionEvaluacion asignacion = asignacionDAO.getPorTrabajoYEvaluador(idTrabajo, idEva);
+        if (asignacion == null) {
+            throw new NotFoundException("Asignación no encontrada con id " );
+        }
+        return asignacion;
+    }
 
     public AsignacionEvaluacion crear(AsignacionEvaluacion asignacion) {
         asignacionDAO.guardar(asignacion);

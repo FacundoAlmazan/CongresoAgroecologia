@@ -43,7 +43,7 @@ export const routes: Routes = [
 { path: 'inscripcion-congreso', component: InscripcionCongreso },
 { path: 'asignar_evaluadores', component: AsignarEvaluadores },
 { path: 'asignacion_trabajo/:id', component: AsignacionTrabajo },
-{ path: 'evaluaciones', component: Evaluaciones },
+{ path: 'evaluaciones/:id', component: Evaluaciones },
 { path: 'resultado_evaluacion', component: ResultadoEvaluacion },
 { path: 'formulario_evaluacion', component: FormularioEvaluacion },
 { path: 'formulario_evaluacion/:id', component: FormularioEvaluacion },

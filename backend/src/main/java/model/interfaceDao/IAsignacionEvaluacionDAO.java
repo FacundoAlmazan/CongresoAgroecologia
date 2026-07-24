@@ -9,4 +9,5 @@ public interface IAsignacionEvaluacionDAO extends IGenericDAO<AsignacionEvaluaci
     void saveAsignacionEvaluacion(AsignacionEvaluacion entidad);
     AsignacionEvaluacion modifyAsignacionEvaluacion(AsignacionEvaluacion entidad);
     List<AsignacionEvaluacion> getByEstado(EstadoAsignacion estado);
+    AsignacionEvaluacion getPorTrabajoYEvaluador(Long trabajoId, Long evaluadorId);
 }

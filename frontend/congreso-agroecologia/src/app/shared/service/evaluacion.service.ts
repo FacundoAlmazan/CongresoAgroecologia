@@ -10,7 +10,7 @@ import { Evaluacion } from '../model/evaluacion.model';
 })
 export class EvaluacionService {
 
-  private apiUrl = '/api/evaluaciones';
+  private apiUrl:string = '/api/evaluaciones';
 
   constructor(private http: HttpClient) {}
 

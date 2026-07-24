@@ -93,7 +93,7 @@ public class EvaluacionResource {
         } catch (Exception e) {
 
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Ocurrió un error al obtener las evaluaciones del rvaluador.")
+                    .entity("Ocurrió un error al obtener las evaluaciones del evaluador.")
                     .build();
         }
     }
@@ -103,7 +103,7 @@ public class EvaluacionResource {
     @POST
     @Operation(summary = "Crear recurso")
     public Response crear(Evaluacion entidad) {
-        dao.guardar(entidad);
+        evaluacionService.guardarEvaluacion(entidad);
         return Response.created(URI.create("/evaluaciones/" + entidad.getId()))
                 .entity(entidad)
                 .build();

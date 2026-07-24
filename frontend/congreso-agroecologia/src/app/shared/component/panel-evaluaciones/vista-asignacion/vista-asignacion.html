@@ -54,7 +54,7 @@
         <span class="text-sm">Enviado para revisión técnica</span>
         </div>
         </div></a>
-        <div class="flex items-center gap-6 shrink-0"><a [routerLink]="['/evaluaciones']" class="text-sm font-bold text-primary hover:text-[#006156] transition-colors flex items-center gap-1 mr-2">Ver evaluaciones</a>
+        <div class="flex items-center gap-6 shrink-0"><a [routerLink]="['/evaluaciones',asg.trabajo.id]" class="text-sm font-bold text-primary hover:text-[#006156] transition-colors flex items-center gap-1 mr-2">Ver evaluaciones</a>
         <div class="inline-flex items-center px-5 py-2 rounded-full bg-[#fef3c7] border border-amber-500/30 text-[#92400e] gap-2.5 shadow-sm">
         <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
         <span class="text-sm font-extrabold uppercase tracking-tight">{{asg.trabajo.estado}}</span>

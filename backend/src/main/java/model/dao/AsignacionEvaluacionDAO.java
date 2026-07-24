@@ -33,6 +33,25 @@ public class AsignacionEvaluacionDAO extends GenericDAO<AsignacionEvaluacion> im
     }
 
     @Override
+    public AsignacionEvaluacion getPorTrabajoYEvaluador(Long trabajoId, Long evaluadorId) {
+        try {
+            return em.createQuery(
+                    """
+                    SELECT a
+                    FROM AsignacionEvaluacion a
+                    WHERE a.trabajo.id = :trabajoId
+                      AND a.evaluador.id = :evaluadorId
+                    """,
+                    AsignacionEvaluacion.class)
+                .setParameter("trabajoId", trabajoId)
+                .setParameter("evaluadorId", evaluadorId)
+                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    @Override
     public List<AsignacionEvaluacion> getByEstado(EstadoAsignacion estado) {
         return em.createQuery("SELECT a FROM AsignacionEvaluacion a WHERE a.estado = :estado", AsignacionEvaluacion.class)
                 .setParameter("estado", estado)

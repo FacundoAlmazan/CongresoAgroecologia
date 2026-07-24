@@ -111,7 +111,7 @@ cargarAsignaciones(): void {
     this.asignados=false;
     this.peticiones=false;
   }
-
+  this.cdr.detectChanges();
  }
  
   filtrarAsignaciones(idEvaluador: number): void {
@@ -139,7 +139,7 @@ cargarAsignaciones(): void {
 this.asignacionesAceptadas = this.asignacionesAceptadas.filter(
     asignacion => (!asignacion.finalizado)
   );
-
+ this.cdr.detectChanges();
 }
 
   
