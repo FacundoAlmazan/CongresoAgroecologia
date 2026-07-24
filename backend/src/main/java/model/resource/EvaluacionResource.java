@@ -15,8 +15,11 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.net.URI;
+import java.util.List;
+
 import model.Evaluacion;
 import model.interfaceDao.IEvaluacionDAO;
+import model.service.EvaluacionService;
 
 @Tag(name = "Evaluacion", description = "Endpoints REST para Evaluacion")
 @Path("/evaluaciones")
@@ -26,6 +29,9 @@ public class EvaluacionResource {
 
     @Inject
     private IEvaluacionDAO dao;
+    
+    @Inject
+    private EvaluacionService evaluacionService;
 
     @GET
     @Operation(summary = "Listar recursos")
@@ -33,6 +39,7 @@ public class EvaluacionResource {
         return Response.ok(dao.listarTodos()).build();
     }
 
+    
     @GET
     @Path("/{id}")
     @Operation(summary = "Obtener recurso por id")
@@ -43,7 +50,56 @@ public class EvaluacionResource {
         }
         return Response.ok(entidad).build();
     }
+    @GET
+    @Path("/trabajo/{id}")
+    public Response getEvaluacionesTrabajo(@PathParam("id") Long trabajoId) {
+        try {
 
+            List<Evaluacion> evaluaciones =
+                    evaluacionService.getEvaluacionesPorTrabajo(trabajoId);
+
+            return Response.ok(evaluaciones).build();
+
+        } catch (IllegalArgumentException e) {
+
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage())
+                    .build();
+
+        } catch (Exception e) {
+
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Ocurrió un error al obtener las evaluaciones del trabajo.")
+                    .build();
+        }
+    }
+    
+    @GET
+    @Path("/evaluador/{id}")
+    public Response getEvaluacionesEvaluador(@PathParam("id") Long evaluadorId) {
+        try {
+
+            List<Evaluacion> evaluaciones =
+                    evaluacionService.getEvaluacionesPorEvaluador(evaluadorId);
+
+            return Response.ok(evaluaciones).build();
+
+        } catch (IllegalArgumentException e) {
+
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage())
+                    .build();
+
+        } catch (Exception e) {
+
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Ocurrió un error al obtener las evaluaciones del rvaluador.")
+                    .build();
+        }
+    }
+    
+    
+    
     @POST
     @Operation(summary = "Crear recurso")
     public Response crear(Evaluacion entidad) {

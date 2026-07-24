@@ -1,0 +1,25 @@
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(24px);
+        }
+        .custom-shadow {
+            box-shadow: 0 10px 30px -10px rgba(0, 97, 86, 0.15);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px -5px rgba(56, 107, 0, 0.2);
+        }
+        .dot-pending {
+            background-color: #ffb400;
+        }
+        /* Custom scrollbar hide for tabs */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }

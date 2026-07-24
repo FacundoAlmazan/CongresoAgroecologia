@@ -28,13 +28,16 @@
                         <span class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Nombre</span>
                         <span class="font-bold text-on-surface">{{sig.nombre}} {{sig.apellido}}</span></div>
                         <div class="flex flex-wrap gap-2">
-                            <span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-0.5 rounded uppercase">
-                                Aceptado</span>
+                                @if (sig.estado==EstadoAsignacion.ACEPTADA) {
+                                <span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+                                Aceptado</span>}
+                                @if (sig.estado==EstadoAsignacion.RECHAZADA) {
                                 <span class="bg-error-container text-on-error-container text-[10px] font-bold px-2 py-0.5 rounded uppercase">
-                                Rechazado</span>
+                                Rechazado</span>}
+                                @if (sig.estado==EstadoAsignacion.PENDIENTE) {
                                 <span class="bg-surface-container-high text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase">
-                                Notificado</span></div></div>
-                                <button class="px-6 py-2 border border-error text-error font-bold text-sm rounded-lg hover:bg-error/5 transition-colors">
+                                Notificado</span>}</div></div>
+                                <button (click)="eliminarAsignacion(sig)" class="px-6 py-2 border border-error text-error font-bold text-sm rounded-lg hover:bg-error/5 transition-colors">
                                 Quitar</button></div>
                             
                             }

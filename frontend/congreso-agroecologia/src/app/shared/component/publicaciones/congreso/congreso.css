@@ -1,0 +1,24 @@
+.label-small {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      color: #a2ad81;
+    }
+    .headline-main {
+      font-family: 'Noto Serif', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.2;
+    }
+    .section-title {
+      font-family: 'Noto Serif', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    main{
+      margin-top: 150px;
+      margin-bottom: 100px;
+    }

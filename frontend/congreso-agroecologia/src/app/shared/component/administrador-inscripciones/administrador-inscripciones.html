@@ -1,0 +1,158 @@
+
+<main class="max-w-[1280px] mx-auto px-8 pt-32 pb-24">
+<!-- Hero / Title Section -->
+<section class="relative mb-10">
+<div class="absolute -right-16 -top-20 opacity-10 pointer-events-none select-none overflow-hidden h-[400px]">
+<img class="h-full object-contain" data-alt="A sophisticated botanical illustration of native Argentine herbs and agricultural plants, hand-drawn with fine charcoal lines on an off-white paper texture, embodying an academic herbarium aesthetic with a focus on scientific precision and organic elegance in a corporate modern style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcK_14IyioN2qWf2MNyhAi_FaHVVR7NOLANGK5ju5EiqDvyY_9qEerYN6YIYKGx80CdvjXPu8cvegm-osTW63gRnqiS-s4QHHgiCk4kyfJbzukqmX-2frVsJqzX0t3rjDG7jXujlUolPto8LoHLFRlmFu8EI7qCmsjgWl0-uB7mtXjM1ZAypSTJCuQUCQt434O6k1xQtIkEYCd9sDxAMUyFtp4a0TOJYzpBp9heyP6iW2lOSwNry83cO-iRJMiUlsCx-uBY9uWPlnb"/>
+</div>
+<div class="relative z-10 max-w-2xl">
+<h1 class="font-headline text-4xl lg:text-6xl text-primary mb-4 leading-tight">Listado de Inscripciones</h1>
+<p class="font-body text-xl text-on-surface-variant">Revisión y validación de nuevas solicitudes para el V Congreso Nacional de Agroecología. Verifique la veracidad de los datos antes de la aprobación final.</p>
+</div>
+</section>
+<!-- Search & Tools -->
+<section class="flex flex-col md:flex-row gap-4 mb-6 items-stretch">
+<div class="flex-1 relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full pl-12 pr-4 py-4 rounded-lg bg-surface-container border-none focus:ring-2 focus:ring-primary transition-all font-body text-on-surface" placeholder="Buscar por nombre, DNI o email..." type="text"/>
+</div>
+<button class="bg-primary text-white px-8 py-4 rounded-lg flex items-center justify-center gap-2 font-label font-bold text-sm transition-transform active:scale-95 hover:bg-primary-container">
+<span class="material-symbols-outlined">tune</span>
+            Filtrar Resultados
+        </button>
+</section>
+<!-- Status Filter Tabs -->
+<div class="flex gap-8 border-b border-outline-variant mb-6 overflow-x-auto whitespace-nowrap scrollbar-hide">
+<button class="pb-4 text-primary font-bold border-b-2 border-primary transition-all font-label">Pendientes (28)</button>
+<button class="pb-4 text-on-surface-variant font-label font-bold text-sm hover:text-primary transition-colors">Aprobados (142)</button>
+<button class="pb-4 text-on-surface-variant font-label font-bold text-sm hover:text-primary transition-colors">Rechazados (12)</button>
+<button class="pb-4 text-on-surface-variant font-label font-bold text-sm hover:text-primary transition-colors">En Revisión (5)</button>
+</div>
+<!-- Registration List - Vertical Layout -->
+<div class="space-y-4">
+<!-- List Header (Desktop Only) -->
+<div class="hidden md:grid grid-cols-12 px-6 py-2 text-on-surface-variant font-label text-xs uppercase tracking-widest opacity-60">
+<div class="col-span-5">Información Personal</div>
+<div class="col-span-2">Rol</div>
+<div class="col-span-2">Fecha</div>
+<div class="col-span-2">Estado</div>
+<div class="col-span-1 text-right">Acción</div>
+</div>
+<!-- Card 1 --> 
+ <a [routerLink]="['/detalle_inscripcion']">
+<div class="grid grid-cols-1 md:grid-cols-12 items-center bg-surface-container-lowest p-6 rounded-lg custom-shadow border border-outline-variant/30 card-hover transition-all cursor-pointer group">
+<div class="col-span-1 md:col-span-5 flex flex-col">
+<span class="font-headline text-xl text-primary group-hover:underline underline-offset-4 decoration-2">Elena Rivas Mendoza</span>
+<span class="font-body text-xs text-on-surface-variant">elena.rivas@universidad.edu.ar</span>
+</div>
+<div class="col-span-1 md:col-span-2 mt-2 md:mt-0">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label font-bold text-[10px] uppercase tracking-wider">Expositor</span>
+</div>
+<div class="col-span-1 md:col-span-2 mt-2 md:mt-0">
+<span class="font-body text-sm text-on-surface-variant italic">14 OCT, 2023</span>
+</div>
+<div class="col-span-1 md:col-span-2 mt-2 md:mt-0 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full dot-pending"></span>
+<span class="font-label font-bold text-sm text-on-surface-variant">Pending</span>
+</div>
+<div class="col-span-1 md:col-span-1 text-right mt-4 md:mt-0">
+<a class="flex items-center justify-end gap-1 text-primary font-bold group-hover:translate-x-1 transition-transform" href="#">
+<span class="font-label text-sm">Detalles</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div></a>
+<!-- Card 2 -->
+ <a [routerLink]="['/detalle_inscripcion']">
+<div class="grid grid-cols-1 md:grid-cols-12 items-center bg-surface-container-lowest p-6 rounded-lg custom-shadow border border-outline-variant/30 card-hover transition-all cursor-pointer group">
+<div class="col-span-1 md:col-span-5 flex flex-col">
+<span class="font-headline text-xl text-primary group-hover:underline underline-offset-4 decoration-2">Julián Sosa Castro</span>
+<span class="font-body text-xs text-on-surface-variant">j.sosa@agro.org.ar</span>
+</div>
+<div class="col-span-1 md:col-span-2 mt-2 md:mt-0">
+<span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label font-bold text-[10px] uppercase tracking-wider">Asistente</span>
+</div>
+<div class="col-span-1 md:col-span-2 mt-2 md:mt-0">
+<span class="font-body text-sm text-on-surface-variant italic">12 OCT, 2023</span>
+</div>
+<div class="col-span-1 md:col-span-2 mt-2 md:mt-0 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full dot-pending"></span>
+<span class="font-label font-bold text-sm text-on-surface-variant">Pending</span>
+</div>
+<div class="col-span-1 md:col-span-1 text-right mt-4 md:mt-0">
+<a class="flex items-center justify-end gap-1 text-primary font-bold group-hover:translate-x-1 transition-transform" href="#">
+<span class="font-label text-sm">Detalles</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div></a>
+<!-- Card 3 -->
+ <a [routerLink]="['/detalle_inscripcion']">
+<div class="grid grid-cols-1 md:grid-cols-12 items-center bg-surface-container-lowest p-6 rounded-lg custom-shadow border border-outline-variant/30 card-hover transition-all cursor-pointer group">
+<div class="col-span-1 md:col-span-5 flex flex-col">
+<span class="font-headline text-xl text-primary group-hover:underline underline-offset-4 decoration-2">Martina Soler</span>
+<span class="font-body text-xs text-on-surface-variant">soler.m@investigacion.ar</span>
+</div>
+<div class="col-span-1 md:col-span-2 mt-2 md:mt-0">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label font-bold text-[10px] uppercase tracking-wider">Expositor</span>
+</div>
+<div class="col-span-1 md:col-span-2 mt-2 md:mt-0">
+<span class="font-body text-sm text-on-surface-variant italic">11 OCT, 2023</span>
+</div>
+<div class="col-span-1 md:col-span-2 mt-2 md:mt-0 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full dot-pending"></span>
+<span class="font-label font-bold text-sm text-on-surface-variant">Pending</span>
+</div>
+<div class="col-span-1 md:col-span-1 text-right mt-4 md:mt-0">
+<a class="flex items-center justify-end gap-1 text-primary font-bold group-hover:translate-x-1 transition-transform" href="#">
+<span class="font-label text-sm">Detalles</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div></a>
+<!-- Card 4 -->
+<div class="grid grid-cols-1 md:grid-cols-12 items-center bg-surface-container-lowest p-6 rounded-lg custom-shadow border border-outline-variant/30 card-hover transition-all cursor-pointer group">
+<div class="col-span-1 md:col-span-5 flex flex-col">
+<span class="font-headline text-xl text-primary group-hover:underline underline-offset-4 decoration-2">Alex Ford</span>
+<span class="font-body text-xs text-on-surface-variant">ford_alex@global-ecology.com</span>
+</div>
+<div class="col-span-1 md:col-span-2 mt-2 md:mt-0">
+<span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label font-bold text-[10px] uppercase tracking-wider">Asistente</span>
+</div>
+<div class="col-span-1 md:col-span-2 mt-2 md:mt-0">
+<span class="font-body text-sm text-on-surface-variant italic">08 OCT, 2023</span>
+</div>
+<div class="col-span-1 md:col-span-2 mt-2 md:mt-0 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full dot-pending"></span>
+<span class="font-label font-bold text-sm text-on-surface-variant">Pending</span>
+</div>
+<div class="col-span-1 md:col-span-1 text-right mt-4 md:mt-0">
+<a class="flex items-center justify-end gap-1 text-primary font-bold group-hover:translate-x-1 transition-transform" href="#">
+<span class="font-label text-sm">Detalles</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Add New / Manual Record CTA -->
+<button class="w-full group mt-6 border-2 border-dashed border-outline-variant rounded-lg py-10 flex flex-col items-center justify-center gap-4 hover:bg-surface-container transition-colors active:scale-[0.99]">
+<div class="w-12 h-12 rounded-full border-2 border-primary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined">add</span>
+</div>
+<div class="text-center">
+<h3 class="font-headline text-xl text-on-surface">Añadir Registro Manual</h3>
+<p class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Para inscripciones presenciales y administrativas</p>
+</div>
+</button>
+</div>
+<!-- Pagination -->
+<nav class="mt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+<span class="font-label font-bold text-sm text-on-surface-variant">Mostrando 4 de 28 solicitudes pendientes</span>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 rounded bg-primary text-white font-bold flex items-center justify-center font-body">1</button>
+<button class="w-10 h-10 rounded bg-white text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center justify-center font-body">2</button>
+<button class="w-10 h-10 rounded bg-white text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center justify-center font-body">3</button>
+<span class="px-2 text-on-surface-variant font-body">...</span>
+<button class="w-10 h-10 rounded bg-white text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center justify-center font-body">7</button>
+</div>
+</nav>
+</main>

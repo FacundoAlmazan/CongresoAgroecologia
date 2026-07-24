@@ -16,6 +16,16 @@ import { ResultadoEvaluacion } from './shared/component/resultado-evaluacion/res
 import { FormularioEvaluacion } from './shared/component/formulario-evaluacion/formulario-evaluacion';
 import { VistaAsignacion } from './shared/component/panel-evaluaciones/vista-asignacion/vista-asignacion';
 import { FormularioAsignacion } from './shared/component/panel-evaluaciones/formulario-asignacion/formulario-asignacion';
+import { Congreso } from './shared/component/publicaciones/congreso/congreso';
+import { Email } from './shared/component/publicaciones/email/email';
+import { NovedadesCirculares } from './shared/component/publicaciones/novedades-circulares/novedades-circulares';
+import { PanelCirculares } from './shared/component/publicaciones/panel-circulares/panel-circulares';
+import { ListaInscripciones } from './shared/component/lista-inscripciones/lista-inscripciones';
+import { EstadoInscripcion } from './shared/component/estado-inscripcion/estado-inscripcion';
+import { FormularioInscripcion } from './shared/component/formulario-inscripcion/formulario-inscripcion';
+import { DetalleInscripcion } from './shared/component/detalle-inscripcion/detalle-inscripcion';
+import { Agenda } from './shared/component/agenda/agenda';
+import { AdministradorInscripciones } from './shared/component/administrador-inscripciones/administrador-inscripciones';
 import { authGuard } from './shared/guard/auth.guard';
 import { adminGuard } from './shared/guard/admin.guard';
 
@@ -25,6 +35,7 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'registro', component: Registro },
   { path: 'cronograma', component: Cronograma },
+  { path: 'novedades_circulares', component: NovedadesCirculares },
 
   { path: 'panel_usuario', component: PanelUsuario, canActivate: [authGuard] },
   { path: 'formulario_paper', component: FormularioPaper, canActivate: [authGuard] },
@@ -35,12 +46,23 @@ export const routes: Routes = [
   { path: 'evaluaciones', component: Evaluaciones, canActivate: [authGuard] },
   { path: 'resultado_evaluacion', component: ResultadoEvaluacion, canActivate: [authGuard] },
   { path: 'formulario_evaluacion', component: FormularioEvaluacion, canActivate: [authGuard] },
+  { path: 'formulario_evaluacion/:id', component: FormularioEvaluacion, canActivate: [authGuard] },
   { path: 'peticiones', component: VistaAsignacion, canActivate: [authGuard] },
+  { path: 'trabajos_asignados', component: VistaAsignacion, canActivate: [authGuard] },
   { path: 'formulario_asignacion/:id', component: FormularioAsignacion, canActivate: [authGuard] },
+  { path: 'formulario_inscripcion', component: FormularioInscripcion, canActivate: [authGuard] },
+  { path: 'lista_mis_inscripciones', component: ListaInscripciones, canActivate: [authGuard] },
+  { path: 'estado_inscripcion', component: EstadoInscripcion, canActivate: [authGuard] },
+  { path: 'agenda', component: Agenda, canActivate: [authGuard] },
+  { path: 'detalle_inscripcion', component: DetalleInscripcion, canActivate: [authGuard] },
 
   { path: 'panel_control', component: PanelControl, canActivate: [adminGuard] },
   { path: 'asignar_evaluadores', component: AsignarEvaluadores, canActivate: [adminGuard] },
   { path: 'asignacion_trabajo/:id', component: AsignacionTrabajo, canActivate: [adminGuard] },
+  { path: 'lista_inscripciones', component: AdministradorInscripciones, canActivate: [adminGuard] },
+  { path: 'configuracion-congreso', component: Congreso, canActivate: [adminGuard] },
+  { path: 'envio-emails', component: Email, canActivate: [adminGuard] },
+  { path: 'panel_circulares', component: PanelCirculares, canActivate: [adminGuard] },
 
   { path: '**', redirectTo: 'home' }
 ];

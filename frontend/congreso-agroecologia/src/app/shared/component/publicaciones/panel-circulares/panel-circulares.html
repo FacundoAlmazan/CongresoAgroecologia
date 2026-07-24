@@ -1,0 +1,179 @@
+
+<div class="gap-4 mb-20"></div>
+<header class="max-w-7xl mx-auto px-6 pt-16 pb-10" data-purpose="page-intro">
+<h1 class="text-4xl md:text-5xl font-bold text-primary mb-4 leading-tight">Consola del Editor</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl leading-relaxed font-body">
+        Cree y cure la narrativa de la agroecología. Publique de forma fluida historias de noticias y circulares oficiales para el archivo.
+    </p>
+</header>
+<main class="max-w-7xl mx-auto px-6 pb-20">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- BEGIN: CreateNewsSection -->
+<section class="lg:col-span-7 space-y-8" data-purpose="news-creation-form">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-primary text-3xl">book</span>
+<h2 class="font-display text-2xl font-bold text-primary">Crear Noticia</h2>
+<div class="h-px flex-grow bg-outline-variant/15"></div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-outline-variant/15 form-card-shadow space-y-8">
+<!-- Story Title Input -->
+<div>
+<label class="block text-[10px] font-bold tracking-widest text-tertiary uppercase mb-2">TÍTULO DE LA NOTICIA</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/20 transition-all text-on-surface placeholder:text-on-surface-variant/40" placeholder="Escriba el titular..." type="text"/>
+</div>
+<!-- Content Body Input -->
+<div>
+<label class="block text-[10px] font-bold tracking-widest text-tertiary uppercase mb-2">CUERPO DEL CONTENIDO</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/20 transition-all text-on-surface placeholder:text-on-surface-variant/40 resize-none" placeholder="Narren los acontecimientos o hallazgos de la investigación..." rows="10"></textarea>
+</div>
+<!-- Upload Media Area -->
+<div>
+<label class="block text-[10px] font-bold tracking-widest text-tertiary uppercase mb-2">SUBIR ARCHIVOS MULTIMEDIA</label>
+<div class="border-2 border-dashed border-outline-variant/30 rounded-xl bg-surface-container-low/50 p-10 text-center cursor-pointer hover:border-primary/50 hover:bg-surface-container-low transition-all group" data-purpose="media-dropzone">
+<div class="flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-primary/60 mb-4 group-hover:scale-110 transition-transform">image</span>
+<p class="text-on-surface font-semibold"><span class="text-primary underline">Haga clic para subir</span> o arrastre y suelte</p>
+<p class="text-on-surface-variant text-xs mt-1">PNG, JPG o MP4 (máx. 50MB)</p>
+</div>
+</div>
+</div>
+<!-- Submit Button News -->
+<div class="flex justify-end pt-4">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-lg font-bold flex items-center gap-3 shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-95 group">
+<span class="material-symbols-outlined text-xl group-hover:rotate-12 transition-transform">send</span>
+                        Publicar Noticia
+                    </button>
+</div>
+</div>
+</section>
+<!-- END: CreateNewsSection -->
+<!-- BEGIN: RightSidebar -->
+<aside class="lg:col-span-5 space-y-8">
+<!-- Create Circular Card -->
+<section data-purpose="circular-form">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-primary text-3xl">description</span>
+<h2 class="font-display text-2xl font-bold text-primary">Crear Circular</h2>
+<div class="h-px flex-grow bg-outline-variant/15"></div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant/15 space-y-6">
+<!-- Circular Title -->
+<div>
+<label class="block text-[10px] font-bold tracking-widest text-tertiary uppercase mb-2">TÍTULO DEL DOCUMENTO</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/20 transition-all text-on-surface placeholder:text-on-surface-variant/40" placeholder="ej., Agenda del Congreso Anual" type="text"/>
+</div>
+<!-- Circular Abstract -->
+<div>
+<label class="block text-[10px] font-bold tracking-widest text-tertiary uppercase mb-2">ABSTRACT / RESUMEN</label>
+<textarea class="w-full bg-surface-container-lowest border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/20 transition-all text-on-surface placeholder:text-on-surface-variant/40 resize-none" placeholder="Describa brevemente el propósito de la circular..." rows="4"></textarea>
+</div>
+<!-- PDF Upload Area -->
+<div>
+<label class="block text-[10px] font-bold tracking-widest text-tertiary uppercase mb-2">ADJUNTAR DOCUMENTO</label>
+<div class="bg-surface-container-lowest rounded-xl p-8 text-center border border-outline-variant/15 shadow-sm cursor-pointer hover:shadow-md transition-shadow group">
+<span class="material-symbols-outlined text-primary text-3xl mb-3 block group-hover:scale-110 transition-transform">link</span>
+<p class="text-sm font-bold text-on-surface">Arrastre el PDF aquí para adjuntar</p>
+<p class="text-[10px] text-on-surface-variant mt-1 uppercase tracking-tighter">Tamaño máximo 15MB</p>
+</div>
+</div>
+<!-- Submit Button Circular -->
+<button class="w-full bg-primary text-on-primary py-4 rounded-lg font-bold flex items-center justify-center gap-3 shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-95 group">
+<span class="material-symbols-outlined group-hover:translate-y-0.5 transition-transform">publish</span>
+                        Publicar Circular
+                    </button>
+</div>
+</section>
+<!-- Editorial Guidelines Card (Styled as a Botanical Plate or Special Resource Card) -->
+<section class="bg-primary text-on-primary rounded-xl p-8 relative overflow-hidden shadow-xl" data-purpose="editorial-guidelines">
+<div class="relative z-10">
+<h3 class="text-xl font-bold mb-6 font-display border-b border-on-primary/20 pb-4">Guías Editoriales</h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-3 text-sm font-medium">
+<span class="material-symbols-outlined text-secondary-container text-xl shrink-0">check_circle</span>
+                            Verificar todas las citas botánicas
+                        </li>
+<li class="flex items-start gap-3 text-sm font-medium">
+<span class="material-symbols-outlined text-secondary-container text-xl shrink-0">check_circle</span>
+                            Usar imágenes naturales de alta resolución
+                        </li>
+<li class="flex items-start gap-3 text-sm font-medium">
+<span class="material-symbols-outlined text-secondary-container text-xl shrink-0">check_circle</span>
+                            Asegurar el etiquetado correcto de metadatos
+                        </li>
+</ul>
+</div>
+<!-- Decorative pattern -->
+<div class="absolute -bottom-10 -right-10 opacity-20 transform rotate-12">
+<span class="material-symbols-outlined text-[160px]">eco</span>
+</div>
+</section>
+</aside>
+<!-- END: RightSidebar -->
+</div>
+<!-- BEGIN: RecentSubmissions -->
+<section class="mt-24" data-purpose="recent-submissions-gallery">
+<div class="flex items-center gap-4 mb-10">
+<span class="material-symbols-outlined text-primary text-3xl">history</span>
+<h2 class="font-display text-2xl font-bold text-primary">Envíos Recientes</h2>
+<div class="h-px flex-grow bg-outline-variant/15"></div>
+<a class="text-primary font-bold text-sm hover:underline flex items-center gap-1" href="#">
+                Ver Todo el Archivo
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Submission Cards styled like the Evaluator Cards from SCREEN_36 -->
+<!-- @for item of submissions -->
+<!-- Submission Card 1: News -->
+<article class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/15 flex items-center gap-5 hover:bg-surface-container-low/50 transition-colors cursor-pointer group shadow-sm">
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0 border border-outline-variant/10 shadow-sm">
+<img alt="Regenerative Soil Study" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4obEMGys_DwaDWKunWwO4SVo96__S3ATwk4At7zczLpixtqFGxUQVenlsc7FRdqPwN99MTRPa7oZkadoRFp32d3YyLe5Ynd50xUO4W3qVXp_OBH4CV41e7aeTmFzISDnx-D8o9eC8I_SAttU66eCOQ4e7-woVYsBxALggXei61V2wzaivNJQoiMQ5u_G62at2D1i6x-jUlA4EM0--pGvlQU1K-D2I1TLtfHfdo2SqSRraeKnbPazMhrF9vwMS8ZMMvw3ekPXaU1kD"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-widest mb-1">Noticia</span>
+<h4 class="font-bold text-on-surface text-base group-hover:text-primary transition-colors truncate">Estudio de Suelo Regenerativo 2024</h4>
+<p class="text-[11px] text-on-surface-variant/70 mt-1 font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+                        Hace 2 horas
+                    </p>
+</div>
+</article>
+<!-- Submission Card 2: Circular -->
+<article class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/15 flex items-center gap-5 hover:bg-surface-container-low/50 transition-colors cursor-pointer group shadow-sm">
+<div class="w-20 h-20 rounded-lg bg-surface-container-low flex items-center justify-center shrink-0 border border-outline-variant/10 shadow-sm">
+<span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">article</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-widest mb-1">Circular</span>
+<h4 class="font-bold text-on-surface text-base group-hover:text-primary transition-colors truncate">Memo de Financiamiento Ecológico Ù3</h4>
+<p class="text-[11px] text-on-surface-variant/70 mt-1 font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+                        Hace 5 horas
+                    </p>
+</div>
+</article>
+<!-- Submission Card 3: News -->
+<article class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/15 flex items-center gap-5 hover:bg-surface-container-low/50 transition-colors cursor-pointer group shadow-sm">
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0 border border-outline-variant/10 shadow-sm">
+<img alt="Urban Polyculture" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeEO0-Z1T5a5i-5O5VPIbFcjNGRRR9UFcdkyMQMblMA268tGCefqODzRRvy9k8DgtNSdPHhdF8n2F_T9naOD2ZtPH9h0EoIboF8r6kfssCJZDbFD7Wp0YgQ-s8x_nq9nbMJJIMyGRqLPIj8YGd449-u2gMCWr9Az__r6WqMOv03PIAKZNEx0R76ynHZkQzm8KSAkXGm5Hda8Kx3XYEBmDPHL5O8mEo4u6_s0uIX2WTNjgZScugJc-ZpGrcCw3Wqd1fytmQ0rwR_jK_"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-widest mb-1">Noticia</span>
+<h4 class="font-bold text-on-surface text-base group-hover:text-primary transition-colors truncate">Iniciativa de Policultivo Urbano</h4>
+<p class="text-[11px] text-on-surface-variant/70 mt-1 font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+                        Hace 1 día
+                    </p>
+</div>
+</article>
+<!-- @endfor -->
+</div>
+</section>
+<!-- END: RecentSubmissions -->
+</main>
+<script data-purpose="interaction-logic">
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Publisher Console Initialized - AgroEco Identity Applied');
+    });
+</script>
+

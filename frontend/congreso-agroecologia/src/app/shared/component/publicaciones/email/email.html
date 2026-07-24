@@ -1,0 +1,276 @@
+
+<main class="pt-24 pb-32 max-w-6xl mx-auto px-6">
+<!-- Header -->
+<div class="mb-12">
+<h1 class="font-headline text-4xl md:text-5xl font-bold text-primary tracking-tight">Centro de Comunicados</h1>
+<p class="text-on-surface-variant text-lg mt-2 max-w-2xl">Gestión de envíos masivos y notificaciones para la administración del congreso.</p>
+</div>
+<!-- Top Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left: Email Composition -->
+<section class="lg:col-span-8">
+<div class="bg-surface-container-lowest rounded-xl p-8 tonal-shift-via-bg border border-outline-variant/15">
+<div class="flex items-center gap-3 text-primary mb-8">
+<span class="material-symbols-outlined text-3xl">mail</span>
+<h2 class="font-headline text-2xl font-bold">Gestión de Emails y Notificaciones</h2>
+</div>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Para</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 text-on-surface appearance-none focus:ring-2 ring-primary/20 cursor-pointer">
+<option>Todos los participantes</option>
+<option>Autores</option>
+<option>Evaluadores</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Plantilla</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 text-on-surface appearance-none focus:ring-2 ring-primary/20 cursor-pointer">
+<option>Seleccionar plantilla...</option>
+<option>Confirmación de envío</option>
+<option>Aviso de evaluación</option>
+<option>Recordatorio de pago</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Email adicional (opcional)</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 focus:ring-2 ring-primary/20 placeholder:text-on-surface-variant/40" placeholder="nombre@ejemplo.com" type="email"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Asunto</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 focus:ring-2 ring-primary/20 placeholder:text-on-surface-variant/40" placeholder="Ingrese el asunto del correo..." type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Mensaje</label>
+<div class="rounded-lg overflow-hidden border border-outline-variant/15">
+<!-- Toolbar -->
+<div class="bg-surface-container-high flex items-center gap-2 p-2 border-b border-outline-variant/15">
+<button class="p-2 hover:bg-primary/10 text-primary rounded transition-colors" type="button"><span class="material-symbols-outlined">format_bold</span></button>
+<button class="p-2 hover:bg-primary/10 text-primary rounded transition-colors" type="button"><span class="material-symbols-outlined">format_italic</span></button>
+<button class="p-2 hover:bg-primary/10 text-primary rounded transition-colors" type="button"><span class="material-symbols-outlined">format_list_bulleted</span></button>
+<button class="p-2 hover:bg-primary/10 text-primary rounded transition-colors" type="button"><span class="material-symbols-outlined">link</span></button>
+</div>
+<!-- Editable Area -->
+<div class="rich-text-area p-6 bg-surface-container-low text-on-surface focus:outline-none placeholder:text-outline/50" contenteditable="true">
+                                Escriba su mensaje aquí...
+                            </div>
+</div>
+</div>
+<div class="flex justify-end pt-4">
+<button class="bg-primary text-on-primary font-bold py-4 px-10 rounded-lg flex items-center justify-center gap-3 shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-95 group" type="submit">
+                            Enviar Comunicación
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">send</span>
+</button>
+</div>
+</form>
+</div>
+</section>
+<!-- Right: Template Management -->
+<aside class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/15">
+<h3 class="font-headline font-bold text-primary text-xl mb-6">Plantillas Email</h3>
+<div class="space-y-4">
+<!-- @for (template of templates; track template.id) -->
+<div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant/15 shadow-sm transition-transform hover:-translate-y-1">
+<h4 class="font-bold text-on-surface mb-2">Confirmación de envío</h4>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-4 italic">Hola [Nombre], hemos recibido su propuesta titulada [Título_Trabajo] correctamente...</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-surface-container-high text-on-surface font-bold py-2 rounded-lg text-xs hover:bg-surface-variant transition-colors">Editar</button>
+<button class="flex-1 border border-outline-variant text-on-surface font-bold py-2 rounded-lg text-xs hover:bg-surface-container-low transition-colors">Vista Previa</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant/15 shadow-sm transition-transform hover:-translate-y-1">
+<h4 class="font-bold text-on-surface mb-2">Aviso de evaluación</h4>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-4 italic">Estimado [Nombre], se le ha asignado el trabajo [Título_Trabajo] para su revisión...</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-surface-container-high text-on-surface font-bold py-2 rounded-lg text-xs hover:bg-surface-variant transition-colors">Editar</button>
+<button class="flex-1 border border-outline-variant text-on-surface font-bold py-2 rounded-lg text-xs hover:bg-surface-container-low transition-colors">Vista Previa</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant/15 shadow-sm transition-transform hover:-translate-y-1">
+<h4 class="font-bold text-on-surface mb-2">Recordatorio de pago</h4>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-4 italic">No olvide completar su inscripción antes del cierre de tarifas preferenciales...</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-surface-container-high text-on-surface font-bold py-2 rounded-lg text-xs hover:bg-surface-variant transition-colors">Editar</button>
+<button class="flex-1 border border-outline-variant text-on-surface font-bold py-2 rounded-lg text-xs hover:bg-surface-container-low transition-colors">Vista Previa</button>
+</div>
+</div>
+<!-- end @for -->
+<button class="w-full mt-4 flex items-center justify-center gap-2 py-4 border-2 border-dashed border-primary text-primary font-bold rounded-lg hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined">add</span>
+                        Crear Nueva Plantilla
+                    </button>
+</div>
+</div>
+</aside>
+</div>
+<!-- Bottom: Sent History -->
+<section class="mt-16">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-primary text-3xl">history</span>
+<h2 class="font-headline text-2xl font-bold text-primary">Historial de Envíos</h2>
+<div class="h-px flex-grow bg-outline-variant/15"></div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant/15 tonal-shift-via-bg">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low text-tertiary uppercase tracking-widest text-[10px] font-bold">
+<th class="px-8 py-4">Fecha</th>
+<th class="px-8 py-4">Asunto</th>
+<th class="px-8 py-4">Destinatario</th>
+<th class="px-8 py-4 text-right">Acción</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- @for (entry of sentHistory; track entry.id) -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-8 py-5">
+<span class="font-bold text-on-surface">12 Oct, 2024</span>
+</td>
+<td class="px-8 py-5">
+<span class="text-on-surface-variant">Confirmación de Aceptación de Abstract</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Autores</span>
+<span class="text-[10px] text-on-surface-variant/60 uppercase font-bold tracking-tighter">245 destinatarios</span>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="text-primary font-bold text-sm hover:underline inline-flex items-center gap-1 group">
+                                    Ver Detalle
+                                    <span class="material-symbols-outlined text-sm group-hover:scale-110 transition-transform">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-8 py-5">
+<span class="font-bold text-on-surface">11 Oct, 2024</span>
+</td>
+<td class="px-8 py-5">
+<span class="text-on-surface-variant">Recordatorio: Último día de Pago Early Bird</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Todos los participantes</span>
+<span class="text-[10px] text-on-surface-variant/60 uppercase font-bold tracking-tighter">1,039 destinatarios</span>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="text-primary font-bold text-sm hover:underline inline-flex items-center gap-1 group">
+                                    Ver Detalle
+                                    <span class="material-symbols-outlined text-sm group-hover:scale-110 transition-transform">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-8 py-5">
+<span class="font-bold text-on-surface">10 Oct, 2024</span>
+</td>
+<td class="px-8 py-5">
+<span class="text-on-surface-variant">Instrucciones para Evaluadores 2024</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Evaluadores</span>
+<span class="text-[10px] text-on-surface-variant/60 uppercase font-bold tracking-tighter">56 destinatarios</span>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="text-primary font-bold text-sm hover:underline inline-flex items-center gap-1 group">
+                                    Ver Detalle
+                                    <span class="material-symbols-outlined text-sm group-hover:scale-110 transition-transform">open_in_new</span>
+</button>
+</td>
+</tr>
+<!-- end @for -->
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+<!-- MODALS SECTION -->
+<!-- 1. Template Editor Modal -->
+<div class="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 backdrop-blur-sm hidden" id="modal-template-editor">
+<div class="bg-surface-bright w-full max-w-2xl rounded-xl shadow-2xl overflow-hidden p-10 space-y-8 border border-outline-variant/15">
+<div class="flex justify-between items-center border-b border-outline-variant/15 pb-6">
+<h3 class="font-headline text-2xl font-bold text-primary">Editor de Plantilla</h3>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-error transition-colors">close</button>
+</div>
+<form class="space-y-6">
+<div class="flex flex-col gap-2">
+<label class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Nombre de la Plantilla</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 ring-primary/20" type="text" value="Confirmación de envío"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Asunto Predeterminado</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 ring-primary/20" type="text" value="Hemos recibido tu abstract"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Cuerpo del Mensaje</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 ring-primary/20 h-64">Hola [Nombre]...</textarea>
+</div>
+<div class="flex justify-end gap-4 pt-4">
+<button class="px-8 py-3 border border-outline rounded-lg font-bold hover:bg-surface-container-low transition-colors" type="button">Cancelar</button>
+<button class="px-8 py-3 bg-primary text-on-primary rounded-lg font-bold hover:bg-primary-container transition-all" type="submit">Guardar Plantilla</button>
+</div>
+</form>
+</div>
+</div>
+<!-- 2. Template Preview Modal -->
+<div class="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 backdrop-blur-sm hidden" id="modal-template-preview">
+<div class="bg-surface-bright w-full max-w-lg rounded-xl shadow-2xl overflow-hidden border border-outline-variant/15">
+<div class="bg-primary p-6 text-on-primary flex justify-between items-center">
+<h3 class="font-headline text-xl font-bold">Vista Previa</h3>
+<button class="material-symbols-outlined">close</button>
+</div>
+<div class="p-8 space-y-6 bg-surface-container-lowest m-6 border border-outline-variant/15 rounded-xl tonal-shift-via-bg">
+<div class="border-b border-outline-variant/15 pb-4">
+<p class="text-[10px] font-bold text-tertiary mb-1 uppercase tracking-widest">De: Secretaría Técnica AgroEco Congress</p>
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Asunto: Confirmación de envío</p>
+</div>
+<div class="py-4 text-on-surface leading-relaxed">
+                Hola [Nombre],<br/><br/>
+                Le informamos que su trabajo ha sido recibido exitosamente en nuestra plataforma.<br/><br/>
+                Atentamente,<br/>
+                El Comité Organizador.
+            </div>
+</div>
+<div class="p-6 bg-surface-container-low flex justify-center">
+<button class="bg-primary text-on-primary px-10 py-3 rounded-lg font-bold hover:bg-primary-container transition-all">Cerrar</button>
+</div>
+</div>
+</div>
+<!-- 3. Sent Email Detail Modal -->
+<div class="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 backdrop-blur-sm hidden" id="modal-sent-detail">
+<div class="bg-surface-bright w-full max-w-2xl rounded-xl shadow-2xl overflow-hidden p-10 space-y-8 border border-outline-variant/15">
+<div class="flex justify-between items-center border-b border-outline-variant/15 pb-6">
+<div>
+<h3 class="font-headline text-2xl font-bold text-primary">Detalle de Envío</h3>
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest mt-1">Enviado el 12 Oct, 2024 a las 14:20h</p>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-error transition-colors">close</button>
+</div>
+<div class="grid grid-cols-2 gap-4 bg-surface-container-low p-6 rounded-lg border border-outline-variant/10">
+<div><span class="font-bold text-primary text-[10px] uppercase tracking-wider block mb-1">Destinatarios</span> Autores</div>
+<div><span class="font-bold text-primary text-[10px] uppercase tracking-wider block mb-1">Total</span> 245 entregados</div>
+<div class="col-span-2"><span class="font-bold text-primary text-[10px] uppercase tracking-wider block mb-1">Asunto</span> Confirmación de Aceptación de Abstract</div>
+</div>
+<div class="border border-outline-variant/15 p-8 rounded-lg bg-surface-container-lowest h-64 overflow-y-auto italic text-on-surface-variant leading-relaxed">
+            "Contenido exacto del mensaje que fue enviado a los usuarios..."
+        </div>
+<div class="flex justify-end pt-4">
+<button class="px-8 py-3 bg-secondary text-on-secondary rounded-lg font-bold hover:bg-secondary-container transition-all">Cerrar</button>
+</div>
+</div>
+</div>

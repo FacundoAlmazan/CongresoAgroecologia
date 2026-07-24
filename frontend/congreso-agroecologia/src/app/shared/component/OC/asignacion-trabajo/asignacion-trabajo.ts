@@ -28,6 +28,7 @@ export class AsignacionTrabajo implements OnInit {
   };
   
 
+  EstadoAsignacion=EstadoAsignacion;
   trabajo!:Trabajo;
   mensajeError = '';
   
@@ -35,7 +36,7 @@ export class AsignacionTrabajo implements OnInit {
 asignaciones: AsignacionEvaluacion[] = [];
 usuariosTodos: Usuario[] = [];
 
-  asignados: Usuario[] = [];
+  asignados: UsuarioEstado[] = [];
   evaluadores: Usuario[] = [];
 
   constructor(
@@ -109,17 +110,26 @@ usuariosTodos: Usuario[] = [];
 
   inicializarAsignados(): void {
 
-    
-    this.asignados = this.usuariosTodos.filter(usuario =>
-      this.asignaciones.some(asignacion =>
-        asignacion.trabajo.id == this.id.trabajo &&
-        asignacion.evaluador.id == usuario.id
-      )
-    );
-    
-    
+  this.asignados = this.usuariosTodos
+    .map(usuario => {
+      const asignacion = this.asignaciones.find(a =>
+        a.trabajo.id === this.id.trabajo &&
+        a.evaluador.id === usuario.id
+      );
+      if (!asignacion) {
+        return null;
+      }
+      return {
+        ...usuario,
+        estado: asignacion.estado,
+        idAsignacion: asignacion.id
+      };
 
-  }
+    })
+    .filter((u): u is UsuarioEstado => u !== null);
+}
+
+
 
   inicializarEvaluadores(): void {
 
@@ -159,18 +169,57 @@ usuariosTodos: Usuario[] = [];
       console.log('Asignación creada correctamente.', nuevaAsignacion);
 
       this.asignaciones.push(nuevaAsignacion);
-
-      //this.inicializarEvaluadores();
+      
+      this.evaluadores = this.evaluadores.filter(
+        u => u.id !==asignacion.evaluador.id
+      );
+      this.inicializarAsignados();
 
        this.cdr.detectChanges();
     },
     error: (err) => {
       console.error('Error al crear la asignación.', err);
-      // Si tenés una variable para mensajes:
+      
       // this.mensajeError = 'No se pudo crear la asignación.';
     }
   });
 }
 
+eliminarAsignacion(usuario: UsuarioEstado): void {
+
+  this.asignaService.eliminar(usuario.idAsignacion).subscribe({
+    next: () => {
+
+      // Eliminar de la lista mostrada
+      this.asignados = this.asignados.filter(
+        u => u.idAsignacion !== usuario.idAsignacion
+      );
+
+      // También mantener sincronizada la lista de asignaciones
+      this.asignaciones = this.asignaciones.filter(
+        a => a.id !== usuario.idAsignacion
+      );
+
+
+      // Volver a dejar disponible al evaluador
+      this.evaluadores.push(usuario);
+
+      this.cdr.detectChanges();
+
+    },
+    error: (err) => {
+      console.error('Error al eliminar la asignación', err);
+    }
+  });
+
+}
 }
 
+
+
+
+interface UsuarioEstado extends Usuario {
+  estado: EstadoAsignacion;
+    idAsignacion: number;
+  
+}

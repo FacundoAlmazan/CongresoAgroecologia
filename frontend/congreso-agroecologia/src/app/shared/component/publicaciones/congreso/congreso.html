@@ -1,0 +1,153 @@
+
+<main class="max-w-screen-2xl mx-auto">
+<!-- BEGIN: PageHeader -->
+<header class="mb-14" data-purpose="page-header">
+<span class="label-caps mb-4 block">Panel Administrativo</span>
+<h1 class="headline-main mt-2">Gestión de la Información del Congreso</h1>
+<div class="mt-6 p-4 bg-surface-container-low rounded-xl border-l-4 border-primary max-w-3xl border-outline-variant/15">
+<p class="text-on-surface-variant text-base">
+    Actualice los parámetros globales y supervise el ciclo de vida del evento desde este centro de control archival.
+  </p>
+</div>
+</header>
+<!-- END: PageHeader -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- BEGIN: ProcessStagesColumn -->
+<section class="lg:col-span-8 bg-surface-container rounded-2xl p-8 md:p-10 shadow-sm border border-outline-variant/20" data-purpose="process-management">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<h2 class="font-display text-2xl font-bold text-primary">Gestión de Etapas del Proceso</h2>
+</div>
+<span class="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-[10px] font-extrabold tracking-widest uppercase border border-primary/20">3 Etapas Configuradas</span>
+</div>
+<div class="space-y-6">
+<!-- Stage: Early Bird (Active) -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_8px_32px_0_rgba(23,29,20,0.04)] border border-outline-variant/15 hover:border-primary/40 transition-all duration-300" data-purpose="stage-card">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary"></div>
+<h3 class="font-display font-bold text-xl text-on-surface">Fase Early Bird (Pago Temprano)</h3>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ml-2 border border-outline-variant/15">Activa</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-8 items-end">
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Desde</p>
+<div class="relative group">
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all font-semibold" readonly="" type="text" value="01/01/2024"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-xl">calendar_today</span>
+</div>
+</div>
+<div class="space-y-2">
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Hasta</p>
+<div class="relative group">
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all font-semibold" readonly="" type="text" value="15/03/2024"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-xl">calendar_today</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<button class="bg-error-container text-on-error-container px-6 py-4 rounded-lg font-bold text-sm hover:brightness-95 transition-all shadow-sm active:scale-95">Cerrar Etapa</button>
+<button class="bg-surface-container-low text-primary px-6 py-4 rounded-lg font-bold text-sm hover:bg-surface-container-high transition-all text-center border border-outline-variant/15">Editar Fechas</button>
+</div>
+</div>
+</div>
+<!-- Stage: Inscripción General (Pending) -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_8px_32px_0_rgba(23,29,20,0.04)] border border-outline-variant/15 hover:border-primary/40 transition-all duration-300 opacity-80 group hover:opacity-100" data-purpose="stage-card">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-2.5 h-2.5 rounded-full bg-on-surface-variant/40"></div>
+<h3 class="font-display font-bold text-xl text-on-surface">Inscripción General</h3>
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ml-2 border border-outline-variant/15">Pendiente</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-8 items-end">
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Desde</p>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 text-sm transition-all font-semibold" readonly="" type="text" value="16/03/2024"/>
+</div>
+</div>
+<div class="space-y-2">
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Hasta</p>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 text-sm transition-all font-semibold" readonly="" type="text" value="30/06/2024"/>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<button class="bg-primary text-on-primary px-6 py-4 rounded-lg font-bold text-sm hover:bg-primary-container transition-all shadow-lg shadow-primary/20 active:scale-95">Habilitar Ya</button>
+<button class="bg-surface-container-low text-primary px-6 py-4 rounded-lg font-bold text-sm hover:bg-surface-container-high transition-all text-center border border-outline-variant/15">Editar</button>
+</div>
+</div>
+</div>
+<!-- Stage: Evaluación de Trabajos (Pending) -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_8px_32px_0_rgba(23,29,20,0.04)] border border-outline-variant/15 hover:border-primary/40 transition-all duration-300 opacity-80 group hover:opacity-100" data-purpose="stage-card">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-2.5 h-2.5 rounded-full bg-on-surface-variant/40"></div>
+<h3 class="font-display font-bold text-xl text-on-surface">Evaluación de Trabajos</h3>
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ml-2 border border-outline-variant/15">Pendiente</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-8 items-end">
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Desde</p>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 text-sm transition-all font-semibold" readonly="" type="text" value="01/07/2024"/>
+</div>
+</div>
+<div class="space-y-2">
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-widest">Hasta</p>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 text-sm transition-all font-semibold" readonly="" type="text" value="15/08/2024"/>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<button class="bg-primary text-on-primary px-6 py-4 rounded-lg font-bold text-sm hover:bg-primary-container transition-all shadow-lg shadow-primary/20 active:scale-95">Habilitar Ya</button>
+<button class="bg-surface-container-low text-primary px-6 py-4 rounded-lg font-bold text-sm hover:bg-surface-container-high transition-all text-center border border-outline-variant/15">Editar</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Add New Stage Action -->
+<button class="mt-10 flex items-center gap-3 text-primary font-bold hover:text-primary-container transition-all group" data-purpose="add-stage-btn">
+<span class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform">add_circle</span>
+<span class="text-lg">Añadir Nueva Etapa de Proceso</span>
+</button>
+</section>
+<!-- END: ProcessStagesColumn -->
+<!-- BEGIN: GeneralInfoColumn -->
+<aside class="lg:col-span-4 space-y-8" data-purpose="general-information">
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_8px_32px_0_rgba(23,29,20,0.04)] border border-outline-variant/15">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary text-3xl">info</span>
+<h2 class="font-display text-xl font-bold text-primary">Información General</h2>
+</div>
+<form class="space-y-8">
+<div class="space-y-3">
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-widest block">Nombre del Congreso</p>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all font-medium placeholder:text-on-surface-variant/40" data-purpose="input-congress-name" type="text" value="Congreso Nacional de Agroecología"/>
+</div>
+<div class="space-y-3">
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-widest block">Edición</p>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all font-medium placeholder:text-on-surface-variant/40" data-purpose="input-edition" type="text" value="V Edición - Buenos Aires 2027"/>
+</div>
+<div class="pt-4">
+<button class="w-full bg-primary text-on-primary py-4 rounded-lg font-bold text-lg hover:bg-primary-container shadow-lg shadow-primary/20 transition-all active:scale-95 flex items-center justify-center gap-3" data-purpose="save-btn" type="submit">
+<span>Guardar Cambios</span>
+<span class="material-symbols-outlined" data-icon="save">save</span>
+</button>
+</div>
+</form>
+</div>
+<div class="bg-secondary-container/20 p-8 rounded-xl border border-secondary-container/30 space-y-4">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="verified_user">verified_user</span>
+<h3 class="font-display text-lg font-bold text-secondary">Control de Integridad</h3>
+<p class="text-on-secondary-container font-medium leading-relaxed text-sm">
+    Cualquier modificación en las etapas afectará directamente los formularios de inscripción de los usuarios finales.
+  </p>
+</div>
+</aside>
+<!-- END: GeneralInfoColumn -->
+</div>
+</main>

@@ -7,12 +7,14 @@ import jakarta.ws.rs.NotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import model.AsignacionEvaluacion;
+import model.Evaluacion;
 import model.Rol;
 import model.Trabajo;
 import model.Usuario;
 import model.enums.EstadoTrabajo;
 import model.enums.TipoRol;
 import model.interfaceDao.IAsignacionEvaluacionDAO;
+import model.interfaceDao.IEvaluacionDAO;
 import model.interfaceDao.IRolDAO;
 import model.interfaceDao.ITrabajoDAO;
 import model.interfaceDao.IUsuarioDAO;
@@ -31,6 +33,8 @@ public class TrabajoService {
 
     @Inject
     private IAsignacionEvaluacionDAO asignacionDAO;
+    
+    private IEvaluacionDAO evaluacionDAO;
 
     public List<Trabajo> listar() {
         return trabajoDAO.listarTodos();
@@ -42,6 +46,9 @@ public class TrabajoService {
             throw new NotFoundException("Trabajo no encontrado con id " + id);
         }
         return trabajo;
+    }
+    public List<Evaluacion> evaluacionesTrabajo(Long id){
+    	return evaluacionDAO.getEvaluacionesPorTrabajo(id);
     }
 
     public Trabajo crear(Trabajo trabajo) {
