@@ -17,8 +17,16 @@ export class AsignacionService {
     return this.http.get<AsignacionEvaluacion[]>(this.apiUrl);
   }
 
+  listarMias(): Observable<AsignacionEvaluacion[]> {
+    return this.http.get<AsignacionEvaluacion[]>(`${this.apiUrl}/mias`);
+  }
+
   obtener(id: number): Observable<AsignacionEvaluacion> {
     return this.http.get<AsignacionEvaluacion>(`${this.apiUrl}/${id}`);
+  }
+
+  obtenerMia(id: number): Observable<AsignacionEvaluacion> {
+    return this.http.get<AsignacionEvaluacion>(`${this.apiUrl}/mias/${id}`);
   }
 
   crear(asignacion: AsignacionEvaluacion): Observable<AsignacionEvaluacion> {

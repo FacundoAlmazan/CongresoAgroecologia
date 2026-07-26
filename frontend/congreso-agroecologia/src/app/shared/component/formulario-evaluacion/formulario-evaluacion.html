@@ -1,4 +1,16 @@
 
+@if (cargando) {
+<div class="min-h-[360px] flex items-center justify-center text-primary font-semibold">
+    Cargando trabajo...
+</div>
+} @else if (!evaluacion || !trabajo) {
+<div class="min-h-[360px] flex flex-col items-center justify-center gap-4 px-6 text-center">
+    <p class="text-error font-semibold">{{ mensajeError }}</p>
+    <button (click)="cancelar()" class="px-6 py-3 rounded-lg border border-outline text-outline font-bold">
+        Volver
+    </button>
+</div>
+} @else {
 <main class="pt-24 pb-32 max-w-6xl mx-auto px-6 m-4">
 <app-info-paper [trabajo]="trabajo"></app-info-paper>
 <!-- Change Status Section (New) -->
@@ -419,12 +431,12 @@
 </section><section class="mt-16">
 <div class="flex items-center gap-4 mb-8">
 <span class="material-symbols-outlined text-primary text-3xl">person</span>
-<h2 class="font-display text-2xl font-bold text-primary">Comentario del Autor</h2>
+<h2 class="font-display text-2xl font-bold text-primary">Comentarios previos del autor</h2>
 <div class="h-px flex-grow bg-outline-variant/15"></div>
 </div>
 <div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/15">
 <p class="text-on-surface leading-relaxed italic">
-    {{ evaluacion.comentariosAutores }}
+    {{ evaluacion.comentariosAutores || 'No hay comentarios previos.' }}
 </p>
 </div>
 </section>
@@ -562,16 +574,23 @@ Marcar como Incompleto
 </section>
 
 <section class="mt-16 pt-8 border-t border-outline-variant/15">
+@if (mensajeError) {
+<p class="mb-6 rounded-lg bg-error/10 p-4 text-error font-semibold" role="alert">
+    {{ mensajeError }}
+</p>
+}
 <div class="flex flex-col md:flex-row items-center justify-end gap-4">
 
-<button class="w-full md:w-auto px-8 py-3 rounded-lg border border-outline text-outline font-bold hover:bg-surface-container-high transition-all active:scale-[0.98]">
+<button (click)="cancelar()" class="w-full md:w-auto px-8 py-3 rounded-lg border border-outline text-outline font-bold hover:bg-surface-container-high transition-all active:scale-[0.98]">
 Cancelar
 </button>
 
-<button class="w-full md:w-auto flex items-center justify-center gap-3 bg-primary text-on-primary py-3 px-12 rounded-lg font-bold shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-[0.98]">
+<button [disabled]="enviando"
+  (click)="enviar()" class="w-full md:w-auto flex items-center justify-center gap-3 bg-primary text-on-primary py-3 px-12 rounded-lg font-bold shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-[0.98]">
 <span class="material-symbols-outlined">save</span>
-Guardar corrección
+{{ enviando ? 'Enviando...' : 'Enviar evaluación' }}
 </button>
 
 </div>
 </section></main>
+}

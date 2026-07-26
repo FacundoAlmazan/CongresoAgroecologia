@@ -64,6 +64,7 @@ public class ApiConfig extends ResourceConfig {
                 bind(UsuarioDAO.class).to(IUsuarioDAO.class);
 
                 bindAsContract(UsuarioService.class);
+                bindAsContract(EvaluacionService.class);
                 bindAsContract(ActividadService.class);
                 bindAsContract(TrabajoService.class);
                 bindAsContract(AsignacionEvaluacionService.class);

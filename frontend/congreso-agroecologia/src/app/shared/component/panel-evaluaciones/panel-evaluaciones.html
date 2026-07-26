@@ -38,7 +38,7 @@
      @for (tr of trabajos; track tr.id) {
 <div class="group card-hover bg-surface-container-lowest p-8 border-b-2 border-primary/20 transition-all duration-300 cursor-pointer">
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-<a [routerLink]="['/formulario_evaluacion']">
+<a [routerLink]="['/formulario_evaluacion', tr.id]">
     <div class="flex-grow space-y-3 text-left">
 <span class="inline-block px-3 py-1 bg-primary/10 text-primary font-mono text-xs font-bold rounded tracking-wider uppercase">AGRO-2027-{{tr.id}}</span>
 <h3 class="text-2xl font-bold text-[#064e3b] font-serif group-hover:text-primary transition-colors leading-snug">{{tr.titulo}}</h3>
@@ -51,7 +51,7 @@
 <span class="text-sm">Enviado para revisión técnica</span>
 </div>
 </div></a>
-<div class="flex items-center gap-6 shrink-0"><a [routerLink]="['/evaluaciones']" class="text-sm font-bold text-primary hover:text-[#006156] transition-colors flex items-center gap-1 mr-2">Ver evaluaciones</a>
+<div class="flex items-center gap-6 shrink-0"><a [routerLink]="['/evaluaciones', tr.id]" class="text-sm font-bold text-primary hover:text-[#006156] transition-colors flex items-center gap-1 mr-2">Ver evaluaciones</a>
 <div class="inline-flex items-center px-5 py-2 rounded-full bg-[#fef3c7] border border-amber-500/30 text-[#92400e] gap-2.5 shadow-sm">
 <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
 <span class="text-sm font-extrabold uppercase tracking-tight">{{tr.estado}}</span>

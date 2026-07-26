@@ -2,10 +2,12 @@ package model.dao;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import java.util.List;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
+import java.util.List;
+import model.AsignacionEvaluacion;
 import model.Evaluacion;
+import model.Trabajo;
+import model.Usuario;
 import model.interfaceDao.IEvaluacionDAO;
 
 @RequestScoped
@@ -34,8 +36,6 @@ public class EvaluacionDAO extends GenericDAO<Evaluacion> implements IEvaluacion
             .setParameter("trabajoId", trabajoId)
             .getResultList();
     }
-    
-    
 
     @Override
     public List<Evaluacion> getEvaluacionesPorEvaluador(Long evaluadorId) {
@@ -49,11 +49,33 @@ public class EvaluacionDAO extends GenericDAO<Evaluacion> implements IEvaluacion
             .setParameter("evaluadorId", evaluadorId)
             .getResultList();
     }
-    
-    
+
     @Override
     public void saveEvaluacion(Evaluacion entidad) {
-        guardar(entidad);
+        try {
+            em.getTransaction().begin();
+
+            AsignacionEvaluacion asignacion = em.find(
+                    AsignacionEvaluacion.class,
+                    entidad.getAsignacion().getId());
+            asignacion.setFinalizado(true);
+
+            entidad.setAsignacion(asignacion);
+            entidad.setTrabajo(em.getReference(
+                    Trabajo.class,
+                    entidad.getTrabajo().getId()));
+            entidad.setEvaluador(em.getReference(
+                    Usuario.class,
+                    entidad.getEvaluador().getId()));
+
+            em.persist(entidad);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
+        }
     }
 
     @Override

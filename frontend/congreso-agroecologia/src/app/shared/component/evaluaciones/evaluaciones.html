@@ -25,106 +25,66 @@
 <div class="grid grid-cols-1 gap-6 max-w-2xl">
 <!-- Evaluation Record 1 -->
 
-<a [routerLink]="['/resultado_evaluacion']" class="group block bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:shadow-[0_8px_32px_rgba(23,29,20,0.08)] hover:-translate-y-1"  style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
-<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-<div class="flex items-start gap-6">
-
-<div>
-<h3 class="text-xl font-headline font-semibold text-on-surface mb-1">EVAL-882</h3>
-<div class="flex items-center gap-2 text-sm text-on-surface-variant font-medium"><span class="">24 de Octubre, 2024</span></div>
-</div>
-</div>
-<div class="flex items-center justify-between md:justify-end gap-8">
-<span class="inline-flex items-center px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-sm font-bold border border-emerald-200">
-<span class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span>
-                                Aprobado
+    @if (cargando) {
+        <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-surface-container-low text-primary text-sm font-bold border border-outline-variant/20">
+            Cargando evaluaciones...
+        </span>
+    } @else if (mensajeError) {
+        <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-red-100 text-red-800 text-sm font-bold border border-red-200" role="alert">
+            {{ mensajeError }}
+        </span>
+    } @else if (evaluaciones.length === 0) {
+        <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-100 text-amber-800 text-sm font-bold border border-amber-200">
+                    <span class="w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+                                No hay evaluaciones para este trabajo
                             </span>
-<span class="material-symbols-outlined text-primary-fixed-dim group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">arrow_forward_ios</span>
-</div>
-</div>
-</a>
-<!-- Evaluation Record 2 -->
-<a [routerLink]="['/resultado_evaluacion']" class="group block bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:shadow-[0_8px_32px_rgba(23,29,20,0.08)] hover:-translate-y-1"  style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
-<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-<div class="flex items-start gap-6">
 
-<div>
-<h3 class="text-xl font-headline font-semibold text-on-surface mb-1">EVAL-741</h3>
-<div class="flex items-center gap-2 text-sm text-on-surface-variant font-medium"><span class="">12 de Septiembre, 2024</span></div>
-</div>
-</div>
-<div class="flex items-center justify-between md:justify-end gap-8">
-<span class="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-100 text-amber-800 text-sm font-bold border border-amber-200">
-<span class="w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+    }
+
+    @for (eva of evaluaciones; track eva.id) {
+
+            <a (click)="dirigir(eva)" class="group block bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:shadow-[0_8px_32px_rgba(23,29,20,0.08)] hover:-translate-y-1"  style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-start gap-6">
+
+            <div>
+            <h3 class="text-xl font-headline font-semibold text-on-surface mb-1">EVA-{{eva.id}}</h3>
+            <div class="flex items-center gap-2 text-sm text-on-surface-variant font-medium"><span class="">{{eva.fecha}}</span></div>
+            </div>
+            </div>
+            <div class="flex items-center justify-between md:justify-end gap-8">
+                @if (eva.recomendacion==Recomendacion.APROBADO) {
+                <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-sm font-bold border border-emerald-200">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span>
+                        Aprobado</span>
+                <span class="material-symbols-outlined text-primary-fixed-dim group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">arrow_forward_ios</span>
+                    }
+
+                @if (eva.recomendacion==Recomendacion.APROBADO_CON_CORRECCION) {
+                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-100 text-amber-800 text-sm font-bold border border-amber-200">
+                    <span class="w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
                                 Requiere Correcciones
                             </span>
-<span class="material-symbols-outlined text-primary-fixed-dim group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">arrow_forward_ios</span>
-</div>
-</div>
-</a>
-<!-- Evaluation Record 3 -->
-<a [routerLink]="['/resultado_evaluacion']" class="group block bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:shadow-[0_8px_32px_rgba(23,29,20,0.08)] hover:-translate-y-1"  style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
-<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-<div class="flex items-start gap-6">
+                    <span class="material-symbols-outlined text-primary-fixed-dim group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">arrow_forward_ios</span>
+                }
 
-<div>
-<h3 class="text-xl font-headline font-semibold text-on-surface mb-1">EVAL-629</h3>
-<div class="flex items-center gap-2 text-sm text-on-surface-variant font-medium"><span class="">05 de Agosto, 2024</span></div>
-</div>
-</div>
-<div class="flex items-center justify-between md:justify-end gap-8">
-<span class="inline-flex items-center px-4 py-1.5 rounded-full bg-red-100 text-red-800 text-sm font-bold border border-red-200">
-<span class="w-2 h-2 rounded-full bg-red-500 mr-2"></span>
+                @if (eva.recomendacion==Recomendacion.RECHAZADO) {
+                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-red-100 text-red-800 text-sm font-bold border border-red-200">
+                    <span class="w-2 h-2 rounded-full bg-red-500 mr-2"></span>
                                 Rechazado
                             </span>
-<span class="material-symbols-outlined text-primary-fixed-dim group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">arrow_forward_ios</span>
-</div>
-</div>
-</a>
-<!-- Evaluation Record 4 -->
-<a [routerLink]="['/resultado_evaluacion']" class="group block bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:shadow-[0_8px_32px_rgba(23,29,20,0.08)] hover:-translate-y-1"  style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
-<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-<div class="flex items-start gap-6">
+                        <span class="material-symbols-outlined text-primary-fixed-dim group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">arrow_forward_ios</span>
 
-<div>
-<h3 class="text-xl font-headline font-semibold text-on-surface mb-1">EVAL-553</h3>
-<div class="flex items-center gap-2 text-sm text-on-surface-variant font-medium"><span class="">18 de Julio, 2024</span></div>
-</div>
-</div>
-<div class="flex items-center justify-between md:justify-end gap-8">
-<span class="inline-flex items-center px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-sm font-bold border border-emerald-200">
-<span class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span>
-                                Aprobado
-                            </span>
-<span class="material-symbols-outlined text-primary-fixed-dim group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">arrow_forward_ios</span>
-</div>
-</div>
-</a>
+                }
+            </div>
+            </div>
+            </a>
+    }
+
+
 </div>
 <!-- Bottom Action/Info -->
 <div class=" p-12 rounded-xl border border-outline-variant/10 flex flex-col md:flex-row items-center justify-between gap-6">
 
 </div>
 </section>
-
-
-
-
-<script>
-        // Micro-interactions and subtle effects
-        document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.group');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    card.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 100 * index);
-            });
-        });
-    </script>
-
-
-

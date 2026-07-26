@@ -2,12 +2,11 @@ package model.dao;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import java.util.List;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
+import java.util.List;
 import model.AsignacionEvaluacion;
-import model.interfaceDao.IAsignacionEvaluacionDAO;
 import model.enums.EstadoAsignacion;
+import model.interfaceDao.IAsignacionEvaluacionDAO;
 
 @RequestScoped
 public class AsignacionEvaluacionDAO extends GenericDAO<AsignacionEvaluacion> implements IAsignacionEvaluacionDAO {
@@ -30,6 +29,39 @@ public class AsignacionEvaluacionDAO extends GenericDAO<AsignacionEvaluacion> im
     @Override
     public AsignacionEvaluacion modifyAsignacionEvaluacion(AsignacionEvaluacion entidad) {
         return modificar(entidad);
+    }
+
+    @Override
+    public AsignacionEvaluacion getPorTrabajoYEvaluador(Long trabajoId, Long evaluadorId) {
+        return em.createQuery(
+                """
+                SELECT a
+                FROM AsignacionEvaluacion a
+                WHERE a.trabajo.id = :trabajoId
+                  AND a.evaluador.id = :evaluadorId
+                ORDER BY a.id DESC
+                """,
+                AsignacionEvaluacion.class)
+                .setParameter("trabajoId", trabajoId)
+                .setParameter("evaluadorId", evaluadorId)
+                .setMaxResults(1)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public List<AsignacionEvaluacion> getPorEvaluador(Long evaluadorId) {
+        return em.createQuery(
+                """
+                SELECT a
+                FROM AsignacionEvaluacion a
+                WHERE a.evaluador.id = :evaluadorId
+                ORDER BY a.id DESC
+                """,
+                AsignacionEvaluacion.class)
+                .setParameter("evaluadorId", evaluadorId)
+                .getResultList();
     }
 
     @Override
