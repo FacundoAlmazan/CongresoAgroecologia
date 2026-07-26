@@ -15,6 +15,10 @@ public class QR {
 
     private LocalDate fechaGeneracion;
 
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
+    private String imagen;
+
     @Column(nullable = false)
     private Boolean utilizado = false;
 
@@ -37,6 +41,8 @@ public class QR {
     public void setCodigo(String codigo) { this.codigo = codigo; }
     public LocalDate getFechaGeneracion() { return fechaGeneracion; }
     public void setFechaGeneracion(LocalDate fechaGeneracion) { this.fechaGeneracion = fechaGeneracion; }
+    public String getImagen() { return imagen; }
+    public void setImagen(String imagen) { this.imagen = imagen; }
     public Boolean getUtilizado() { return utilizado; }
     public void setUtilizado(Boolean utilizado) { this.utilizado = utilizado; }
     public Inscripcion getInscripcion() { return inscripcion; }

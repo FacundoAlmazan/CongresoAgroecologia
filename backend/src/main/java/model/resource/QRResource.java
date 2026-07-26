@@ -17,11 +17,15 @@ import jakarta.ws.rs.core.Response;
 import java.net.URI;
 import model.QR;
 import model.interfaceDao.IQRDAO;
+import model.security.Secured;
+import jakarta.annotation.security.RolesAllowed;
 
 @Tag(name = "QR", description = "Endpoints REST para QR")
 @Path("/qrs")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Secured
+@RolesAllowed("ADMIN")
 public class QRResource {
 
     @Inject

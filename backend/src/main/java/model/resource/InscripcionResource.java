@@ -17,11 +17,15 @@ import jakarta.ws.rs.core.Response;
 import java.net.URI;
 import model.Inscripcion;
 import model.interfaceDao.IInscripcionDAO;
+import model.security.Secured;
+import jakarta.annotation.security.RolesAllowed;
 
 @Tag(name = "Inscripcion", description = "Endpoints REST para Inscripcion")
 @Path("/inscripciones")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Secured
+@RolesAllowed("ADMIN")
 public class InscripcionResource {
 
     @Inject

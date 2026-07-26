@@ -17,11 +17,15 @@ import jakarta.ws.rs.core.Response;
 import java.net.URI;
 import model.DatosFactura;
 import model.interfaceDao.IDatosFacturaDAO;
+import model.security.Secured;
+import jakarta.annotation.security.RolesAllowed;
 
 @Tag(name = "DatosFactura", description = "Endpoints REST para DatosFactura")
 @Path("/datos-factura")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Secured
+@RolesAllowed("ADMIN")
 public class DatosFacturaResource {
 
     @Inject

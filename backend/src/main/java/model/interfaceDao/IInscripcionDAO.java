@@ -10,4 +10,5 @@ public interface IInscripcionDAO extends IGenericDAO<Inscripcion> {
     Inscripcion modifyInscripcion(Inscripcion entidad);
     List<Inscripcion> getInscripcionesByEstadoPago(EstadoPago p);
     Inscripcion getByIDConDatosFacturaYQR(Long id);
+    Inscripcion getUltimaPorUsuario(Long usuarioId);
 }

@@ -1,244 +1,71 @@
+<main class="max-w-3xl mx-auto px-6 pt-32 pb-24">
+  @if (cargando) {
+    <p class="text-center py-20">Consultando tu inscripción…</p>
+  } @else if (error) {
+    <div class="rounded-xl bg-red-50 text-red-700 p-6">{{ error }}</div>
+  } @else if (!inscripcion) {
+    <section class="bg-white rounded-2xl p-10 shadow-lg text-center">
+      <h1 class="font-serif text-3xl text-primary mb-4">Todavía no tenés una inscripción</h1>
+      <a routerLink="/inscripcion-congreso" class="inline-block bg-primary text-white px-8 py-4 rounded-lg">
+        Inscribirme
+      </a>
+    </section>
+  } @else {
+    <section class="rounded-2xl p-8 mb-8 text-center shadow-sm"
+      [class.bg-amber-50]="inscripcion.estado === EstadoPago.PENDIENTE || inscripcion.estado === EstadoPago.OBSERVADO"
+      [class.bg-green-50]="inscripcion.estado === EstadoPago.APROBADO"
+      [class.bg-red-50]="inscripcion.estado === EstadoPago.RECHAZADO">
+      <p class="text-xs uppercase tracking-widest font-bold mb-2">Estado de solicitud</p>
+      <h1 class="font-serif text-4xl font-bold text-primary">{{ inscripcion.estado }}</h1>
+    </section>
 
+    <section class="bg-white rounded-2xl p-8 md:p-10 shadow-lg">
+      <h2 class="font-serif text-2xl font-bold text-primary mb-6">V Congreso de Agroecología</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div><b>Participante</b><p>{{ inscripcion.usuario.nombre }} {{ inscripcion.usuario.apellido }}</p></div>
+        <div><b>Categoría</b><p>{{ inscripcion.tipoInscripcion }}</p></div>
+        <div><b>Monto</b><p>${{ inscripcion.monto }}</p></div>
+        <div><b>Fecha</b><p>{{ formatearFecha(inscripcion.fechaRegistro) }}</p></div>
+      </div>
 
-
-
-
-<!-- BEGIN: MainContent -->
-<main class="max-w-3xl mx-auto py-12 px-4">
-<!-- Status Banner -->
-<section class="bg-brand-accent rounded-2xl p-8 mb-8 relative overflow-hidden shadow-sm text-center" data-purpose="status-banner">
-<!-- Decorative Checkmark Background -->
-<div class="absolute right-[-20px] top-[-20px] opacity-10">
-<svg fill="currentColor" height="180" viewbox="0 0 24 24" width="180">
-<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"></path>
-</svg>
-</div>
-<div class="relative z-10">
-<p class="text-[10px] uppercase tracking-widest text-[#006156] font-bold mb-2">Estado de solicitud</p>
-<h2 class="font-serif text-3xl font-bold text-[#006156] mb-4">ESTADO: APROBADO</h2>
-<div class="inline-flex items-center gap-2 bg-white/40 px-4 py-1.5 rounded-full text-xs font-semibold text-[#006156]">
-<svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-          Validado
+      @if (inscripcion.estado === EstadoPago.PENDIENTE) {
+        <div class="mt-8 p-6 bg-amber-50 rounded-xl">
+          El equipo administrador está revisando tu comprobante y documentación.
         </div>
-</div>
-</section>
-<!-- Delegate Registration Card -->
-<section class="bg-white border border-gray-100 rounded-2xl p-10 shadow-lg relative overflow-hidden" data-purpose="registration-card">
-<!-- Watermark Leaf Icon -->
-<div class="leaf-watermark">
-<svg class="text-gray-300" fill="currentColor" height="120" viewbox="0 0 24 24" width="120">
-<path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8.13,20C11,20 14.23,16.2 14.23,12.24C14.23,11.53 14.1,10.82 13.84,10.15C16.23,9.45 18.23,10.5 19.34,11.77C20.4,13 20.88,14.65 20.73,16.29C20.6,17.9 19.86,19.38 18.66,20.45L20,21.75C21.57,20.35 22.54,18.42 22.71,16.32C22.9,14.18 22.3,12.13 21,10.5C19.5,8.6 17,8 17,8Z"></path>
-</svg>
-</div>
-<div class="mb-10">
-<h3 class="font-serif text-2xl font-bold text-[#006156]">Congreso Agroecológico 2027</h3>
-<p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Verdant Archive Registry</p>
-<div class="h-px bg-gray-100 w-full mt-6"></div>
-</div>
-<div class="grid grid-cols-2 gap-y-8 mb-10">
-<div class="col-span-2">
-<label class="block text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">Delegate Name</label>
-<p class="text-2xl font-semibold text-gray-900">Alejandro Silva Mondragón</p>
-</div>
-<div>
-<label class="block text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">ID Number</label>
-<p class="text-lg font-medium text-gray-800">#VA-2024-8892</p>
-</div>
-</div>
-<!-- QR Code Section -->
-<div class="bg-brand-light rounded-xl p-8 flex flex-col items-center justify-center mb-10">
-<div class="bg-white p-4 rounded-lg shadow-sm border border-brand-surface relative">
-<!-- Decorative corner brackets -->
-<div class="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-brand-DEFAULT rounded-tl"></div>
-<div class="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-brand-DEFAULT rounded-tr"></div>
-<div class="absolute -bottom-1 -left-1 w-6 h-6 border-b-4 border-l-4 border-brand-DEFAULT rounded-bl"></div>
-<div class="absolute -bottom-1 -right-1 w-6 h-6 border-b-4 border-r-4 border-brand-DEFAULT rounded-br"></div>
-<img alt="Registry QR Code" class="w-40 h-40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA_dMIpsst9Qzd4LBC27kYfX7J078DgNejHOBE7htBTT_0XjYQZ2bw8ZEqXuqb2WvLHcl8cUImsC0Sjx0mClcPxqQMftlFW16RsNFc7t1EetSkbomepiIm1LEi_nC1lcReGihS6BuiwzgvvfWcMG6ndAiu9JOumEtUI7cgWNpBeGBZ6p0TTjEkPxQAZ3c0VYW0PNdiOZ3E-fTmqKUXMd8Vix-j6bpHTjAqoCJ5itG176kqmL32Uv2SBRNwZvFIPBiUPJRJVh81pNs"/>
-</div>
-<p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mt-6">Scan at entrance for immediate access</p>
-</div>
-<!-- Action Buttons -->
-<div class="flex gap-4"><button class="flex-1 bg-[#006156] hover:bg-[#004d44] text-white py-4 rounded-lg flex items-center justify-center gap-3 font-semibold transition-colors">
-<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-<span>Tramitar factura <span class="text-xs font-normal opacity-80">(opcional)</span></span>
-</button></div>
-</section>
-<!-- Support Link -->
-<div class="mt-8 text-center text-sm text-gray-500">
-<p>Need assistance with your registration?</p>
-<a class="text-brand font-bold hover:underline" href="#">Contact our archival support team</a>
-</div>
-</main>
+      }
 
-
-
-
-
-
-
-
-
-
-<!-- Estado: Ojitooooooo -->
-
-<main class="flex-grow py-12 px-4">
-<div class="main-container space-y-8">
-<!-- BEGIN: ObservationBanner -->
-<section class="bg-status-warning rounded-custom p-8 text-center relative overflow-hidden border border-amber-200 shadow-soft" data-purpose="status-banner">
-<div class="absolute top-2 right-4 opacity-10">
-<svg class="h-24 w-24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</div>
-<p class="text-xs uppercase tracking-widest text-status-warning-text font-bold mb-2">Estado de Solicitud</p>
-<h1 class="text-3xl font-bold text-status-warning-text mb-4">ESTADO: OBSERVADO</h1>
-<div class="inline-flex items-center bg-white/50 px-4 py-1 rounded-full text-xs font-semibold text-status-warning-text border border-amber-300">
-<svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-          Acción Requerida
+      @if (inscripcion.estado === EstadoPago.OBSERVADO) {
+        <div class="mt-8 p-6 bg-amber-50 rounded-xl">
+          <h3 class="font-bold text-lg mb-2">Corrección requerida</h3>
+          <p>{{ inscripcion.comentarioRevision }}</p>
+          @if (inscripcion.diferenciaMonto) {
+            <p class="font-bold mt-3">Diferencia pendiente: ${{ inscripcion.diferenciaMonto }}</p>
+          }
+          <a routerLink="/inscripcion-congreso"
+             class="inline-block mt-5 bg-primary text-white px-6 py-3 rounded-lg">Corregir y reenviar</a>
         </div>
-</section>
-<!-- END: ObservationBanner -->
-<!-- BEGIN: RevisorComments -->
-<section class="bg-white rounded-custom p-8 shadow-soft space-y-6" data-purpose="reviewer-feedback">
-<div class="flex justify-between items-center">
-<h2 class="text-xl font-bold text-primary">Comentarios del Revisor</h2>
-<svg class="h-6 w-6 text-primary/60" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</div>
-<div class="p-6 bg-surface rounded-custom border border-surface-dim italic text-primary/80 leading-relaxed">
-          "El comprobante de pago no coincide con la tarifa del rol seleccionado. Abone la diferencia detallada en el siguiente documento, ajuste su rol o solicite un reintegro."
+      }
+
+      @if (inscripcion.estado === EstadoPago.RECHAZADO) {
+        <div class="mt-8 p-6 bg-red-50 rounded-xl">
+          <h3 class="font-bold text-lg mb-2">Motivo del rechazo</h3>
+          <p>{{ inscripcion.motivoRechazo }}</p>
+          <a routerLink="/inscripcion-congreso"
+             class="inline-block mt-5 bg-primary text-white px-6 py-3 rounded-lg">Iniciar reintento</a>
         </div>
-<!-- Attached Document -->
+      }
 
-</section>
-<!-- END: RevisorComments -->
-<!-- BEGIN: RegistrationForm -->
-<form action="#" class="space-y-8" data-purpose="update-registration-form" method="POST">
-<!-- Role Selection -->
-<section class="bg-white rounded-custom p-8 shadow-soft space-y-6">
-<h3 class="text-xl font-bold text-primary border-b border-surface-dim pb-4">Detalles de la Inscripción</h3>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="space-y-1">
-<p class="text-xs font-bold uppercase text-primary/60 tracking-widest">Rol elegido</p>
-<p class="font-medium text-primary">Estudiante de grado</p>
-</div>
-<div class="space-y-1">
-<p class="text-xs font-bold uppercase text-primary/60 tracking-widest">Cantidad abonada</p>
-<p class="font-bold text-primary">$35.000</p>
-</div>
-<div class="space-y-1">
-<p class="text-xs font-bold uppercase text-primary/60 tracking-widest">Documentación presentada</p>
-<div class="flex items-center space-x-2 text-primary/80">
-<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span class="text-sm">Archivos cargados correctamente</span>
-</div>
-</div>
-</div>
-</section><section class="bg-white rounded-custom p-8 shadow-soft space-y-6">
-  <h3 class="text-xl font-bold text-primary border-b border-surface-dim pb-4">Para aprobar la inscripción</h3>
-  <ul class="space-y-4">
-    <li class="flex items-center space-x-3 text-primary">
-      <svg class="h-5 w-5 text-primary/60" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-      <span class="font-medium">Subir documentación correspondiente</span>
-    </li>
-    <li class="flex items-center space-x-3 text-primary">
-      <svg class="h-5 w-5 text-primary/60" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-      <span class="font-medium">Abonar la diferencia: <span class="text-primary font-bold">$15.000</span></span>
-    </li>
-    <li class="flex items-center space-x-3 text-primary">
-      <svg class="h-5 w-5 text-primary/60" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-      <span class="font-medium">Subir identificación</span>
-    </li>
-  </ul>
-</section>
-<!-- File Upload: Documentation -->
-<!-- File Upload: Payment -->
-<!-- Action Buttons -->
-<div class="flex flex-col space-y-4 pt-4">
-
-<button class="w-full bg-primary text-white font-bold py-4 rounded-custom hover:bg-primary/90 transition-all flex items-center justify-center space-x-2" type="submit">
-  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-  </svg>
-  <span class="">Actualizar Inscripción</span>
-</button><button class="w-full bg-brand-accent/50 text-primary font-bold py-4 rounded-custom hover:bg-brand-accent transition-all flex items-center justify-center space-x-2" type="button">
-<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-<span class="">Solicitar reintegro</span>
-</button>
-</div>
-</form>
-<!-- END: RegistrationForm -->
-</div>
-</main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Estado Maluco -->
-
-<!-- BEGIN: MainContent -->
-<main class="flex-grow flex items-center justify-center p-6 bg-gray-50" data-purpose="main-content-layout">
-<div class="max-w-2xl w-full flex flex-col gap-6">
-<!-- BEGIN: RejectionBanner -->
-<section class="bg-red-50 rounded-custom p-10 text-center bg-pattern border border-red-100 shadow-sm" data-purpose="status-banner">
-<p class="text-xs font-bold uppercase tracking-widest text-red-400 mb-2">Estado de Solicitud</p>
-<h1 class="serif-font text-3xl md:text-4xl font-bold text-herbarium-reject-text mb-6">ESTADO: RECHAZADO</h1>
-<div class="inline-flex items-center gap-2 px-4 py-2 bg-red-100 border border-red-200 rounded-full text-red-800 text-sm font-semibold">
-<svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-<path clip-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" fill-rule="evenodd"></path>
-</svg>
-          Acción Requerida
+      @if (inscripcion.estado === EstadoPago.APROBADO) {
+        <div class="mt-8 p-8 bg-green-50 rounded-xl text-center">
+          <h3 class="font-bold text-xl text-primary">Inscripción validada</h3>
+          <p class="mt-2">Presentá este código durante la acreditación:</p>
+          @if (inscripcion.qr?.imagen) {
+            <img [src]="inscripcion.qr?.imagen" alt="QR de acreditación"
+                 class="w-64 h-64 mx-auto mt-5 bg-white p-3 rounded-xl" />
+          }
+          <code class="block bg-white p-5 rounded-lg mt-5 text-sm break-all">{{ inscripcion.qr?.codigo }}</code>
         </div>
-</section>
-<!-- END: RejectionBanner -->
-<!-- BEGIN: DetailsCard -->
-<section class="bg-white rounded-custom border border-gray-200 shadow-sm p-8" data-purpose="rejection-details">
-<div class="flex items-start gap-3 mb-4">
-<div class="mt-1 text-herbarium-primary">
-<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</div>
-<h2 class="serif-font text-xl font-bold text-gray-800">Motivos del Rechazo</h2>
-</div>
-<p class="text-gray-600 leading-relaxed mb-8">
-          El comprobante presentado no es válido para validar la categoría declarada. Por favor, asegúrese de que el monto y la fecha coincidan con el rol seleccionado.
-        </p>
-<hr class="border-gray-100 mb-8">
-<div class="flex items-start gap-3">
-<div class="mt-1 text-herbarium-primary">
-<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</div>
-<div>
-<h3 class="text-xs font-bold uppercase tracking-wider text-herbarium-primary mb-1">Próximos Pasos</h3>
-<p class="text-sm text-gray-600">
-              Puede iniciar un nuevo proceso de registro cargando la documentación corregida.
-            </p>
-</div>
-</div>
-</section>
-</div>
+      }
+    </section>
+  }
 </main>

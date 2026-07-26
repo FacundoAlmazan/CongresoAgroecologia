@@ -54,4 +54,15 @@ public class InscripcionDAO extends GenericDAO<Inscripcion> implements IInscripc
             return null;
         }
     }
+
+    @Override
+    public Inscripcion getUltimaPorUsuario(Long usuarioId) {
+        List<Inscripcion> resultados = em.createQuery(
+                "SELECT i FROM Inscripcion i WHERE i.usuario.id = :usuarioId ORDER BY i.fechaRegistro DESC, i.id DESC",
+                Inscripcion.class)
+                .setParameter("usuarioId", usuarioId)
+                .setMaxResults(1)
+                .getResultList();
+        return resultados.isEmpty() ? null : resultados.get(0);
+    }
 }

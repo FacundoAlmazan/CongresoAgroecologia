@@ -5,10 +5,11 @@ import { ControlCard } from "./control-card/control-card";
 import { TipoIdentificacion } from '../../model/TipoIdentificacion.enum.model';
 import { UsuarioService } from '../../service/usuario.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-panel-control',
-  imports: [ControlCard, CommonModule],
+  imports: [ControlCard, CommonModule, RouterLink],
   templateUrl: './panel-control.html',
   styleUrl: './panel-control.css',
 })

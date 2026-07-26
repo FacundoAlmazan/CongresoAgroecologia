@@ -1,6 +1,7 @@
 package model;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,6 +15,9 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import model.enums.EstadoPago;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
@@ -27,6 +31,7 @@ public class Inscripcion {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
+    @JsonIgnoreProperties({"password", "perfilEvaluador", "hibernateLazyInitializer", "handler"})
     @Schema(description = "Usuario participante. En POST alcanza con enviar {\"id\": 1}.")
     private Usuario usuario;
 
@@ -34,13 +39,26 @@ public class Inscripcion {
     @Schema(example = "15000")
     private Double monto;
 
+    private Double montoAbonado = 0.0;
+
+    private Double diferenciaMonto = 0.0;
+
     @Schema(type = "string", format = "date", example = "2026-06-17")
     private LocalDate fechaPago;
 
-    @Schema(example = "comprobante-transferencia.pdf")
     private String comprobante;
-    @Schema(example = "acreditacion.pdf")
+
+    @jakarta.persistence.Lob
+    @Column(columnDefinition = "LONGTEXT")
+    private String comprobanteContenido;
+
     private String comprobanteAcreditacion;
+
+    @jakarta.persistence.Lob
+    @Column(columnDefinition = "LONGTEXT")
+    private String comprobanteAcreditacionContenido;
+
+    private LocalDateTime fechaRegistro = LocalDateTime.now();
 
     @Column(length = 500)
     @Schema(example = "PARTICIPANTE")
@@ -58,7 +76,8 @@ public class Inscripcion {
     @Schema(example = "true")
     private Boolean requiereFactura = false;
 
-    @OneToOne(mappedBy = "inscripcion")
+    @OneToOne(mappedBy = "inscripcion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("inscripcion")
     private DatosFactura datosFactura;
 
     @Column(nullable = false)
@@ -89,11 +108,16 @@ public class Inscripcion {
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "Comprobante ilegible")
     private String motivoRechazo;
 
+    @Column(length = 2000)
+    private String comentarioRevision;
+
     @ManyToOne
     @JoinColumn(name = "validado_por_id")
+    @JsonIgnoreProperties({"password", "perfilEvaluador", "hibernateLazyInitializer", "handler"})
     private Usuario validadoPor;
 
-    @OneToOne(mappedBy = "inscripcion")
+    @OneToOne(mappedBy = "inscripcion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("inscripcion")
     private QR qr;
 
     public Inscripcion() {
@@ -109,12 +133,37 @@ public class Inscripcion {
         this.estado = EstadoPago.APROBADO;
         this.validadoPor = adminValidador;
         this.motivoRechazo = null;
+        this.comentarioRevision = null;
+        if (this.qr == null) {
+            setQr(new QR(UUID.randomUUID().toString(), this));
+        }
+    }
+
+    public void observar(Usuario adminValidador, String comentario, Double montoAbonado) {
+        actualizarMontoAbonado(montoAbonado);
+        this.estado = EstadoPago.OBSERVADO;
+        this.validadoPor = adminValidador;
+        this.comentarioRevision = comentario;
+        this.motivoRechazo = null;
     }
 
     public void rechazar(Usuario adminValidador, String motivo) {
         this.estado = EstadoPago.RECHAZADO;
         this.validadoPor = adminValidador;
         this.motivoRechazo = motivo;
+        this.comentarioRevision = motivo;
+    }
+
+    public void reenviar() {
+        this.estado = EstadoPago.PENDIENTE;
+        this.validadoPor = null;
+        this.motivoRechazo = null;
+        this.comentarioRevision = null;
+    }
+
+    public void actualizarMontoAbonado(Double montoAbonado) {
+        this.montoAbonado = montoAbonado == null ? 0.0 : montoAbonado;
+        this.diferenciaMonto = Math.max(0.0, (this.monto == null ? 0.0 : this.monto) - this.montoAbonado);
     }
 
     public void asignarDatosFactura(DatosFactura datosFactura) {
@@ -147,7 +196,13 @@ public class Inscripcion {
 
     public void setMonto(Double monto) {
         this.monto = monto;
+        actualizarMontoAbonado(this.montoAbonado);
     }
+
+    public Double getMontoAbonado() { return montoAbonado; }
+    public void setMontoAbonado(Double montoAbonado) { actualizarMontoAbonado(montoAbonado); }
+    public Double getDiferenciaMonto() { return diferenciaMonto; }
+    public void setDiferenciaMonto(Double diferenciaMonto) { this.diferenciaMonto = diferenciaMonto; }
 
     public LocalDate getFechaPago() {
         return fechaPago;
@@ -165,6 +220,9 @@ public class Inscripcion {
         this.comprobante = comprobante;
     }
 
+    public String getComprobanteContenido() { return comprobanteContenido; }
+    public void setComprobanteContenido(String comprobanteContenido) { this.comprobanteContenido = comprobanteContenido; }
+
     public String getComprobanteAcreditacion() {
         return comprobanteAcreditacion;
     }
@@ -172,6 +230,11 @@ public class Inscripcion {
     public void setComprobanteAcreditacion(String comprobanteAcreditacion) {
         this.comprobanteAcreditacion = comprobanteAcreditacion;
     }
+
+    public String getComprobanteAcreditacionContenido() { return comprobanteAcreditacionContenido; }
+    public void setComprobanteAcreditacionContenido(String contenido) { this.comprobanteAcreditacionContenido = contenido; }
+    public LocalDateTime getFechaRegistro() { return fechaRegistro; }
+    public void setFechaRegistro(LocalDateTime fechaRegistro) { this.fechaRegistro = fechaRegistro; }
 
     public String getTipoInscripcion() {
         return tipoInscripcion;
@@ -211,6 +274,10 @@ public class Inscripcion {
 
     public void setDatosFactura(DatosFactura datosFactura) {
         this.datosFactura = datosFactura;
+        if (datosFactura != null) {
+            datosFactura.setInscripcion(this);
+            this.requiereFactura = true;
+        }
     }
 
     public Boolean getRequiereAdecuacion() {
@@ -277,6 +344,9 @@ public class Inscripcion {
         this.motivoRechazo = motivoRechazo;
     }
 
+    public String getComentarioRevision() { return comentarioRevision; }
+    public void setComentarioRevision(String comentarioRevision) { this.comentarioRevision = comentarioRevision; }
+
     public Usuario getValidadoPor() {
         return validadoPor;
     }
@@ -291,5 +361,8 @@ public class Inscripcion {
 
     public void setQr(QR qr) {
         this.qr = qr;
+        if (qr != null) {
+            qr.setInscripcion(this);
+        }
     }
 }

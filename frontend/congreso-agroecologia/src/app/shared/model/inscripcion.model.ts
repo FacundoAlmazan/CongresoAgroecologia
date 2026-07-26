@@ -2,6 +2,7 @@ import { DatosFactura } from "./datosFactura.model";
 import { EstadoPago } from "./EstadoPago.enum.model";
 import { Usuario } from "./usuario.model";
 
+export type FechaApi = string | number[];
 
 export interface Inscripcion {
   id?: number;
@@ -9,10 +10,15 @@ export interface Inscripcion {
   usuario: Partial<Usuario>;
 
   monto: number;
-  fechaPago?: string;
+  montoAbonado?: number;
+  diferenciaMonto?: number;
+  fechaPago?: FechaApi;
+  fechaRegistro?: FechaApi;
 
   comprobante?: string;
+  comprobanteContenido?: string;
   comprobanteAcreditacion?: string;
+  comprobanteAcreditacionContenido?: string;
 
   tipoInscripcion?: string;
   filiacionInstitucional?: string;
@@ -34,7 +40,14 @@ export interface Inscripcion {
   estado: EstadoPago;
 
   motivoRechazo?: string;
+  comentarioRevision?: string;
 
   validadoPor?: Usuario;
+  qr?: {
+    id?: number;
+    codigo: string;
+    fechaGeneracion?: FechaApi;
+    utilizado?: boolean;
+    imagen?: string;
+  };
 }
-

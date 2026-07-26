@@ -5,8 +5,6 @@ import { Trabajo } from '../../../model/trabajo.model';
 import { EstadoTrabajo } from '../../../model/EstadoTrabajo.enum.model';
 
 
-/*
-
 // Interfaz interna para estructurar los estilos dinámicos de los estados
 interface EstadoConfig {
   texto: string;
@@ -24,7 +22,7 @@ interface EstadoConfig {
 })
 export class TrabajoCard {
   // Parámetro de entrada que recibirá la información desde el componente padre
-  @Input() trabajo!: Trabajo;
+  @Input() trabajo = {} as Trabajo;
   edit:boolean=false;
 
   // Supongamos que la propiedad 'evaluaciones' determina el número de comentarios
@@ -41,7 +39,7 @@ export class TrabajoCard {
   claseCard: '',
 
 }
-    const estadoActual:EstadoTrabajo = this.trabajo.estado;
+    const estadoActual = this.trabajo.estado;
 
     switch (estadoActual) {
       case EstadoTrabajo.EN_EVALUACION:
@@ -114,5 +112,3 @@ export class TrabajoCard {
     console.log('Ver comentarios del trabajo:', this.trabajo.id);
   }
 }
-
-*/

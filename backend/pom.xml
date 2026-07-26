@@ -16,6 +16,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.5.3</version>
+        </dependency>
     	<!-- JWT -->
 	<dependency>
 	    <groupId>io.jsonwebtoken</groupId>
@@ -173,6 +178,7 @@
     </dependencies>
 
     <build>
+        <finalName>practica-jpa</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -182,4 +188,3 @@
         </plugins>
     </build>
 </project>
-

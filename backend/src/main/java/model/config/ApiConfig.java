@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.ws.rs.ApplicationPath;
 import java.util.function.Supplier;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import jakarta.ws.rs.ext.ContextResolver;
@@ -26,7 +27,8 @@ public class ApiConfig extends ResourceConfig {
         register(new ContextResolver<ObjectMapper>() {
             private final ObjectMapper mapper = new ObjectMapper()
                     .registerModule(new JavaTimeModule())
-                    .configure(com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+                    .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                    .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
             @Override
             public ObjectMapper getContext(Class<?> type) { return mapper; }

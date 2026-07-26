@@ -1,5 +1,26 @@
 
 <main class="pt-20">
+@if (mensajeInscripcion) {
+  <div
+    role="status"
+    aria-live="polite"
+    class="fixed top-24 right-4 left-4 md:left-auto md:w-[460px] z-50 flex items-start gap-4 rounded-xl border border-green-200 bg-green-50 p-5 text-green-900 shadow-xl"
+  >
+    <span class="material-symbols-outlined text-green-700" aria-hidden="true">check_circle</span>
+    <div class="flex-1">
+      <p class="font-bold">Inscripción enviada</p>
+      <p class="mt-1">{{ mensajeInscripcion }}</p>
+    </div>
+    <button
+      type="button"
+      class="rounded-md p-1 hover:bg-green-100"
+      aria-label="Cerrar notificación"
+      (click)="cerrarMensajeInscripcion()"
+    >
+      <span class="material-symbols-outlined" aria-hidden="true">close</span>
+    </button>
+  </div>
+}
 <!-- Hero Section -->
 <section class="relative h-[870px] overflow-hidden bg-surface-container-low">
 <div class="absolute inset-0 z-0">
@@ -16,7 +37,7 @@
 <p class="font-body text-xl md:text-2xl text-white/80 mb-10">Buenos Aires, Argentina</p>
 </div>
 <div class="mt-12 md:mt-0 md:absolute md:right-8 md:bottom-24">
-@if (!tieneInscripcion) {
+@if (!cargandoInscripcion && !tieneInscripcion) {
   <a
     [routerLink]="estaLogueado ? ['/inscripcion-congreso'] : ['/login']"
     class="bg-surface-container-lowest text-primary px-10 py-5 rounded-lg font-bold text-xl flex items-center gap-3 hover:shadow-2xl hover:scale-105 transition-all duration-300"
@@ -37,7 +58,7 @@
     </h3>
 
     <a
-      [routerLink]="['/inscripcion-congreso']"
+      [routerLink]="['/estado_inscripcion']"
       class="bg-primary text-white px-10 py-5 rounded-lg font-bold text-xl flex items-center gap-3 hover:shadow-2xl hover:scale-105 transition-all duration-300"
     >
       Ver mi inscripción
@@ -57,11 +78,33 @@
     </h3>
 
     <a
-      [routerLink]="['/inscripcion-congreso']"
+      [routerLink]="['/estado_inscripcion']"
       class="bg-primary text-white px-10 py-5 rounded-lg font-bold text-xl flex items-center gap-3 hover:shadow-2xl hover:scale-105 transition-all duration-300"
     >
       Comprobar estado
       <span class="material-symbols-outlined">open_in_new</span>
+    </a>
+  </div>
+}
+@if (inscripcionObservada) {
+  <div class="bg-white/90 rounded-2xl p-8 shadow-xl">
+    <p class="text-primary font-bold uppercase tracking-wide">Estado de inscripción:</p>
+    <h3 class="text-3xl font-bold text-amber-600 mt-2 mb-3">Inscripción observada</h3>
+    <p class="text-on-surface-variant mb-6">{{ inscripcionActual?.comentarioRevision }}</p>
+    <a [routerLink]="['/inscripcion-congreso']"
+       class="bg-primary text-white px-8 py-4 rounded-lg font-bold inline-flex items-center gap-3">
+      Corregir inscripción <span class="material-symbols-outlined">edit</span>
+    </a>
+  </div>
+}
+@if (inscripcionRechazada) {
+  <div class="bg-white/90 rounded-2xl p-8 shadow-xl">
+    <p class="text-primary font-bold uppercase tracking-wide">Estado de inscripción:</p>
+    <h3 class="text-3xl font-bold text-red-600 mt-2 mb-3">Inscripción rechazada</h3>
+    <p class="text-on-surface-variant mb-6">{{ inscripcionActual?.motivoRechazo }}</p>
+    <a [routerLink]="['/inscripcion-congreso']"
+       class="bg-primary text-white px-8 py-4 rounded-lg font-bold inline-flex items-center gap-3">
+      Reintentar inscripción <span class="material-symbols-outlined">refresh</span>
     </a>
   </div>
 }
@@ -277,8 +320,6 @@
 </div>
 </section>
 </main>
-
-
 
 
 
